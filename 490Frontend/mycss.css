@@ -1,0 +1,31 @@
+html
+{
+	height:100%;
+	width:100%;
+}
+body
+{
+	margin:0 auto 0;
+	background-image:url(./img/grey_wash_wall/grey_wash_wall.png);
+	height:100%;
+	width:100%;
+}
+.custompass2
+{
+	display:none;
+}
+div.mywindow
+{
+	background-image:url(./img/triangular_@2X.png);
+}
+table
+{
+	height:100%;
+	width:100%;
+}
+td
+{
+	background-image:url(./img/triangular_@2X.png);
+	height:50%;
+	width:50%;
+}

@@ -1,0 +1,137 @@
+<?php
+
+	error_reporting(E_ALL);
+	if(isset($_POST["username"])&&isset($_POST["password"])&&isset($_POST["cpassword"]))
+	{
+		$url = "http://web.njit.edu/~ss55/490server/signup.php";
+		//$url = "http://web.njit.edu/~tjh24/signup.php";
+		$fields = array(
+			'txtEmail' => urlencode($_POST["username"]),
+			'txtPasswd' => urlencode($_POST["password"])
+			
+		);
+		foreach($fields as $key=>$value)
+		{
+			$fields_string .= $key . '=' . $value . '&';
+		}
+		rtrim($fields_string, '&');
+	
+		$ch = curl_init();
+
+		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch,CURLOPT_POST,count($fields));
+		curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
+		curl_setopt($ch,CURLOPT_FOLLOWLOCATION,false);
+		curl_setopt($ch,CURLOPT_MAXREDIRS,0);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+
+		$result = curl_exec($ch);
+
+		curl_close($ch);
+		
+		//echo $result;
+		
+		// begin dom parsing to check if login was successful
+		$doc = new DOMDocument();
+		$doc->loadHTML($result);
+		$emailverification = $doc->getElementsByTagName('exists')->item(0);
+		if($emailverification->nodeValue == "1")
+		{
+			$emailcd=0;
+		}
+		else
+		{
+			$emailcd=1;
+		}
+		
+		
+		if($_POST["password"]==$_POST["cpassword"])
+		{
+			$passcd=1;
+		}
+		else
+		{
+			$passcd=0;
+		}
+	}
+	else
+	{
+		$emailcd=2;
+		$passcd=2;
+	}
+?>
+<html>
+	<head>
+	<?php
+	/*
+		if($emailcd==1 && $passcd==1)
+		{
+			header("Location: index.php", TRUE, 303);
+			exit;
+		}
+		*/
+		if($emailcd==1 && $passcd==1)
+		{
+			echo '<meta http-equiv="refresh" content="5; url=index.php" />';
+		}
+		echo "<email style='display:none;'>".$emailcd."</email>";
+		echo "<password style='display:none;'>".$passcd."</password>";
+	?>
+	
+	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<title>
+			Login Page
+		</title>
+		<style>
+			.custompass2
+			{
+				display:none;
+				color:red;
+				
+			}
+		</style
+	</head>
+	<body style="background-image:url(./img/grey_wash_wall/grey_wash_wall.png)">
+		<div style="background-image:url(./img/triangular_@2X.png)">
+		<?php
+		if($emailcd==1 && $passcd==1)
+		{
+			echo "Success! <a href='index.php'>Please Login.</a>";
+		}
+		?>
+		<form name="login"  action="signup.php" method="post">
+			<table>
+				<tr>
+					<td>Email Address:</td><td><input name="username" type="email" <?php if(isset($_POST["username"])) echo 'value="'.$_POST["username"].'"';?>></td>
+				</tr>
+				<tr>
+					<td>Password:</td><td><input name="password" type="password"></td>
+				</tr>
+				<tr>
+				<td>Confirm Password:</td><td><input type="password" name="cpassword">
+				</td>
+				</tr>
+				<tr>
+					<td><input id="mysubmit" type="submit" value="sign up"></td><td><div id="alrtemail" class="custompass2">Invalid Email</div><div id="alrtpass" class="custompass2">Passwords dont match</div>
+			<script type='text/javascript'>
+			
+			$(document).ready(function(){
+			if($( "email" ).html() == "0")
+			{
+				$("#alrtemail").show();
+			}
+			if($( "password" ).html() == "0")
+			{
+				$("#alrtpass").show();
+			}
+			});
+			</script>
+				</td>			
+				</tr>
+			</table>
+		</form>
+		
+		</div>
+	</body>
+</html>
+
