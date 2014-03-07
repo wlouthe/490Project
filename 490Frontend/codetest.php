@@ -1,6 +1,7 @@
 <html>
 <head>
 <?php
+	require "mycurl.php";
 	$cookiechecker=0;
 	if(isset($_COOKIE["mycode"]))
 	{
@@ -10,24 +11,7 @@
 		$fields = array(
 			'mycode' => urlencode($mykey)
 		);
-		foreach($fields as $key=>$value)
-		{
-			$fields_string .= $key . '=' . $value . '&';
-		}
-		rtrim($fields_string, '&');
-	
-		$ch = curl_init();
-
-		curl_setopt($ch,CURLOPT_URL,$url);
-		curl_setopt($ch,CURLOPT_POST,count($fields));
-		curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
-		curl_setopt($ch,CURLOPT_FOLLOWLOCATION,false);
-		curl_setopt($ch,CURLOPT_MAXREDIRS,0);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-
-		$coderesult = curl_exec($ch);
-
-		curl_close($ch);
+		$coderesult = curlcall($fields,$url);
 		
 		$doc = new DOMDocument();
 		$doc->loadHTML($coderesult);
