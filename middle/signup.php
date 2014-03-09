@@ -1,7 +1,8 @@
 <?php
+require "mycurl.php";
 if(isset($_POST["txtEmail"])&&isset($_POST["txtPasswd"]))
 {   
-    $exists=1; 
+    $exist=1;
 	$regex = '/^.*(@njit\.edu)$/';
 	if (preg_match($regex, $_POST["txtEmail"])) 
 	{
@@ -11,42 +12,37 @@ if(isset($_POST["txtEmail"])&&isset($_POST["txtPasswd"]))
 	{ 
 		$email = 0;
 	}
-
-if ($email)
+	
+    if($_POST["teacherstudent"] == "teacher")
+    {
+        $teacherstudent = 1;
+    }
+    else $teacherstudent = 0;
+if ($email && strlen($_POST['txtPasswd'])>7)
 {
     $regex = "/[a-zA-Z0-9\.-]*/";
-    $myans = preg_match($regex, $_POST["txtEmail"]);
+    preg_match($regex, $_POST["txtEmail"],$myans);
     $username = $myans[0];
-    echo $username;
+    preg_match("/[0-9]/",$username,$tcheck);
+    if(preg_match("/[0-9]/",$username))
+    {
+        $tcheck = 0;
+    }
+    else $tcheck = 1;
+	
+    $teacherstudent = $teacherstudent & $tcheck;
     $url = "http://web.njit.edu/~tjh24/signup.php";
 
 	$_POST["txtPasswd"]=crypt($_POST["txtPasswd"], '$6$rounds=5000$'.$_POST["txtEmail"].$_POST["txtEmail"].'$');
-	echo $_POST["txtPasswd"];
     $fields = array(
     'txtEmail' => urlencode($_POST["txtEmail"]),
     'txtPasswd' => urlencode($_POST["txtPasswd"]),
-    'username' => urlencode($username)
+    'username' => urlencode($username),
+    'teacherstudent' => urlencode($teacherstudent)
     );
-    foreach($fields as $key=>$value)
-    {
-    $fields_string2 .= $key . '=' . $value . '&';
-    }
-    rtrim($fields_string2, '&');
     
-    $ch = curl_init();
-
-    curl_setopt($ch,CURLOPT_URL,$url);
-    curl_setopt($ch,CURLOPT_POST,count($fields));
-    curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string2);
-    curl_setopt($ch,CURLOPT_FOLLOWLOCATION,false);
-    curl_setopt($ch,CURLOPT_MAXREDIRS,0);
-    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-
-    $result = curl_exec($ch);
-
-    curl_close($ch);
-
-    $doc = new DOMDocument();
+	$result = curlcall($fields,$url);
+	$doc = new DOMDocument();
     $doc->loadHTML($result);
     $exists = $doc->getElementsByTagName('exists')->item(0)->nodeValue;
 }
