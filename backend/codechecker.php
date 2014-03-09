@@ -23,6 +23,7 @@ if (isset($CODE) && !empty($CODE))
 		echo "<success>1</success>";
 		$username = $row['user'];
         echo "<username>$username</username>";
+        echo "<teacherstudent>$row['status']</teacherstudent>";
 	}
 	else
 	{
