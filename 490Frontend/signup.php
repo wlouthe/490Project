@@ -18,7 +18,7 @@
 		$doc = new DOMDocument();
 		$doc->loadHTML($result);
 		$emailverification = $doc->getElementsByTagName('exists')->item(0);
-		if($emailverification->nodeValue == "1")
+		if($emailverification->nodeValue == "1" || empty($result))
 		{
 			$emailcd=0;
 		}
