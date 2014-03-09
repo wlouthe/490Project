@@ -17,7 +17,7 @@ $PASSWORD = $_POST['txtPasswd'];  	// Encrypted Password
 $CHANGEPW = $_POST['cpassword'];	// New password user wants changed
 $EMAILSET = $_POST['txtUCID'];		// Email value that is posted
 
-$query = mysqli_query($con,"SELECT * FROM login WHERE user = '$USERNAME';");
+$query = mysqli_query($con,"SELECT * FROM login WHERE email = '$EMAILSET';");
 $row = mysqli_fetch_array($query);
 if ($AUTH == 1)
 {
@@ -79,7 +79,7 @@ else
 			{
 				$x = md5($USERNAME.time());
 
-				mysqli_query($con,"UPDATE login SET password = '$CHANGEPW', code = '0' WHERE user = '$USERNAME';");
+				mysqli_query($con,"UPDATE login SET password = '$CHANGEPW', code = '0' WHERE email = '$EMAILSET';");
 
 				echo "<code>0</code>";
 				echo "<auth>1</auth>";
@@ -88,7 +88,7 @@ else
 			{
 				$x = md5($USERNAME.time());
 
-				mysqli_query($con,"UPDATE login SET code = '$x' WHERE user = '$USERNAME';");
+				mysqli_query($con,"UPDATE login SET code = '$x' WHERE email = '$EMAILSET';");
 					
 				echo "<code>$x</code>";
 				echo "<auth>1</auth>";
