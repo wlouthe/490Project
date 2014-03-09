@@ -20,9 +20,9 @@ $TEACHSTU = $_POST['teacherstudent'];   // Status value (1 = teacher, 0 = studen
 // echo $EMAILSET;
 // echo $PASSWORD;
 
-$query = mysqli_query($con,"SELECT * FROM login WHERE email = '$EMAILSET';");
 if (!empty($PASSWORD) && !empty($EMAILSET))
 {
+    $query = mysqli_query($con,"SELECT * FROM login WHERE email = '$EMAILSET';");
 	$row = mysqli_fetch_array($query);
   	if ($row['email'] == $EMAILSET)
   	{
@@ -31,7 +31,7 @@ if (!empty($PASSWORD) && !empty($EMAILSET))
 	else
 	{
 		mysqli_query($con,"INSERT INTO login(user, password, email, status) 
-			VALUES ('$USERNAME', '$PASSWORD', '$EMAILSET', '$TEACHSTU');");
+			VALUES ('$USERNAME', '$PASSWORD', '$EMAILSET', $TEACHSTU);");
 		echo "<exists>0</exists>";
 	}
 }
