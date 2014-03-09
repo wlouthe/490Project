@@ -8,7 +8,7 @@ $db = "tjh24";
 $con = mysqli_connect($server, $user, $pass, $db);
 // Check connection                                                                                                                                   
 if (mysqli_connect_errno()) {
-  echo "MySQL Failed: ".mysqli_connect_error();
+    echo "MySQL Failed: ".mysqli_connect_error();
 }
 
 $AUTH = $_POST['auth'];  			// Authorization Code (0 or 1)
@@ -21,9 +21,9 @@ $query = mysqli_query($con,"SELECT * FROM login WHERE user = '$USERNAME';");
 $row = mysqli_fetch_array($query);
 if ($AUTH == 1)
 {
-	if ($row['user'] == $USERNAME) 
+	if ($row['user'] == $USERNAME)
 	{
-		if (isset($CHANGEPW) && !empty($CHANGEPW)) 
+		if (isset($CHANGEPW) && !empty($CHANGEPW))
 		{
 			$x = md5($USERNAME.time());
 			$myquery="UPDATE login SET password = '$CHANGEPW', code = '$x', authentication = $AUTH WHERE user = '$USERNAME';";
@@ -32,7 +32,7 @@ if ($AUTH == 1)
 			echo "<code>$x</code>";
 			echo "<auth>1</auth>";
 		}
-		elseif ($PASSWORD == $row['password']) 
+		elseif ($PASSWORD == $row['password'])
 		{
 			$x = md5($USERNAME.time());
 			mysqli_query($con,"UPDATE login SET code = '$x' WHERE user = '$USERNAME';");
@@ -49,7 +49,7 @@ if ($AUTH == 1)
 			echo "<auth>0</auth>";
 		}
 	}
-	else 
+	else
 	{
 		if (isset($CHANGEPW) && !empty($CHANGEPW))
 		{
@@ -69,9 +69,9 @@ if ($AUTH == 1)
 		}
 	}
 } 
-else  
+else
 {
-	if (isset($EMAILSET) && $row['user'] == $EMAILSET) 
+	if (isset($EMAILSET) && $row['email'] == $EMAILSET) 
 	{
 		if (isset($row['password']) && $row['password'] == $PASSWORD) 
 		{
@@ -79,7 +79,7 @@ else
 			{
 				$x = md5($USERNAME.time());
 
-				mysqli_query($con,"UPDATE login SET password = '$CHANGEPW', code = '0' WHERE user = '$EMAILSET';");
+				mysqli_query($con,"UPDATE login SET password = '$CHANGEPW', code = '0' WHERE user = '$USERNAME';");
 
 				echo "<code>0</code>";
 				echo "<auth>1</auth>";
@@ -88,19 +88,19 @@ else
 			{
 				$x = md5($USERNAME.time());
 
-				mysqli_query($con,"UPDATE login SET code = '$x' WHERE user = '$EMAILSET';");
+				mysqli_query($con,"UPDATE login SET code = '$x' WHERE user = '$USERNAME';");
 					
 				echo "<code>$x</code>";
 				echo "<auth>1</auth>";
 			}
 		} 
-		else 
+		else
 		{
 			echo "<code>0</code>";
 			echo "<auth>0</auth>";
 		}
 	}
-	else 
+	else
 	{
 		echo "<code>0</code>";
 		echo "<auth>0</auth>";
