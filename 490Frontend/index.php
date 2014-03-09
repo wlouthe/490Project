@@ -216,6 +216,12 @@
 		</form>
 		<?php if($cookiechecker==1){echo 'Welcome '.$uname.'! <a href="logout.php">Logout?</a>';}  ?>
 		</div>
+        <?php
+            if($cookiechecker == 1)
+            {
+                echo "<div><a href='./home.php'>Home Page</a></div>";
+            }
+        ?>
 	</body>
 </html>
 
