@@ -13,17 +13,14 @@ if (mysqli_connect_errno())
 }
 
 $TEACHID = $_POST['id'];
-$USERNAME = $_POST['txtUsername'];      // Username value
-$CLASSNME = $_POST['classname'];        // Class name
-$TEACHSTU = $_POST['teacherstudent'];   // Status value (1 = teacher, 0 = student)
+// $USERNAME = $_POST['txtUsername'];      // Username value
+// $CLASSNME = $_POST['classname'];        // Class name
+// $TEACHSTU = $_POST['teacherstudent'];   // Status value (1 = teacher, 0 = student)
 
-// echo $EMAILSET;
-// echo $PASSWORD;
-
-$query = mysqli_query($con,"SELECT * FROM login WHERE id = $TEACHID;");
 if ($query)
 {
-	$row = mysqli_fetch_array($query);
+    $query = mysqli_query($con,"SELECT * FROM login WHERE id = $TEACHID;");
+    $row = mysqli_fetch_array($query);
   	if ($row['id'] == $TEACHID && $row['status'] == 1)
   	{
         $teachId = $row['id'];
