@@ -29,9 +29,11 @@ if(isset($_POST["mycode"]))
 		$doc->loadHTML($result);
 		
 		$success = $doc->getElementsByTagName('success')->item(0)->nodeValue;
-		$username = $doc->getElementsByTagName('username')->item(0)->nodeValue;	
+		$username = $doc->getElementsByTagName('username')->item(0)->nodeValue;
+        $teacherstudent = $doc->getElementsByTagName('teacherstudent')->item(0)->nodeValue;
 		
 		echo "<success>".$success."</success>";
         echo "<username>".$username."</username>";
+        echo "<teacherstudent".$teacherstudent."</teachstudent>";
 }
 ?>
