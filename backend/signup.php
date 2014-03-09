@@ -12,8 +12,10 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$PASSWORD = $_POST['txtPasswd'];  	// Encrypted Password
-$EMAILSET = $_POST['txtEmail'];		// Email value that is posted
+$PASSWORD = $_POST['txtPasswd'];        // Encrypted Password
+$EMAILSET = $_POST['txtEmail'];         // Email value that is posted
+$TEACHSTU = $_POST['teacherstudent'];   // Value if teacher or student
+$USERNAME = $_POST['txtUser'];
 
 echo $EMAILSET;
 echo $PASSWORD;
@@ -28,8 +30,8 @@ if (!empty($PASSWORD) && !empty($EMAILSET))
 	}
 	else
 	{
-		mysqli_query($con,"INSERT INTO login(user, password, email) 
-			VALUES ('$EMAILSET', '$PASSWORD', '$EMAILSET');");
+		mysqli_query($con,"INSERT INTO login(user, password, email, status) 
+			VALUES ('$USERNAME', '$PASSWORD', '$EMAILSET', '$TEACHSTU');");
 		echo "<exists>0</exists>";
 	}
 }
