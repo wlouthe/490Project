@@ -59,7 +59,7 @@
 		echo "<email style='display:none;'>".$emailcd."</email>";
 		echo "<password style='display:none;'>".$passcd."</password>";
 	?>
-	
+	<link rel="stylesheet" href="mycss.css" type="text/css" media="screen">
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<title>
 			Login Page
@@ -73,8 +73,8 @@
 			}
 		</style
 	</head>
-	<body style="background-image:url(./img/grey_wash_wall/grey_wash_wall.png)">
-		<div style="background-image:url(./img/triangular_@2X.png)">
+	<body>
+		<div class = "mywindow">
 		<?php
 		if($emailcd==1 && $passcd==1)
 		{

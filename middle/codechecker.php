@@ -34,6 +34,6 @@ if(isset($_POST["mycode"]))
 		
 		echo "<success>".$success."</success>";
         echo "<username>".$username."</username>";
-        echo "<teacherstudent".$teacherstudent."</teachstudent>";
+        echo "<teacherstudent>".$teacherstudent."</teachstudent>";
 }
 ?>

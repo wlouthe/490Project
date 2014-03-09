@@ -27,6 +27,7 @@
 		{
 			$uname = $doc->getElementsByTagName('username')->item(0);
 			$uname = $uname->nodeValue;
+            $teacherstudent = $doc->getElementsByTagName('teacherstudent')->item(0)->nodeValue;
 			setcookie('mycode',$mykey,$expire,'/');
 			$cookiechecker=1;
 		}
