@@ -16,7 +16,7 @@ $CODE = $_POST['mycode'];	// Code
 
 if (isset($CODE) && !empty($CODE))
 {
-    echo $CODE;
+    // echo $CODE;
     $query = mysqli_query($con,"SELECT * FROM login WHERE code = '$CODE';");
 	$row = mysqli_fetch_array($query);
 	if ($row['code'] == $CODE)

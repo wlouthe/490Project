@@ -12,6 +12,7 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
+$TEACHID = $_POST['id'];
 $USERNAME = $_POST['txtUsername'];      // Username value
 $CLASSNME = $_POST['classname'];        // Class name
 $TEACHSTU = $_POST['teacherstudent'];   // Status value (1 = teacher, 0 = student)
@@ -19,11 +20,11 @@ $TEACHSTU = $_POST['teacherstudent'];   // Status value (1 = teacher, 0 = studen
 // echo $EMAILSET;
 // echo $PASSWORD;
 
-$query = mysqli_query($con,"SELECT * FROM login WHERE user = '$USERNAME';");
+$query = mysqli_query($con,"SELECT * FROM login WHERE id = $TEACHID;");
 if ($query)
 {
 	$row = mysqli_fetch_array($query);
-  	if ($row['user'] == $USERNAME && $row['status'] == 1)
+  	if ($row['id'] == $TEACHID && $row['status'] == 1)
   	{
         $teachId = $row['id'];
         mysqli_query($con,"INSERT INTO class(creatorId, className, deleteRequest)
