@@ -25,6 +25,7 @@
 		else $success = 0;
 		if($success==1)
 		{
+            echo "success";
 			$uname = $doc->getElementsByTagName('username')->item(0);
 			$uname = $uname->nodeValue;
             $teacherstudent = $doc->getElementsByTagName('teacherstudent')->item(0)->nodeValue;
@@ -38,6 +39,7 @@
 		}
         if(isset($_POST["iclassname"]))
         {
+            echo "myid:" . urlencode($id) . " myclassname:".$_POST["iclassname"];
             $url = "http://web.njit.edu/~ss55/490server/addclass.php";
             $fields = array(
                 'id' => urlencode($id),
@@ -54,7 +56,7 @@
 <?php
 	if ($cookiechecker==1)
 	{
-		echo "Welcome ".$uname."! <a href="logout.php">Logout?</a>";
+		echo "Welcome ".$uname."! <a href='logout.php'>Logout?</a>";
 	}
 ?>
 	</div>
@@ -63,6 +65,7 @@
 <?php
 	if($cookiechecker==1)
 	{
+        echo "hello";
         //this should find out whether the user is a teacher or student, their ID and username, and if its a teacher
 		// it should find the teachers classes, the test creation page, and the question creation page.
 		// If its a student, it should find the students classes, and available tests.

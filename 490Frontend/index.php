@@ -50,7 +50,7 @@
 			);
 			$result = curlcall($fields,$url);
 			
-			echo $result;
+			//echo $result;
 			
 			// begin dom parsing to check if login was successful
 			$doc = new DOMDocument();
