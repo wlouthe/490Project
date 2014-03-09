@@ -12,7 +12,6 @@
             'teacherstudent' => urlencode($_POST["teacherstudent"])
 		);
 		$result = curlcall($fields,$url);
-		echo "result".$result."result";
 		
 		// begin dom parsing to check if login was successful
 		$doc = new DOMDocument();
