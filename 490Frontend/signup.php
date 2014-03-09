@@ -54,7 +54,7 @@
 		*/
 		if($emailcd==1 && $passcd==1)
 		{
-			//echo '<meta http-equiv="refresh" content="5; url=index.php" />';
+			echo '<meta http-equiv="refresh" content="5; url=index.php" />';
 		}
 		echo "<email style='display:none;'>".$emailcd."</email>";
 		echo "<password style='display:none;'>".$passcd."</password>";

@@ -1,5 +1,5 @@
 <?php
-
+    require "mycurl.php";
 	error_reporting(E_ALL);
 	$cookiechecker=0;
 	$njitauthentication=0;
@@ -15,24 +15,7 @@
 		$fields = array(
 			'mycode' => urlencode($mykey)
 		);
-		foreach($fields as $key=>$value)
-		{
-			$fields_string .= $key . '=' . $value . '&';
-		}
-		rtrim($fields_string, '&');
-	
-		$ch = curl_init();
-
-		curl_setopt($ch,CURLOPT_URL,$url);
-		curl_setopt($ch,CURLOPT_POST,count($fields));
-		curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
-		curl_setopt($ch,CURLOPT_FOLLOWLOCATION,false);
-		curl_setopt($ch,CURLOPT_MAXREDIRS,0);
-		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-
-		$coderesult = curl_exec($ch);
-
-		curl_close($ch);
+		$coderesult = curlcall($fields,$url);
 		
 		//echo $coderesult;
 		
@@ -65,26 +48,9 @@
 				'txtPasswd' => urlencode($_POST["password"]),
 				'cpassword' => urlencode($_POST["cpassword"])
 			);
-			foreach($fields as $key=>$value)
-			{
-				$fields_string .= $key . '=' . $value . '&';
-			}
-			rtrim($fields_string, '&');
-		
-			$ch = curl_init();
-
-			curl_setopt($ch,CURLOPT_URL,$url);
-			curl_setopt($ch,CURLOPT_POST,count($fields));
-			curl_setopt($ch,CURLOPT_POSTFIELDS,$fields_string);
-			curl_setopt($ch,CURLOPT_FOLLOWLOCATION,false);
-			curl_setopt($ch,CURLOPT_MAXREDIRS,0);
-			curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-
-			$result = curl_exec($ch);
-
-			curl_close($ch);
+			$result = curlcall($fields,$url);
 			
-			//echo $result;
+			echo $result;
 			
 			// begin dom parsing to check if login was successful
 			$doc = new DOMDocument();
