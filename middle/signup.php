@@ -1,27 +1,31 @@
 <?php
 if(isset($_POST["txtEmail"])&&isset($_POST["txtPasswd"]))
-{
-    //$url = "http://web.njit.edu/~tjh24/";
-   $exists=1; 
-	$regex = '/^.*@.*\..*/';
+{   
+    $exists=1; 
+	$regex = '/^.*(@njit\.edu)$/';
 	if (preg_match($regex, $_POST["txtEmail"])) 
 	{
-		$email = 1 ;
-	} 
+		$email = 1;
+	}
 	else 
 	{ 
 		$email = 0;
-	} 
+	}
 
 if ($email)
-{	
+{
+    $regex = "/[a-zA-Z0-9\.-]*/";
+    $myans = preg_match($regex, $_POST["txtEmail"]);
+    $username = $myans[0];
+    echo $username;
     $url = "http://web.njit.edu/~tjh24/signup.php";
 
 	$_POST["txtPasswd"]=crypt($_POST["txtPasswd"], '$6$rounds=5000$'.$_POST["txtEmail"].$_POST["txtEmail"].'$');
 	echo $_POST["txtPasswd"];
     $fields = array(
     'txtEmail' => urlencode($_POST["txtEmail"]),
-    'txtPasswd' => urlencode($_POST["txtPasswd"])
+    'txtPasswd' => urlencode($_POST["txtPasswd"]),
+    'username' => urlencode($username)
     );
     foreach($fields as $key=>$value)
     {
@@ -47,7 +51,6 @@ if ($email)
     $exists = $doc->getElementsByTagName('exists')->item(0)->nodeValue;
 }
 
-echo "<email>".(($exists+1)%2)."</email>";
 echo "<exists>".$exists."</exists>";
 }
 ?>
