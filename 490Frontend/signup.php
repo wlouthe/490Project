@@ -111,6 +111,10 @@
 				<td>Confirm Password:</td><td><input type="password" name="cpassword">
 				</td>
 				</tr>
+                <tr>
+				<td>Student<input name="teacherstudent" type="radio" value="student">Teacher<input name="teacherstudent" type="radio" value="teacher">
+				</td>
+				</tr>
 				<tr>
 					<td><input id="mysubmit" type="submit" value="sign up"></td><td><div id="alrtemail" class="custompass2">Invalid Email</div><div id="alrtpass" class="custompass2">Passwords dont match</div>
 			<script type='text/javascript'>
