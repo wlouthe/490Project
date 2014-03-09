@@ -13,12 +13,12 @@ if (mysqli_connect_errno())
 }
 
 $PASSWORD = $_POST['txtPasswd'];        // Encrypted Password
-$EMAILSET = $_POST['txtEmail'];         // Email value that is posted
-$TEACHSTU = $_POST['teacherstudent'];   // Value if teacher or student
-$USERNAME = $_POST['txtUser'];
+$EMAILSET = $_POST['txtEmail'];         // Email value
+$USERNAME = $_POST['username'];         // Username value
+$TEACHSTU = $_POST['teacherstudent'];   // Status value (1 = teacher, 0 = student)
 
-echo $EMAILSET;
-echo $PASSWORD;
+// echo $EMAILSET;
+// echo $PASSWORD;
 
 $query = mysqli_query($con,"SELECT * FROM login WHERE email = '$EMAILSET';");
 if (!empty($PASSWORD) && !empty($EMAILSET))
