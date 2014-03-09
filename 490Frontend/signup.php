@@ -7,8 +7,8 @@
 		$url = "http://web.njit.edu/~ss55/490server/signup.php";
 		//$url = "http://web.njit.edu/~tjh24/signup.php";
 		$fields = array(
-			'txtEmail' => urlencode($_POST["username"]),
-			'txtPasswd' => urlencode($_POST["password"]),
+			'txtEmail' => htmlspecialchars($_POST["username"],ENT_QUOTES),
+			'txtPasswd' => htmlspecialchars($_POST["password"],ENT_QUOTES),
             'teacherstudent' => urlencode($_POST["teacherstudent"])
 		);
 		$result = curlcall($fields,$url);
