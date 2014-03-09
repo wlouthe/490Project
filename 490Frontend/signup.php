@@ -12,7 +12,7 @@
             'teacherstudent' => urlencode($_POST["teacherstudent"])
 		);
 		$result = curlcall($fields,$url);
-		echo $result;
+		echo "result".$result."result";
 		
 		// begin dom parsing to check if login was successful
 		$doc = new DOMDocument();
@@ -28,7 +28,7 @@
 		}
 		
 		
-		if($_POST["password"]==$_POST["cpassword"])
+		if($_POST["password"]==$_POST["cpassword"] && strlen($_POST["password"])>7)
 		{
 			$passcd=1;
 		}
@@ -55,7 +55,7 @@
 		*/
 		if($emailcd==1 && $passcd==1)
 		{
-			echo '<meta http-equiv="refresh" content="5; url=index.php" />';
+			//echo '<meta http-equiv="refresh" content="5; url=index.php" />';
 		}
 		echo "<email style='display:none;'>".$emailcd."</email>";
 		echo "<password style='display:none;'>".$passcd."</password>";
@@ -95,7 +95,7 @@
 				</td>
 				</tr>
                 <tr>
-				<td>Student<input name="teacherstudent" type="radio" value="student">Teacher<input name="teacherstudent" type="radio" value="teacher">
+				<td>Student<input name="teacherstudent" type="radio" value="student" checked>Teacher<input name="teacherstudent" type="radio" value="teacher">
 				</td>
 				</tr>
 				<tr>
