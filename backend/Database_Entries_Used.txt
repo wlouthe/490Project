@@ -1,0 +1,64 @@
+// CS490 Website Tables
+## login
+id				int
+user			varchar
+password		varchar
+code			varchar
+authentication 	int
+email			varchar
+status			int
+
+## class
+classId			int
+creatorId		int
+className		varchar(100)
+deleteRequest	int
+
+## question
+questionId		int
+classId			int
+creatorId		int
+questionType	int
+questionQuery	varchar(500)
+deleteRequest	int
+
+## answer
+answerId		int
+questionId		int
+answerLetter	varchar(255)
+answerField		varchar(255)
+answerCorrect	int
+
+## test
+testId			int
+classId			int
+creatorId		int
+testWeight		int
+testStart		datetime
+deleteRequest	int
+
+## testQuestions
+testQuestionId	int
+testId			int
+questionId		int
+questionValue	int
+
+## studentClass
+studentClassId	int
+studentId		int
+teacherId		int
+
+## studentTest
+studentTestId	int
+studentId		int
+studentClassId	int
+testId			int
+score			int
+startTime		datetime
+
+## studentTestQuestions
+sTestQuestionId	int
+sTestId			int
+answerId		int
+score			int
+answer			varchar(500)
