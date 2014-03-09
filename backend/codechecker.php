@@ -20,13 +20,16 @@ if (isset($CODE) && !empty($CODE))
 	$row = mysqli_fetch_array($query);
 	if ($row['code'] == $CODE)
 	{
+        $username = $row['user'];
+        $userId = $row['id'];
 		echo "<success>1</success>";
-		$username = $row['user'];
+        echo "<id>$userId</id>";
         echo "<username>$username</username>";
         echo "<teacherstudent>$row['status']</teacherstudent>";
 	}
 	else
 	{
+        echo "<id>0</id>";
 		echo "<success>0</success>";
         echo "<username>0</username>";
         echo "<teacherstudent>0</teacherstudent>";
@@ -34,6 +37,7 @@ if (isset($CODE) && !empty($CODE))
 }
 else
 {
+    echo "<id>0</id>";
     echo "<success>0</success>";
     echo "<username>0</username>";
     echo "<teacherstudent>0</teacherstudent>";

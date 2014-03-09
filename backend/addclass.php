@@ -1,4 +1,4 @@
- <?php
+<?php
 $server = "sql.njit.edu";
 $user = "tjh24";
 $pass = "senorita3";
@@ -12,9 +12,9 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$USERNAME = $_POST['username'];         // Username value
+$USERNAME = $_POST['txtUsername'];      // Username value
 $CLASSNME = $_POST['classname'];        // Class name
-// $TEACHSTU = $_POST['teacherstudent'];   // Status value (1 = teacher, 0 = student)
+$TEACHSTU = $_POST['teacherstudent'];   // Status value (1 = teacher, 0 = student)
 
 // echo $EMAILSET;
 // echo $PASSWORD;
