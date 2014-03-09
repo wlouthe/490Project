@@ -28,11 +28,15 @@ if (isset($CODE) && !empty($CODE))
 	else
 	{
 		echo "<success>0</success>";
+        echo "<username>0</username>";
+        echo "<teacherstudent>0</teacherstudent>";
 	}
 }
 else
 {
-	echo "<success>0</success>";
+    echo "<success>0</success>";
+    echo "<username>0</username>";
+    echo "<teacherstudent>0</teacherstudent>";
 }
 
 mysqli_close($con);
