@@ -14,18 +14,20 @@ if (mysqli_connect_errno())
 
 $CODE = $_POST['mycode'];	// Code
 
-$query = mysqli_query($con,"SELECT * FROM login WHERE code = '$CODE';");
 if (isset($CODE) && !empty($CODE))
 {
+    echo $CODE;
+    $query = mysqli_query($con,"SELECT * FROM login WHERE code = '$CODE';");
 	$row = mysqli_fetch_array($query);
 	if ($row['code'] == $CODE)
 	{
         $username = $row['user'];
         $userId = $row['id'];
+        $status = $row['status'];
 		echo "<success>1</success>";
         echo "<id>$userId</id>";
         echo "<username>$username</username>";
-        echo "<teacherstudent>$row['status']</teacherstudent>";
+        echo "<teacherstudent>$status</teacherstudent>";
 	}
 	else
 	{
