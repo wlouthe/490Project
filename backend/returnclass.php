@@ -12,18 +12,10 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$USERNAME = $_POST['txtUsername'];
-$CREATEID = 0; 
+$TEACHID = $_POST['id'];
 
-$query = mysqli_query($con,"SELECT * FROM class WHERE creatorId = '$CREATEID';");
-$getId = mysqli_query($con, "SELECT * FROM login;");
-
-if ($getId) {
-	$row = mysqli_fetch_array($getId);
-    $CREATEID = $row['id'];
-}
-
-if ($CREATEID != 0) {
+if (!empty($TEACHID)) {
+    $query = mysqli_query($con,"SELECT * FROM class WHERE creatorId = $TEACHID;");
     while ($query) {
         echo "<classId>$row['classId']</classId>";
         echo "<creatorId>$row['creatorId']</creatorId>";
