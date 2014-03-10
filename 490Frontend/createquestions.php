@@ -45,11 +45,12 @@
 </div>
 <div class="main-class">
 <div class="mywindow">
-<form method="post" action="javascript: return false">
+<form id="myform" method="post" action="javascript: return false">
+<input name="myhid" value="123" type="hidden">
 <hr>
 <div id="qfields"></div>
 <table><tr><td><button id="multiplechoice" class="submit">Multiple Choice</button></td><td><button id="shortanswer">Short Answer</button></td><td><button id="programming">Programming</button></td></tr></table>
-<input type="submit">
+<input id="mysub" type="submit">
 ';
 //*
 	if($cookiechecker==1&&isset($_POST["Program"])&&!empty($_POST["Program"]))
@@ -82,6 +83,9 @@ $("#multiplechoice").click(function(){
 	var holder = $("#qfields").html();
 	$("#qfields").html(holder + myscript);
 	counter++;
+});
+$("#mysub").click(function(){
+	$("#myform").attr("action", "./createquestions.php").submit();
 });
 </script>
 </div>';
