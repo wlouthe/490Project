@@ -115,18 +115,21 @@
             */
             echo '<table class="main-table">
 <tr>
-<td width=50%>
+<td class="mytd" width=50%>
 <h2 id="currentclasses">Check Classes</h2>';
-			echo "Class:<select name='classes'>";
-				echo "<option value='' selected='selected'></option>";
-			foreach($classes as $key => $class)
-			{
-				echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
-			}
-			echo "</select>";
+
+echo '<form method="post" action="./home.php">';
+echo "Class:<select name='classes'>";
+echo "<option value='' selected='selected'></option>";
+foreach($classes as $key => $class)
+{
+	echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
+}
+echo "</select>";
+echo "</form>";
             
 echo '</td>
-<td width=50%>
+<td class="mytd" width=50%>
 <h2>Add Class</h2>
 <p>
     <form method ="post" action = "./home.php">
@@ -140,15 +143,36 @@ echo '</td>
 </tr>
 
 <tr>
-<td width=50%>
+<td class="mytd" width=50%>
 <h2>Create Test</h2>
-<p>
+';
 
-</p>
+echo '<form method="post" action="./createtest.php">';
+echo "Class:<select name='classes'>";
+echo "<option value='' selected='selected'></option>";
+foreach($classes as $key => $class)
+{
+	echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
+}
+echo "</select>";
+echo "</form>";
+
+echo '
 </td>
-<td  width=50%>
-<h2>Create Questions</h2>
-</td>
+<td class="mytd" width=50%>
+<h2>Create Questions</h2>';
+
+echo '<form method="post" action="./createquestions.php">';
+echo "Class:<select name='classes'>";
+echo "<option value='' selected='selected'></option>";
+foreach($classes as $key => $class)
+{
+	echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
+}
+echo "</select>";
+echo "</form>";
+
+echo '</td>
 </tr>
 </table>
 ';

@@ -42,12 +42,13 @@ div.mywindow
 }
 table
 {
-	height:80%;
-	width:80%;
-    border-spacing:15px;
+	
 }
 table.main-table
 {
+    height:80%;
+	width:80%;
+    border-spacing:15px;
 	margin-left:10%;
 	margin-right:10%;
 }
@@ -59,9 +60,13 @@ tr,td
     padding-bottom: 0px;
     text-align:center;
 }
-td
+td.mytd
 {
 	background-image:url(./img/triangular_@2X.png);
 	height:40%;
 	width:40%;
+}
+input.longbox
+{
+	width:800px;
 }

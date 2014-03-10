@@ -114,14 +114,14 @@
 			<table>
 				<tr>
 					<td>
-					Email or UCID:
+					NJIT Email:
 					</td><td>
 					<input name="username" type="email" <?php if(isset($_POST["username"])) echo 'value="'.$_POST["username"].'"';?>>
 					</td>
 				</tr>
 				<tr>
 					<td id="cpw">
-					Custom or UCID Password:
+				    Password:
 					</td><td>
 					<input name="password" type="password">
 					</td>
