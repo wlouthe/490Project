@@ -16,8 +16,12 @@ $TEACHID = $_POST['id'];
 
 if (!empty($TEACHID)) {
     $query = mysqli_query($con,"SELECT * FROM class WHERE creatorId = $TEACHID;");
+<<<<<<< HEAD
     // $row = mysqli_fetch_array($query);
     while ($row = mysqli_fetch_array($query);) {
+=======
+    while ($row = mysqli_fetch_array($query)) {
+>>>>>>> FETCH_HEAD
         echo "<classId>".row['classId']."</classId>";
         echo "<creatorId>".$row['creatorId']."</creatorId>";
         echo "<className>".$row['className']."</className>";
