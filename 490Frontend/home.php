@@ -52,9 +52,17 @@
             'id' => urlencode($id)
         );
         $coderesult = curlcall($fields,$url);
-        echo $coderesult;
+        $doc = new DOMDocument();
+        $doc->loadHTML($coderesult);
+        $classes = $doc->getElementsByTagName('classname');
+        $classesid = $doc->getElementsByTagName('classid');
+        
 		
 	}
+    else
+    {
+        echo '<meta http-equiv="refresh" content="1; url=index.php" />';
+    }
 ?>
 </head>
 <body>
@@ -71,7 +79,7 @@
 <?php
 	if($cookiechecker==1)
 	{
-        echo "hello";
+        //echo $coderesult;
         //this should find out whether the user is a teacher or student, their ID and username, and if its a teacher
 		// it should find the teachers classes, the test creation page, and the question creation page.
 		// If its a student, it should find the students classes, and available tests.
@@ -108,8 +116,16 @@
             echo '<table class="main-table">
 <tr>
 <td width=50%>
-<h2 id="currentclasses">Check Classes</h2>
-</td>
+<h2 id="currentclasses">Check Classes</h2>';
+			echo "Class:<select name='classes'>";
+				echo "<option value='' selected='selected'></option>";
+			foreach($classes as $key => $class)
+			{
+				echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
+			}
+			echo "</select>";
+            
+echo '</td>
 <td width=50%>
 <h2>Add Class</h2>
 <p>
