@@ -25,7 +25,7 @@
 		else $success = 0;
 		if($success==1)
 		{
-            echo "success";
+            //echo "success";
 			$uname = $doc->getElementsByTagName('username')->item(0);
 			$uname = $uname->nodeValue;
             $teacherstudent = $doc->getElementsByTagName('teacherstudent')->item(0)->nodeValue;
@@ -39,13 +39,14 @@
 		}
         if(isset($_POST["iclassname"]))
         {
-            echo "myid:" . urlencode($id) . " myclassname:".$_POST["iclassname"];
+            //echo "myid:" . urlencode($id) . " myclassname:".$_POST["iclassname"];
             $url = "http://web.njit.edu/~ss55/490server/addclass.php";
             $fields = array(
                 'id' => urlencode($id),
                 'classname' => urlencode($_POST["iclassname"])
             );
             $coderesult = curlcall($fields,$url);
+            echo "CRESULT1".$coderesult."CRESULT2";
         }
 		
 	}
