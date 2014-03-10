@@ -39,15 +39,20 @@
 		}
         if(isset($_POST["iclassname"]))
         {
-            //echo "myid:" . urlencode($id) . " myclassname:".$_POST["iclassname"];
             $url = "http://web.njit.edu/~ss55/490server/addclass.php";
             $fields = array(
                 'id' => urlencode($id),
                 'classname' => urlencode($_POST["iclassname"])
             );
             $coderesult = curlcall($fields,$url);
-            echo "CRESULT1".$coderesult."CRESULT2";
         }
+        $url = "http://web.njit.edu/~tjh24/returnclass.php";
+        //$url = "http://web.njit.edu/~ss55/490server/returnclass.php";
+        $fields = array(
+            'id' => urlencode($id)
+        );
+        $coderesult = curlcall($fields,$url);
+        echo $coderesult;
 		
 	}
 ?>
