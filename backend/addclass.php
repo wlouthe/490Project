@@ -22,7 +22,7 @@ if ($TEACHID)
   	if ($row['id'] == $TEACHID && $row['status'] == 1)
   	{
         mysqli_query($con,"INSERT INTO class(creatorId, className, deleteRequest)
-            VALUES ('$TEACHID', '$CLASSNME', '0')";
+            VALUES ($TEACHID, '$CLASSNME', 0);";
     }
 	else
 	{
