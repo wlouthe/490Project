@@ -15,23 +15,24 @@ if (mysqli_connect_errno())
 $TEACHID = $_POST['id'];
 $CLASSNME = $_POST['classname'];
 
-if ($TEACHID)
+if (!empty($TEACHID))
 {
     $query = mysqli_query($con,"SELECT * FROM login WHERE id = $TEACHID;");
     $row = mysqli_fetch_array($query);
-  	if ($row['id'] == $TEACHID && $row['status'] == 1)
+    $status = $row['status'];
+  	if ($status == 1)
   	{
         mysqli_query($con,"INSERT INTO class(creatorId, className, deleteRequest)
             VALUES ($TEACHID, '$CLASSNME', 0);";
     }
 	else
 	{
-		echo "error";
+		echo "wrong permission";
 	}
 }
 else
 {
-	echo "No such user.";
+	echo "how did this happen";
 }
 
 mysqli_close($con);
