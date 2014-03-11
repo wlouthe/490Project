@@ -37,9 +37,10 @@
 	{
 		if(isset($_POST["tname"]) && $_POST["tname"] != "")
 		{
+			echo $_POST["tname"];
 			$fields = array(
 				"teachid" => urlencode($id),
-				"classid" => urlencode($_POST["class"]),
+				"classid" => urlencode($_POST["classid"]),
 				"testname" => urlencode($_POST["tname"])
 			);
 			$result = curlcall($fields, "http://web.njit.edu/~ss55/490server/addtest.php");
@@ -61,7 +62,7 @@
 			$fields = array(
 				"testid" => urlencode($_POST["testid"])
 			);
-			$result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntest.php");
+			$result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntestquestions.php");
 			
 			$doc = new DOMDocument();
 			$doc->loadHTML($result);

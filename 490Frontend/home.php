@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="mycss.css" type="text/css" media="screen">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <?php
 	require "mycurl.php";
 			
@@ -148,15 +149,15 @@ echo '</td>
 ';
 
 echo '<form id="testform" method="post" action="javascript: return false">';
-echo "Class:<select name='classes'>";
+echo "Class:<select name='classid'>";
 echo "<option value='' selected='selected'></option>";
 foreach($classes as $key => $class)
 {
 	echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
 }
 echo "</select>";
-echo "<br>New Test:</td><td><input id='tname' name='tname' type='text'><br>";
-echo "<button id='#tbutton1'>Create New Test</button><button id='#tbutton2'>Edit Existing Test</button>";
+echo "<br>New Test:<input id='tname' name='tname' type='text'><br>";
+echo "<input id='tbutton1' type='submit' value='Create New Test'><input id='tbutton2' type='submit' value='Edit Existing Test'>";
 echo "</form>";
 
 echo '
@@ -190,15 +191,16 @@ echo '</td>
 ?>
    
     </div>
-
+<div>
 <script>
-$("#testbutton1").click(function(){
+$("#tbutton1").click(function(){
 	$("#testform").attr("action", "./createtest.php").submit();
 });
-$("#testbutton2").click(function(){
+$("#tbutton2").click(function(){
 	$("#tname").html("");
 	$("#testform").attr("action", "./createtest.php").submit();
 });
 </script>
+</div>
 </body>
 </html>

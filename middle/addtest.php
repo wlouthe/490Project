@@ -11,7 +11,7 @@ if ( isset($_POST["teachid"]) && isset($_POST["classid"]) && isset($_POST["testn
 		
 		$doc = new DOMDocument();
 		$doc->loadHTML($coderesult);
-		$testid = $doc->getElementsByTagName('testid')->item(0);
+		$testid = $doc->getElementsByTagName('testid')->item(0)->nodeValue;
 		echo "<testid>".$testid."</testid>";
 		
 	}
