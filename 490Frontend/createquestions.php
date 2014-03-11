@@ -35,6 +35,7 @@
 
 	if($cookiechecker==1)
 	{
+		$test=curlcall($_POST,"http://web.njit.edu/~ss55/490server/addquestion.php");
 /////////////////////////////////////////////////////////////////////////////
 //// Run Program Start
 /////////////////////////////////////////////////////////////////////////////
@@ -79,7 +80,7 @@ echo '
 <script>
 var counter=0;
 $("#multiplechoice").click(function(){
-	var myscript = "<input class=\'longbox\' name=\'type"+counter+"\' type=\'hidden\' value=\'1\'><table><tr><td>Question:</td><td><input class=\'longbox\' name=\'question"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer1_"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer2_"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer3_"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer4_"+counter+"\' type=\'text\'></td></tr></table><hr></div><div id=\'qfields"+(counter+1)+"\'>";
+	var myscript = "<input class=\'longbox\' name=\'type"+counter+"\' type=\'hidden\' value=\'1\'><table><tr><td>Question:</td><td><input class=\'longbox\' name=\'question"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer1_"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer2_"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer3_"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer4_"+counter+"\' type=\'text\'></td></tr><tr><td>Correct Answer:</td><td><select name=\'correct"+counter+"\'><option value=\'1\' selected=\'selected\'>1</option><option value=\'2\'>2</option><option value=\'3\'>3</option><option value=\'4\'>4</option></select></td></tr><tr><td>Point Value:</td><td><input name=\'pvalue\' type=\'number\'></td></tr></table><hr></div><div id=\'qfields"+(counter+1)+"\'>";
 	$("#qfields"+counter).html(myscript);
 	counter++;
 });
