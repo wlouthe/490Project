@@ -165,7 +165,7 @@ echo '
 <h2>Create Questions</h2>';
 
 echo '<form method="post" action="./createquestions.php">';
-echo "Class:<select name='classes'>";
+echo "Class:<select name='classid'>";
 echo "<option value='' selected='selected'></option>";
 foreach($classes as $key => $class)
 {
