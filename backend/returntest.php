@@ -12,21 +12,18 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$TEACHID = $_POST['id'];
+$TEACHID = $_POST['teachid'];
+$CLASSID = $_POST['classid'];
 
 if (!empty($TEACHID)) {
-    $query = mysqli_query($con,"SELECT * FROM test WHERE creatorId = $TEACHID;");
+    $query = mysqli_query($con,"SELECT * FROM test WHERE creatorId = $TEACHID AND classId = $CLASSID;");
     while ($row = mysqli_fetch_array($query)) {
-        echo "<testId>".$row['testId']."</testId>";
-        echo "<classId>".$row['classId']."</classId>";
-        echo "<creatorId>".$row['creatorId']."</creatorId>";
+        echo "<testid>".$row['testId']."</testid>";
         echo "<testName>".$row['testName']."</testName>";
     }
 }
 else {
-    echo "<testId>0</testId>";
-    echo "<classId>0</classId>";
-    echo "<creatorId>0</creatorId>";
+    echo "<testid>0</testid>";
     echo "<testName>0</testName>";
 }
 
