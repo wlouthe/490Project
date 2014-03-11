@@ -19,12 +19,12 @@ if (!empty($TEACHID)) {
     $query = mysqli_query($con,"SELECT * FROM test WHERE creatorId = $TEACHID AND classId = $CLASSID;");
     while ($row = mysqli_fetch_array($query)) {
         echo "<testid>".$row['testId']."</testid>";
-        echo "<testName>".$row['testName']."</testName>";
+        echo "<testname>".$row['testName']."</testname>";
     }
 }
 else {
     echo "<testid>0</testid>";
-    echo "<testName>0</testName>";
+    echo "<testname>0</testname>";
 }
 
 mysqli_close($con);
