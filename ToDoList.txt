@@ -1,0 +1,3 @@
+Create addtest.php all ends, accepts a "testname" argument and return "testid"
+create getquestions.php for both middle and backend (takes arguments "classid" and returns "questiontitle" and "questionid" for every question in that class)
+create settestquestions.php where "testid" and "questionid" are sent and then added to the test bank
