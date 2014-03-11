@@ -156,7 +156,7 @@ foreach($classes as $key => $class)
 }
 echo "</select>";
 echo "<br><table><tr><td>New Test:</td><td><input id='tname' name='tname' type='text'></td></tr>";
-echo "<tr><td><button id='#tbutton1'>Create New Test</button></td><td><button id='#tbutton2'>Edit Existing Test</button>";
+echo "<tr><td><button id='#tbutton1'>Create New Test</button></td><td><button id='#tbutton2'>Edit Existing Test</button></table>";
 echo "</form>";
 
 echo '
