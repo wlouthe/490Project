@@ -28,18 +28,6 @@ if ($QUESTIONTYPE == 4) {
 $TRUFAL = array("True", "False");
 $ANSWER = $_POST['answer'];
 
-/*
-$TEACHID = 73;
-$CLASSID = 14;
-
-$QUESTION = "true false again";
-$QUESTIONTYPE = 2; // 1 - multiple choice, 2 - True/False, 3 - Fill in the blank, 4 - Programming
-$QUESTIONVALUE = 50;
-$CHOICE = array("case1", "case2", "case3", "case4");
-$TRUFAL = array("True", "False");
-$ANSWER = 1;
-*/
-
 $QUESTIONID = 0;
 
 if (!empty($TEACHID) && !empty($CLASSID)) {
