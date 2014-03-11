@@ -38,18 +38,60 @@
 		if(isset($_POST["tname"]) && $_POST["tname"] != "")
 		{
 			$fields = array(
-				"id" => urlencode($id),
-				"classname" => urlencode($_POST["classes"]),
+				"teachid" => urlencode($id),
+				"classid" => urlencode($_POST["class"]),
 				"testname" => urlencode($_POST["tname"])
 			);
-			curlcall($fields, "http://web.njit.edu/~ss55/490server/addtest.php");
+			$result = curlcall($fields, "http://web.njit.edu/~ss55/490server/addtest.php");
+			
+			$doc = new DOMDocument();
+			$doc->loadHTML($result);
+			$testid = $doc->getElementsByTagName('testid')->item(0);
+			if($testid != "0")
+			{
+				echo $testid;
+			}
+			else
+			{
+				header("Location: http://web.njit.edu/~ll37/home.php");
+			}
+		}
+		elseif(isset($_POST["testid"]))
+		{
+			$fields = array(
+				"testid" => urlencode($_POST["testid"])
+			);
+			$result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntest.php");
+			
+			$doc = new DOMDocument();
+			$doc->loadHTML($result);
+			$testids = $doc->getElementsByTagName('testid');
+			$testnames = $doc->getElementsByTagName('testid');
+			
+			foreach($testids as $key => $testid)
+			{
+				echo "<option value='".$testid->nodeValue."'>".$testnames->item($key)->nodeValue."</option>";
+			}
+			echo "</select>";
 		}
 		else
 		{
 			$fields = array(
-				"id" => urlencode($id)
+				"teachid" => urlencode($id),
+				"classid" => urlencode($_POST["classid"])
 			);
-			curlcall($fields, "http://web.njit.edu/~ss55/490server/returntest.php");
+			$result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntest.php");
+			
+			$doc = new DOMDocument();
+			$doc->loadHTML($result);
+			$testids = $doc->getElementsByTagName('testid');
+			$testnames = $doc->getElementsByTagName('testid');
+			
+			foreach($testids as $key => $testid)
+			{
+				echo "<option value='".$testid->nodeValue."'>".$testnames->item($key)->nodeValue."</option>";
+			}
+			echo "</select>";
 		}
 		
 /////////////////////////////////////////////////////////////////////////////

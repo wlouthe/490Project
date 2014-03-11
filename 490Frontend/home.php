@@ -119,7 +119,7 @@
 <h2 id="currentclasses">Check Classes</h2>';
 
 echo '<form method="post" action="./home.php">';
-echo "Class:<select name='classes'>";
+echo "Class:<select name='classid'>";
 echo "<option value='' selected='selected'></option>";
 foreach($classes as $key => $class)
 {
@@ -155,8 +155,8 @@ foreach($classes as $key => $class)
 	echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
 }
 echo "</select>";
-echo "<br><table><tr><td>New Test:</td><td><input id='tname' name='tname' type='text'></td></tr>";
-echo "<tr><td><button id='#tbutton1'>Create New Test</button></td><td><button id='#tbutton2'>Edit Existing Test</button></table>";
+echo "<br>New Test:</td><td><input id='tname' name='tname' type='text'><br>";
+echo "<button id='#tbutton1'>Create New Test</button><button id='#tbutton2'>Edit Existing Test</button>";
 echo "</form>";
 
 echo '
