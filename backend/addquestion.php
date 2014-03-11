@@ -12,7 +12,6 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-/*
 $TESTID = $_POST['testid'];
 $TEACHID = $_POST['id'];
 $CLASSID = $_POST['classid'];
@@ -21,20 +20,21 @@ $QUESTION = $_POST['question'];
 $QUESTIONTYPE = $_POST['type']; // 1 - multiple choice, 2 - True/False, 3 - Fill in the blank, 4 - Programming
 $QUESTIONVALUE = $_POST['pvalue'];
 $CHOICE = array($_POST['choice1'], $_POST['choice2'], $_POST['choice3'], $_POST['choice4']);
-$TRUFAL = array("True", "False");
+$TRUFAL = array("False", "True");
 $ANSWER = $_POST['answer'];
-*/
 
+/*
 $TESTID = 1;
 $TEACHID = 73;
 $CLASSID = 14;
 
-$QUESTION = "How gay is sid?";
-$QUESTIONTYPE = 1; // 1 - multiple choice, 2 - True/False, 3 - Fill in the blank, 4 - Programming
+$QUESTION = "Sid is not the gayest.";
+$QUESTIONTYPE = 2; // 1 - multiple choice, 2 - True/False, 3 - Fill in the blank, 4 - Programming
 $QUESTIONVALUE = 50;
-$CHOICE = array("Very", "Super", "Extremely", "Over 9000");
-$TRUFAL = array("True", "False");
-$ANSWER = 4;
+$CHOICE = array("case1", "case2", "case3", "case4");
+$TRUFAL = array("False", "True");
+$ANSWER = 0;
+*/
 
 $STOREDCLASS = 0;
 $QUESTIONID = 0;
@@ -51,20 +51,19 @@ if (!empty($TESTID) && !empty($TEACHID) && !empty($CLASSID)) {
         VALUES($TESTID, $TEACHID, $QUESTIONID);");
     if ($QUESTIONTYPE == 1) {
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
-            mysqlisss_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
+            mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
                 VALUES($QUESTIONID, $i, '$CHOICE[$j]', 0);");
             if ($ANSWER == $i) {
                 mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE answerLetter = $i AND questionId = $QUESTIONID;");
             }
         }
     }
-/*
     if ($QUESTIONTYPE == 2) {
-        for ($i = 1; $i < 3; $i++) {
+        for ($i = 1, $j = 0; $i < 3; $i++, $j++) {
             mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
-                VALUES($QUESTIONID, $i, '$TRUFAL[$i]', 0);");
-            if ($ANSWER == ($i+1)) {
-                mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE answerLetter = '$TF[$i]' AND questionId = $QUESTIONID;");
+                VALUES($QUESTIONID, $i, '$TRUFAL[$j]', 0);");
+            if ($ANSWER == $j) {
+                mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE answerLetter = $i AND questionId = $QUESTIONID;");
             }
         }
     }
@@ -78,7 +77,6 @@ if (!empty($TESTID) && !empty($TEACHID) && !empty($CLASSID)) {
                 VALUES($QUESTIONID, '$j', '$CHOICE[$i]', 1);");
         }
     }
-*/
 }
 else {
     echo "Something broke";
