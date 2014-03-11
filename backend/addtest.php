@@ -12,7 +12,6 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-
 $TEACHID = $_POST['teachid'];
 $CLASSID = $_POST['classid'];
 $TESTNME = $_POST['testname'];
