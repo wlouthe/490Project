@@ -79,6 +79,7 @@
 		}
 		else
 		{
+			echo "id:".$id.":classid:".$_POST["classid"];
 			$optionnum = 3;
 			$fields = array(
 				"teachid" => urlencode($id),
