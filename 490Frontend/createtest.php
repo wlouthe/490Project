@@ -47,7 +47,7 @@
 			
 			$doc = new DOMDocument();
 			$doc->loadHTML($result);
-			$testid = $doc->getElementsByTagName('testid')->item(0);
+			$testid = $doc->getElementsByTagName('testid')->item(0)->nodeValue;
 			if($testid != "0")
 			{
 				echo $testid;
@@ -87,7 +87,6 @@
 			$doc->loadHTML($result);
 			$testids = $doc->getElementsByTagName('testid');
 			$testnames = $doc->getElementsByTagName('testid');
-			
 			foreach($testids as $key => $testid)
 			{
 				echo "<option value='".$testid->nodeValue."'>".$testnames->item($key)->nodeValue."</option>";
