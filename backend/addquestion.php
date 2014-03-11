@@ -12,8 +12,7 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$TESTID = $_POST['testid'];
-$TEACHID = $_POST['id'];
+$TEACHID = $_POST['teacherid'];
 $CLASSID = $_POST['classid'];
 
 $QUESTION = $_POST['question'];
@@ -24,7 +23,6 @@ $TRUFAL = array("False", "True");
 $ANSWER = $_POST['answer'];
 
 /*
-$TESTID = 1;
 $TEACHID = 73;
 $CLASSID = 14;
 
@@ -39,16 +37,13 @@ $ANSWER = NULL;
 $STOREDCLASS = 0;
 $QUESTIONID = 0;
 
-if (!empty($TESTID) && !empty($TEACHID) && !empty($CLASSID)) {
+if (!empty($TEACHID) && !empty($CLASSID)) {
     mysqli_query($con,"INSERT INTO question(classId, creatorId, questionType, questionQuery, questionValue, deleteRequest)
         VALUES($CLASSID, $TEACHID, $QUESTIONTYPE, '$QUESTION', $QUESTIONVALUE, 0);");
     
     $query = mysqli_query($con,"SELECT * FROM question WHERE questionQuery = '$QUESTION' AND creatorId = $TEACHID;");
     $row = mysqli_fetch_array($query);
     $QUESTIONID = $row['questionId'];
-    
-    mysqli_query($con,"INSERT INTO testQuestions(testId, creatorId, questionId)
-        VALUES($TESTID, $TEACHID, $QUESTIONID);");
     if ($QUESTIONTYPE == 1) {
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
             mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
@@ -57,6 +52,9 @@ if (!empty($TESTID) && !empty($TEACHID) && !empty($CLASSID)) {
                 mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE answerLetter = $i AND questionId = $QUESTIONID;");
             }
         }
+    }
+    else {
+        echo "type 1 broke";
     }
     if ($QUESTIONTYPE == 2) {
         for ($i = 1, $j = 0; $i < 3; $i++, $j++) {
@@ -67,15 +65,24 @@ if (!empty($TESTID) && !empty($TEACHID) && !empty($CLASSID)) {
             }
         }
     }
+    else {
+        echo "type 2 broke";
+    }
     if ($QUESTIONTYPE == 3 ) {
         mysqli_query($con,"INSERT INTO answer(questionId, answerField, answerCorrect)
             VALUES($QUESTIONID, '$ANSWER', 1);");
+    }
+    else {
+        echo "type 3 broke";
     }
     if ($QUESTIONTYPE == 4) {
         for($i = 0, $j = 1; $i < 4; $i++, $j++) {
             mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
                 VALUES($QUESTIONID, '$j', '$CHOICE[$i]', 1);");
         }
+    }
+    else {
+        echo "type 4 broke";
     }
 }
 else {
