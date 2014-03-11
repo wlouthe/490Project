@@ -38,6 +38,7 @@
 		if(isset($_POST["type0"]))
 		{
 			$test=curlcall($_POST,"http://web.njit.edu/~ss55/490server/addquestion.php");
+			echo "shady1".$test."1shady";
 		}
 /////////////////////////////////////////////////////////////////////////////
 //// Run Program Start
@@ -50,7 +51,8 @@
 <div class="main-class">
 <div class="mywindow">
 <form id="myform" method="post" action="javascript: return false">
-<input name="myhid" value="123" type="hidden">
+<input name="teacherid" value="'.$id.'" type="hidden">
+<input name="classid" value="'.$_POST['classes'].'" type="hidden">
 <hr>
 <div id="qfields0"></div>
 <table><tr><td><button id="multiplechoice" class="submit">Multiple Choice</button></td><td><button id="truefalse" class="submit">True or False</button></td><td><button id="shortanswer">Short Answer</button></td><td><button id="programming">Programming</button></td></tr></table>
