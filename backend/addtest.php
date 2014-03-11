@@ -25,6 +25,13 @@ if (!empty($TEACHID) && !empty($CLASSID))
   	{
         mysqli_query($con,"INSERT INTO test(classId, creatorId, testName, deleteRequest)
             VALUES ($CLASSID, $TEACHID, '$TESTNME', 0);");
+        $getid = mysqli_query($con,"SELECT * FROM test WHERE classId = $CLASSID AND creatorId = $TEACHID AND testName = '$TESTNME';");
+        while ($findMax = mysqli_fetch_array($getid) {
+            $maxId = $findMax['testId'];
+            if ($maxId < $findMax['testId']) {
+                $maxId = $findMax['testId'];
+            }
+        }
     }
 	else
 	{
