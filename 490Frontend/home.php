@@ -147,7 +147,7 @@ echo '</td>
 <h2>Create Test</h2>
 ';
 
-echo '<form method="post" action="./createtest.php">';
+echo '<form id="testform" method="post" action="javascript: return false">';
 echo "Class:<select name='classes'>";
 echo "<option value='' selected='selected'></option>";
 foreach($classes as $key => $class)
@@ -155,6 +155,8 @@ foreach($classes as $key => $class)
 	echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
 }
 echo "</select>";
+echo "<br><table><tr><td>New Test:</td><td><input id='tname' name='tname' type='text'></td></tr>";
+echo "<tr><td><button id='#tbutton1'>Create New Test</button></td><td><button id='#tbutton2'>Edit Existing Test</button>";
 echo "</form>";
 
 echo '
@@ -170,6 +172,8 @@ foreach($classes as $key => $class)
 	echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
 }
 echo "</select>";
+echo "<input type='submit'>";
+
 echo "</form>";
 
 echo '</td>
@@ -187,6 +191,14 @@ echo '</td>
    
     </div>
 
-
+<script>
+$("#testbutton1").click(function(){
+	$("#testform").attr("action", "./createtest.php").submit();
+});
+$("#testbutton2").click(function(){
+	$("#tname").html("");
+	$("#testform").attr("action", "./createtest.php").submit();
+});
+</script>
 </body>
 </html>

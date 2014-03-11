@@ -35,13 +35,30 @@
 
 	if($cookiechecker==1)
 	{
+		if(isset($_POST["tname"]) && $_POST["tname"] != "")
+		{
+			$fields = array(
+				"id" => urlencode($id),
+				"classname" => urlencode($_POST["classes"]),
+				"testname" => urlencode($_POST["tname"])
+			);
+			curlcall($fields, "http://web.njit.edu/~ss55/490server/addtest.php");
+		}
+		else
+		{
+			$fields = array(
+				"id" => urlencode($id)
+			);
+			curlcall($fields, "http://web.njit.edu/~ss55/490server/returntest.php");
+		}
+		
 /////////////////////////////////////////////////////////////////////////////
-//// Run Program Start
+//// create html
 /////////////////////////////////////////////////////////////////////////////
 	echo '<head><link rel="stylesheet" href="mycss.css" type="text/css" media="screen">
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script></head>
 <body>
-<div class="nav-wrapper">Welcome '. $uname .'!
+<div class="nav-wrapper">Welcome '. $uname .'! <a href="./logout.php">Logout?</a>
 </div>
 <div class="main-class">
 <div class="mywindow">
@@ -49,7 +66,7 @@
 <input name="myhid" value="123" type="hidden">
 <hr>
 <div id="qfields0"></div>
-<table><tr><td><button id="multiplechoice" class="submit">Multiple Choice</button></td><td><button id="truefalse" class="submit">True or False</button></td><td><button id="shortanswer">Short Answer</button></td><td><button id="programming">Programming</button></td></tr></table>
+<table><tr><td><button id="multiplechoice" class="submit">Multiple Choice</button></td><td><button id="shortanswer">Short Answer</button></td><td><button id="programming">Programming</button></td></tr></table>
 <input id="mysub" type="submit">
 ';
 //*
