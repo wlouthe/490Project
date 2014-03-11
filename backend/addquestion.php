@@ -28,12 +28,12 @@ $TESTID = 1;
 $TEACHID = 73;
 $CLASSID = 14;
 
-$QUESTION = "Sid is not the gayest.";
-$QUESTIONTYPE = 2; // 1 - multiple choice, 2 - True/False, 3 - Fill in the blank, 4 - Programming
+$QUESTION = "programming assignment";
+$QUESTIONTYPE = 4; // 1 - multiple choice, 2 - True/False, 3 - Fill in the blank, 4 - Programming
 $QUESTIONVALUE = 50;
 $CHOICE = array("case1", "case2", "case3", "case4");
-$TRUFAL = array("False", "True");
-$ANSWER = 0;
+$TRUFAL = array("True", "False");
+$ANSWER = NULL;
 */
 
 $STOREDCLASS = 0;
@@ -53,7 +53,7 @@ if (!empty($TESTID) && !empty($TEACHID) && !empty($CLASSID)) {
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
             mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
                 VALUES($QUESTIONID, $i, '$CHOICE[$j]', 0);");
-            if ($ANSWER == $i) {
+            if ($ANSWER == $j) {
                 mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE answerLetter = $i AND questionId = $QUESTIONID;");
             }
         }
@@ -62,7 +62,7 @@ if (!empty($TESTID) && !empty($TEACHID) && !empty($CLASSID)) {
         for ($i = 1, $j = 0; $i < 3; $i++, $j++) {
             mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
                 VALUES($QUESTIONID, $i, '$TRUFAL[$j]', 0);");
-            if ($ANSWER == $j) {
+            if ($ANSWER == $i) {
                 mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE answerLetter = $i AND questionId = $QUESTIONID;");
             }
         }
