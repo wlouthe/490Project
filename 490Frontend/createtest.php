@@ -37,7 +37,8 @@
 	{
 		if(isset($_POST["tname"]) && $_POST["tname"] != "")
 		{
-			echo $_POST["tname"];
+			$optionnum=1;
+			//echo $_POST["tname"];
 			$fields = array(
 				"teachid" => urlencode($id),
 				"classid" => urlencode($_POST["classid"]),
@@ -50,15 +51,16 @@
 			$testid = $doc->getElementsByTagName('testid')->item(0)->nodeValue;
 			if($testid != "0")
 			{
-				echo $testid;
+				//echo $testid;
 			}
 			else
 			{
 				header("Location: http://web.njit.edu/~ll37/home.php");
 			}
 		}
-		elseif(isset($_POST["testid"]))
+		elseif(isset($_POST["testid"]) && $_POST["testid"] != "0")
 		{
+			$optionnum=2;
 			$fields = array(
 				"testid" => urlencode($_POST["testid"])
 			);
@@ -77,6 +79,7 @@
 		}
 		else
 		{
+			$optionnum = 3;
 			$fields = array(
 				"teachid" => urlencode($id),
 				"classid" => urlencode($_POST["classid"])
@@ -86,12 +89,7 @@
 			$doc = new DOMDocument();
 			$doc->loadHTML($result);
 			$testids = $doc->getElementsByTagName('testid');
-			$testnames = $doc->getElementsByTagName('testid');
-			foreach($testids as $key => $testid)
-			{
-				echo "<option value='".$testid->nodeValue."'>".$testnames->item($key)->nodeValue."</option>";
-			}
-			echo "</select>";
+			$testnames = $doc->getElementsByTagName('testname');
 		}
 		
 /////////////////////////////////////////////////////////////////////////////
@@ -103,50 +101,42 @@
 <div class="nav-wrapper">Welcome '. $uname .'! <a href="./logout.php">Logout?</a>
 </div>
 <div class="main-class">
-<div class="mywindow">
-<form id="myform" method="post" action="javascript: return false">
-<input name="myhid" value="123" type="hidden">
-<hr>
-<div id="qfields0"></div>
-<table><tr><td><button id="multiplechoice" class="submit">Multiple Choice</button></td><td><button id="shortanswer">Short Answer</button></td><td><button id="programming">Programming</button></td></tr></table>
-<input id="mysub" type="submit">
-';
-//*
-	if($cookiechecker==1&&isset($_POST["Program"])&&!empty($_POST["Program"]))
+<div class="mywindow">';
+if ($optionnum==3)
+{
+	echo '<form id="myform" method="post" action="javascript: return false">
+	<input name="myhid" value="123" type="hidden">
+	<hr><div id="stestselect">';
+	echo "Test:<select name = 'testid'><option value='0' selected='selected'></option>";
+	foreach($testids as $key => $testid)
 	{
-		if(!empty($mystring2))
-		{
-			echo "<div>Output: ".$mystring2."</div>";
-			if($mystring2 == 9)
-			{
-				echo "The output is correct!";
-			}
-			else
-			{
-				echo "The output is incorrect, try again";
-			}
-		}
-		if(empty($mystring2))
-		{
-			echo "<div style = 'background-color:silver; color:red;'>There is an a error with your code<br></div>";
-		}
+		echo "<option value='".$testid->nodeValue."'>".$testnames->item($key)->nodeValue."</option>";
 	}
-//*/
-echo '
-</form>
-<div>
-<script>
-var counter=0;
-$("#multiplechoice").click(function(){
-	var myscript = "<input class=\'longbox\' name=\'type"+counter+"\' type=\'hidden\' value=\'1\'><table><tr><td>Question:</td><td><input class=\'longbox\' name=\'question"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer1_"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer2_"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer3_"+counter+"\' type=\'text\'></td></tr><tr><td>Answer:</td><td><input class=\'longbox\' name=\'answer4_"+counter+"\' type=\'text\'></td></tr></table><hr></div><div id=\'qfields"+(counter+1)+"\'>";
-	$("#qfields"+counter).html(myscript);
-	counter++;
-});
-$("#mysub").click(function(){
-	$("#myform").attr("action", "./createquestions.php").submit();
-});
-</script>
-</div>';
+	echo "</select></div><div id='ctestselect' style='display:none;'>Test Name:<input id='tname' name='tname' type='text'></div>";
+	echo'<div id="qfields0"></div>
+	<table><tr><td><button id="stest" class="submit">Select Test</button></td><td><button id="ctest">Create New Test</button></td></tr></table>
+	<input id="mysub" type="submit">
+	';
+
+	echo '
+	</form>
+	<div>
+	<script>
+	$("#stest").click(function(){
+		$("#tname").html("");
+		$("#stestselect").show();
+		$("#ctestselect").hide();
+	});
+	$("#ctest").click(function(){
+		$("#tname").html("");
+		$("#stestselect").hide();
+		$("#ctestselect").show();
+	});
+	$("#mysub").click(function(){
+		$("#myform").attr("action", "./createtest.php").submit();
+	});
+	</script></div>';
+}
 
 echo '</div></div></body>';
 
