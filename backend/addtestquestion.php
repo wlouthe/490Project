@@ -24,10 +24,12 @@ if (!empty($TESTID) && !empty($QUESTIONID)) {
   	{
     mysqli_query($con,"INSERT INTO testQuestions(testId, creatorId, questionId)
         VALUES($TESTID, $TEACHID, $QUESTIONID)";);
+    echo "<success>1</success>";
     }
 }
 else {
     echo "Missing TestID or QuestionID";
+    echo "<success>0</success>";
 }
 
 mysqli_close($con);
