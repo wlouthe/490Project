@@ -15,9 +15,9 @@ if (mysqli_connect_errno())
 $TESTID = $_POST['testid'];
 $CLASSID = $_POST['classid'];
 
-if (!empty($TEACHID)) {
+if (!empty($TESTID)) {
     // Prints all questions in specified class.
-    $query = mysqli_query($con,"SELECT DISTINCT question.questionId, question.questionQuery FROM question, testQuestions WHERE testQuestions.testId = 1 AND question.classId = 14;");
+    $query = mysqli_query($con,"SELECT DISTINCT question.questionId, question.questionQuery FROM question, testQuestions WHERE testQuestions.testId = $TESTID AND question.classId = $CLASSID;");
     echo "<allquestions>";
     while ($row = mysqli_fetch_array($query)) {
         echo "<id>".$row['questionId']."</id>";
@@ -27,13 +27,12 @@ if (!empty($TEACHID)) {
     
     // Prints all questions already on the exam.
     $testonly = mysqli_query($con, "SELECT DISTINCT testQuestions.testQuestionId, question.questionId, question.questionQuery 
-        FROM question, testQuestions WHERE testQuestions.testId = 1 AND testQuestions.questionId = question.questionId;");
-    echo "<ontest>";
-    while ($row = mysqli_fetch_array($query)) {
+        FROM question, testQuestions WHERE testQuestions.testId = $TESTID AND testQuestions.questionId = question.questionId;");
+    echo "<testquestions>";
+    while ($row = mysqli_fetch_array($testonly)) {
         echo "<id>".$row['questionId']."</id>";
-        echo "<name>".$row['questionQuery']."</name>";
     }
-    echo "</ontest>";
+    echo "</testquestions>";
 }
 else {
     echo "<testid>0</testid>";
