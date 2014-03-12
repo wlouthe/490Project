@@ -24,15 +24,18 @@ if (!empty($TEACHID))
   	{
         mysqli_query($con,"DELETE FROM testQuestions WHERE testId = $TESTID;");
         mysqli_query($con,"DELETE FROM test WHERE testId = $TESTID;");
+        echo "<success>1</success>";
     }
 	else
 	{
 		echo "Bad Permissions";
+        echo "<success>0</success>";
 	}
 }
 else
 {
 	echo "Missing ID";
+    echo "<success>0</success>";
 }
 
 mysqli_close($con);
