@@ -70,3 +70,20 @@ input.longbox
 {
 	width:800px;
 }
+table.mytable
+{
+	background-color:grey;
+}
+tr.rowcolor0
+{
+	background-color:whitesmoke;
+}
+tr.rowcolor1
+{
+	background-color:silver;
+}
+thead.myhead, thead.myhead tr
+{
+	position:relative;
+	background-color:darkgrey;
+}
