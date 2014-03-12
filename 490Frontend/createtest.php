@@ -35,6 +35,13 @@
 
 	if($cookiechecker==1)
 	{
+		
+		if(isset($_POST["mycb0"]))
+		{
+			//echo "optionnum:3:id:".$id.":classid:".$_POST["classid"];
+			$result = curlcall($_POST, "http://web.njit.edu/~ss55/490server/addtestquestion.php");
+		}
+		
 		$skipcode=0;
 		if(isset($_POST["mode"]))
 		{
@@ -45,7 +52,7 @@
 		}
 		if(isset($_POST["tname"]) && $_POST["tname"] != "" && $skipcode==0)
 		{
-			echo "optionnum:1:teachid:".$id.":classid:".$_POST["classid"].":testname:".$_POST["testname"];
+			//echo "optionnum:1:teachid:".$id.":classid:".$_POST["classid"].":testname:".$_POST["testname"];
 			$optionnum=1;
 			//echo $_POST["tname"];
 			$fields = array(
@@ -69,14 +76,14 @@
 		}
 		elseif(isset($_POST["testid"]) && $_POST["testid"] != "0")
 		{
-			echo "optionnum:2:testid:".$_POST["testid"].":classid:".$_POST["classid"];
+			//echo "optionnum:2:testid:".$_POST["testid"].":classid:".$_POST["classid"];
 			$optionnum=2;
 			$fields = array(
 				"testid" => urlencode($_POST["testid"]),
 				"classid" => urlencode($_POST["classid"])
 			);
 			$result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntestquestions.php");
-			
+			//echo $result;
 			$doc = new DOMDocument();
 			$doc->loadHTML($result);
 			$testids = $doc->getElementsByTagName('id');
@@ -86,7 +93,7 @@
 		}
 		else
 		{
-			echo "optionnum:3:id:".$id.":classid:".$_POST["classid"];
+			//echo "optionnum:3:id:".$id.":classid:".$_POST["classid"];
 			$optionnum = 3;
 			$fields = array(
 				"teachid" => urlencode($id),
@@ -100,6 +107,8 @@
 			$testnames = $doc->getElementsByTagName('testname');
 		}
 		
+		
+		
 /////////////////////////////////////////////////////////////////////////////
 //// create html
 /////////////////////////////////////////////////////////////////////////////
@@ -112,7 +121,8 @@
 <div class="mywindow">';
 if ($optionnum==2)
 {
-	echo '<form id="myform" method="post" action="javascript: return false">';
+	echo '<form id="myform" method="post" action="./createtest.php">';
+	echo '<input id="mode" name="mode" value="insert" type="hidden"><input name="testid" value="'.$_POST['testid'].'" type="hidden"><input name="classid" value="'.$_POST['classid'].'" type="hidden"><input name="teachid" value="'.$id.'" type="hidden">';
 	echo '<table><thead class="myhead" style="position:relative;"><tr><th>Question</th><th>On Test</th></tr></thead>';
 	foreach($testids as $key => $testid)
 	{
@@ -126,7 +136,7 @@ if ($optionnum==2)
 		}
 		echo '<tr><td>'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb"'.$key.' type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
 	}
-	echo'</table>';
+	echo'</table><input type="submit"></form>';
 }
 if ($optionnum==3)
 {
