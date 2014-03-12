@@ -38,26 +38,6 @@
 		{
 			echo '<meta http-equiv="refresh" content="1; url=index.php" /></head><body></body>';
 		}
-        if(isset($_POST["iclassname"]))
-        {
-            $url = "http://web.njit.edu/~ss55/490server/addclass.php";
-            $fields = array(
-                'id' => urlencode($id),
-                'classname' => urlencode($_POST["iclassname"])
-            );
-            $coderesult = curlcall($fields,$url);
-        }
-        $url = "http://web.njit.edu/~tjh24/returnclass.php";
-        //$url = "http://web.njit.edu/~ss55/490server/returnclass.php";
-        $fields = array(
-            'id' => urlencode($id)
-        );
-        $coderesult = curlcall($fields,$url);
-        $doc = new DOMDocument();
-        $doc->loadHTML($coderesult);
-        $classes = $doc->getElementsByTagName('classname');
-        $classesid = $doc->getElementsByTagName('classid');
-        
 		
 	}
     else
@@ -89,6 +69,25 @@
 		// status==2 is teacher, status==1 is student, and status==0 is unassigned.
 		if($teacherstudent==1)
 		{
+			if(isset($_POST["iclassname"]))
+			{
+				$url = "http://web.njit.edu/~ss55/490server/addclass.php";
+				$fields = array(
+					'id' => urlencode($id),
+					'classname' => urlencode($_POST["iclassname"])
+				);
+				$coderesult = curlcall($fields,$url);
+			}
+			$url = "http://web.njit.edu/~tjh24/returnclass.php";
+			//$url = "http://web.njit.edu/~ss55/490server/returnclass.php";
+			$fields = array(
+				'id' => urlencode($id)
+			);
+			$coderesult = curlcall($fields,$url);
+			$doc = new DOMDocument();
+			$doc->loadHTML($coderesult);
+			$classes = $doc->getElementsByTagName('classname');
+			$classesid = $doc->getElementsByTagName('classid');
             /*
             $url = "http://web.njit.edu/~ss55/490server/getclasses.php";
             $fields = array(
@@ -185,7 +184,125 @@ echo '</td>
 		}
         elseif($teacherstudent == 0)
         {
-            
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////begin student part///////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			if(isset($_POST["sclassid"]))
+			{
+				$fields = array(
+					"studentid"=>urlencode($id),
+					"classid"=>urlencode($_POST["sclassid"])
+				);
+				curlcall($fields, "http://web.njit.edu/~ll37/490server/addstudentclass.php");
+			}
+			$result = curlcall(array(), "http://web.njit.edu/~ll37/490server/returnallclass.php");
+			$doc = new DOMDocument();
+			$doc->loadHTML($result);
+			//echo $result;
+			$cids = $doc->getElementsByTagName("classid");
+			$cnames = $doc->getElementsByTagName("classname");
+			echo '<table class="main-table">
+			<tr>
+			<td class="mytd" width=50%>
+			<h2 id="currentclasses">Join Classes</h2>';
+			echo '<form method="post" action="./home.php">';
+			echo "Class:<select name='sclassid'>";
+			echo "<option value='' selected='selected'></option>";
+			$sselected="";
+			foreach($cids as $key=>$cid)
+			{
+				if($classidset == $cid->nodeValue)
+				{
+					$sselected="selected";
+				}
+				echo "<option value='".$cid->nodeValue.">".$cnames->item($key)->nodeValue."</option>";
+			}
+			echo "</select>";
+			echo "<input type='submit'>";
+			echo "</form>";
+						
+			echo '</td>
+			
+			
+			<td class="mytd" width=50%>';
+			
+			$result = curlcall(array(), "http://web.njit.edu/~ll37/490server/returnstudentclass.php");
+			$doc = new DOMDocument();
+			$doc->loadHTML($result);
+			//echo $result;
+			$cids = $doc->getElementsByTagName("classid");
+			$cnames = $doc->getElementsByTagName("classname");
+			
+			$sclassidset=0;
+			$sselected="selected";
+			if(isset($_POST["s2classid"]))
+			{
+				$sclassidset=$_POST["s2classid"];
+				$sselected = "";
+			}
+			echo '<h2>Show Classes</h2>
+			<form method="post" action="./home.php">';
+			echo "Class:<select name='s2classid'>";
+			echo "<option value='' selected='".$sselected."'></option>";
+			$sselected="";
+			foreach($cids as $key=>$cid)
+			{
+				if($classidset == $cid->nodeValue)
+				{
+					$sselected="selected";
+				}
+				echo "<option value='".$cid->nodeValue."' selected='".$sselected."'>".$cnames->item($key)->nodeValue."</option>";
+			}
+			echo "</select>";
+			echo "<input type='submit'>";
+			echo "</form>";
+			echo'</td>
+			</tr>';
+			
+			echo'<tr>
+			<td class="mytd" width=50%>
+			<h2>Take Test</h2>
+			<p>';
+			if(isset($_POST["s2classid"]) && !empty($_POST["s2classid"]))
+			{
+				$result = curlcall(array('classid' => $_POST['s2classid']),"http://web.njit.edu/~ll37/490server/returnclasstest.php");
+				$doc = new DOMDocument();
+				$doc->loadHTML($result);
+				$testids = $doc->getElementsByTagName('testid');
+				$testnames = $doc->getElementsByTagName('testname');
+			
+			echo '
+				<form method ="post" action = "./home.php">
+				<input name = "sclassid" value="'.$_POST["sclassid"].'" type="hidden">
+				Select Test:<select name="stest">
+				<br>
+				<input type = "submit">
+				</form>';
+			}
+			echo'</p>
+			</td>
+			<td class="mytd" width=50%>
+			<h2>Graded Tests</h2>';
+			
+			echo '<form method="post" action="./viewtest.php">';
+			/*
+			echo "Class:<select name='classid'>";
+			echo "<option value='' selected='selected'></option>";
+			foreach($classes as $key => $class)
+			{
+				echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
+			}
+			echo "</select>";
+			echo "<input type='submit'>";
+			*/
+			echo "</form>";
+			
+			echo '</td>
+			</tr>
+			</table>
+			';
         }
 	}
 ?>
