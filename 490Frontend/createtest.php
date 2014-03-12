@@ -36,10 +36,15 @@
 	if($cookiechecker==1)
 	{
 		
-		if(isset($_POST["mycb0"]))
+		if(isset($_POST["checkcb0"]))
 		{
-			//echo "optionnum:3:id:".$id.":classid:".$_POST["classid"];
-			$result = curlcall($_POST, "http://web.njit.edu/~ss55/490server/addtestquestion.php");
+			echo "optionnum:4:id:".$id.":classid:".$_POST["classid"];
+			$result = curlcall($_POST, "http://web.njit.edu/~ss55/490server/addtestquestions.php");
+			echo $result;
+			$doc = new DOMDocument();
+			$doc->loadHTML($result);
+			$success = $doc->getElementsByTagName('success')->item(0)->nodeValue;
+			//echo $success;
 		}
 		
 		$skipcode=0;
@@ -93,6 +98,7 @@
 		}
 		else
 		{
+			//header("Location: http://web.njit.edu/~ll37/home.php");
 			//echo "optionnum:3:id:".$id.":classid:".$_POST["classid"];
 			$optionnum = 3;
 			$fields = array(
@@ -126,7 +132,8 @@ if ($optionnum==2)
 	echo '<table><thead class="myhead" style="position:relative;"><tr><th>Question</th><th>On Test</th></tr></thead>';
 	foreach($testids as $key => $testid)
 	{
-		if($ontest->item(0)->nodeValue==1)
+		//echo $ontest->item($key)->nodeValue;
+		if($ontest->item($key)->nodeValue=="1")
 		{
 			$checked='checked';
 		}
@@ -134,9 +141,9 @@ if ($optionnum==2)
 		{
 			$checked='';
 		}
-		echo '<tr><td>'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb"'.$key.' type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
+		echo '<tr><td><input name="checkcb'.$key.'" type="hidden" value="1">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
 	}
-	echo'</table><input type="submit"></form>';
+	echo'<tr><td></td><td><input type="submit"></td></tr></table></form>';
 }
 if ($optionnum==3)
 {
