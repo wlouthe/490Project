@@ -38,6 +38,7 @@ div.submit
 }
 div.mywindow
 {
+	padding:20px;
 	background-image:url(./img/triangular_@2X.png);
 }
 table
@@ -73,6 +74,9 @@ input.longbox
 table.mytable
 {
 	background-color:grey;
+	margin-top:20px;
+	margin-bottom:20px;
+	margin-left:20px;
 }
 tr.rowcolor0
 {
@@ -80,10 +84,10 @@ tr.rowcolor0
 }
 tr.rowcolor1
 {
-	background-color:silver;
+	background-color:lightgrey;
 }
 thead.myhead, thead.myhead tr
 {
 	position:relative;
-	background-color:darkgrey;
+	background-color:grey;
 }
