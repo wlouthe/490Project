@@ -13,7 +13,8 @@ if (mysqli_connect_errno())
 }
 
 $TESTID = $_POST['testid'];
-$CLASSID = $_POST['classid'];
+$TEACHID = $_POST['teachid'];
+$QUESTIONID = $_POST['questionid'];
 
 if (!empty($TESTID)) {
     // Prints all questions in specified class.
