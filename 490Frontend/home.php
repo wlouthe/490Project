@@ -189,58 +189,105 @@ echo '</td>
 /////////////////////begin student part///////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			if(isset($_POST["sclassid"]))
+			{
+				$fields = array(
+					"studentid"=>urlencode($id),
+					"classid"=>urlencode($_POST["sclassid"])
+				);
+				curlcall($fields, "http://web.njit.edu/~ll37/490server/addstudentclass.php");
+			}
+			$result = curlcall(array(), "http://web.njit.edu/~ll37/490server/returnallclass.php");
+			$doc = new DOMDocument();
+			$doc->loadHTML($result);
+			//echo $result;
+			$cids = $doc->getElementsByTagName("classid");
+			$cnames = $doc->getElementsByTagName("classname");
 			echo '<table class="main-table">
 			<tr>
 			<td class="mytd" width=50%>
 			<h2 id="currentclasses">Join Classes</h2>';
-			
 			echo '<form method="post" action="./home.php">';
-			echo "Class:<select name='classid'>";
+			echo "Class:<select name='sclassid'>";
 			echo "<option value='' selected='selected'></option>";
-			foreach($classes as $key => $class)
+			$sselected="";
+			foreach($cids as $key=>$cid)
 			{
-				echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
+				if($classidset == $cid->nodeValue)
+				{
+					$sselected="selected";
+				}
+				echo "<option value='".$cid->nodeValue.">".$cnames->item($key)->nodeValue."</option>";
 			}
 			echo "</select>";
+			echo "<input type='submit'>";
 			echo "</form>";
 						
 			echo '</td>
-			<td class="mytd" width=50%>
-			<h2>Add Class</h2>
-			<p>
-				<form method ="post" action = "./home.php">
-				Class Name:<input id="iclassname" name="iclassname" type="text">
-				<br>
-				<input type = "submit">
-				<!--<div id="csubmit" class="submit">Submit</div>-->
-				</form>
-			</p>
-			</td>
-			</tr>
 			
-			<tr>
-			<td class="mytd" width=50%>
-			<h2>Create Test</h2>
-			';
 			
-			echo '<form id="testform" method="post" action="javascript: return false">';
-			echo "Class:<select name='classid'>";
-			echo "<option value='' selected='selected'></option>";
-			foreach($classes as $key => $class)
+			<td class="mytd" width=50%>';
+			
+			$result = curlcall(array(), "http://web.njit.edu/~ll37/490server/returnstudentclass.php");
+			$doc = new DOMDocument();
+			$doc->loadHTML($result);
+			//echo $result;
+			$cids = $doc->getElementsByTagName("classid");
+			$cnames = $doc->getElementsByTagName("classname");
+			
+			$sclassidset=0;
+			$sselected="selected";
+			if(isset($_POST["s2classid"]))
 			{
-				echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
+				$sclassidset=$_POST["s2classid"];
+				$sselected = "";
+			}
+			echo '<h2>Show Classes</h2>
+			<form method="post" action="./home.php">';
+			echo "Class:<select name='s2classid'>";
+			echo "<option value='' selected='".$sselected."'></option>";
+			$sselected="";
+			foreach($cids as $key=>$cid)
+			{
+				if($classidset == $cid->nodeValue)
+				{
+					$sselected="selected";
+				}
+				echo "<option value='".$cid->nodeValue."' selected='".$sselected."'>".$cnames->item($key)->nodeValue."</option>";
 			}
 			echo "</select>";
-			echo "<br>New Test:<input id='tname' name='tname' type='text'><br>";
-			echo "<input id='tbutton1' type='submit' value='Create New Test'><input id='tbutton2' type='submit' value='Edit Existing Test'>";
+			echo "<input type='submit'>";
 			echo "</form>";
+			echo'</td>
+			</tr>';
+			
+			echo'<tr>
+			<td class="mytd" width=50%>
+			<h2>Take Test</h2>
+			<p>';
+			if(isset($_POST["s2classid"]) && !empty($_POST["s2classid"]))
+			{
+				$result = curlcall(array('classid' => $_POST['s2classid']),"http://web.njit.edu/~ll37/490server/returnclasstest.php");
+				$doc = new DOMDocument();
+				$doc->loadHTML($result);
+				$testids = $doc->getElementsByTagName('testid');
+				$testnames = $doc->getElementsByTagName('testname');
 			
 			echo '
+				<form method ="post" action = "./home.php">
+				<input name = "sclassid" value="'.$_POST["sclassid"].'" type="hidden">
+				Select Test:<select name="stest">
+				<br>
+				<input type = "submit">
+				</form>';
+			}
+			echo'</p>
 			</td>
 			<td class="mytd" width=50%>
-			<h2>Create Questions</h2>';
+			<h2>Graded Tests</h2>';
 			
-			echo '<form method="post" action="./createquestions.php">';
+			echo '<form method="post" action="./viewtest.php">';
+			/*
 			echo "Class:<select name='classid'>";
 			echo "<option value='' selected='selected'></option>";
 			foreach($classes as $key => $class)
@@ -249,7 +296,7 @@ echo '</td>
 			}
 			echo "</select>";
 			echo "<input type='submit'>";
-			
+			*/
 			echo "</form>";
 			
 			echo '</td>
