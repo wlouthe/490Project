@@ -79,14 +79,10 @@
 			
 			$doc = new DOMDocument();
 			$doc->loadHTML($result);
-			$testids = $doc->getElementsByTagName('testid');
-			$testnames = $doc->getElementsByTagName('testid');
+			$testids = $doc->getElementsByTagName('id');
+			$testnames = $doc->getElementsByTagName('name');
+			$ontest = $doc->getElementsByTagName('ontest');
 			
-			foreach($testids as $key => $testid)
-			{
-				echo "<option value='".$testid->nodeValue."'>".$testnames->item($key)->nodeValue."</option>";
-			}
-			echo "</select>";
 		}
 		else
 		{
@@ -114,6 +110,24 @@
 </div>
 <div class="main-class">
 <div class="mywindow">';
+if ($optionnum==2)
+{
+	echo '<form id="myform" method="post" action="javascript: return false">';
+	echo '<table><thead class="myhead" style="position:relative;"><tr><th>Question</th><th>On Test</th></tr></thead>';
+	foreach($testids as $key => $testid)
+	{
+		if($ontest->item(0)->nodeValue==1)
+		{
+			$checked='checked';
+		}
+		else 
+		{
+			$checked='';
+		}
+		echo '<tr><td>'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb"'.$key.' type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
+	}
+	echo'</table>';
+}
 if ($optionnum==3)
 {
 	echo '<form id="myform" method="post" action="javascript: return false">
