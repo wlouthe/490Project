@@ -23,7 +23,6 @@ if (!empty($TEACHID))
   	if ($status == 1)
   	{
         mysqli_query($con,"DELETE FROM testQuestions WHERE testId = $TESTID;");
-        mysqli_query($con,"DELETE FROM test WHERE testId = $TESTID;");
     }
 	else
 	{
