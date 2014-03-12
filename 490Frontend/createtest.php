@@ -35,8 +35,17 @@
 
 	if($cookiechecker==1)
 	{
-		if(isset($_POST["tname"]) && $_POST["tname"] != "")
+		$skipcode=0;
+		if(isset($_POST["mode"]))
 		{
+			if($_POST["mode"]=="edit")
+			{
+				$skipcode=1;
+			}
+		}
+		if(isset($_POST["tname"]) && $_POST["tname"] != "" && $skipcode==0)
+		{
+			echo "optionnum:1:teachid:".$id.":classid:".$_POST["classid"].":testname:".$_POST["testname"];
 			$optionnum=1;
 			//echo $_POST["tname"];
 			$fields = array(
@@ -60,9 +69,11 @@
 		}
 		elseif(isset($_POST["testid"]) && $_POST["testid"] != "0")
 		{
+			echo "optionnum:2:testid:".$_POST["testid"].":classid:".$_POST["classid"];
 			$optionnum=2;
 			$fields = array(
-				"testid" => urlencode($_POST["testid"])
+				"testid" => urlencode($_POST["testid"]),
+				"classid" => urlencode($_POST["classid"])
 			);
 			$result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntestquestions.php");
 			
@@ -79,7 +90,7 @@
 		}
 		else
 		{
-			echo "id:".$id.":classid:".$_POST["classid"];
+			echo "optionnum:3:id:".$id.":classid:".$_POST["classid"];
 			$optionnum = 3;
 			$fields = array(
 				"teachid" => urlencode($id),
@@ -106,7 +117,8 @@
 if ($optionnum==3)
 {
 	echo '<form id="myform" method="post" action="javascript: return false">
-	<input name="myhid" value="123" type="hidden">
+	<input id="mode" name="mode" value="edit" type="hidden">
+	<input name="classid" value="'.$_POST["classid"].'" type="hidden">
 	<hr><div id="stestselect">';
 	echo "Test:<select name = 'testid'><option value='0' selected='selected'></option>";
 	foreach($testids as $key => $testid)
@@ -125,11 +137,13 @@ if ($optionnum==3)
 	<script>
 	$("#stest").click(function(){
 		$("#tname").html("");
+		$("#mode").val("edit");
 		$("#stestselect").show();
 		$("#ctestselect").hide();
 	});
 	$("#ctest").click(function(){
 		$("#tname").html("");
+		$("#mode").val("new");
 		$("#stestselect").hide();
 		$("#ctestselect").show();
 	});
