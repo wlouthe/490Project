@@ -23,7 +23,7 @@ if (!empty($TESTID) && !empty($QUESTIONID)) {
   	if ($status == 1)
   	{
     mysqli_query($con,"INSERT INTO testQuestions(testId, creatorId, questionId)
-        VALUES($TESTID, $TEACHID, $QUESTIONID)";);
+        VALUES($TESTID, $TEACHID, $QUESTIONID);");
     echo "<success>1</success>";
     }
 }
