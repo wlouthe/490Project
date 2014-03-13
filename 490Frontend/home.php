@@ -169,9 +169,9 @@ echo '</td>
 					"studentid"=>urlencode($id),
 					"classid"=>urlencode($_POST["sclassid"])
 				);
-				curlcall($fields, "http://web.njit.edu/~ll37/490server/addstudentclass.php");
+				curlcall($fields, "http://web.njit.edu/~ss55/490server/addstudentclass.php");
 			}
-			$result = curlcall(array(), "http://web.njit.edu/~ll37/490server/returnallclass.php");
+			$result = curlcall(array(), "http://web.njit.edu/~ss55/490server/returnallclass.php");
 			$doc = new DOMDocument();
 			$doc->loadHTML($result);
 			//echo $result;
@@ -202,7 +202,7 @@ echo '</td>
 			
 			<td class="mytd" width=50%>';
 			
-			$result = curlcall(array("studentid"=>$id), "http://web.njit.edu/~ll37/490server/returnstudentclass.php");
+			$result = curlcall(array("studentid"=>$id), "http://web.njit.edu/~ss55/490server/returnstudentclass.php");
 			$doc = new DOMDocument();
 			$doc->loadHTML($result);
 			//echo $result;
@@ -237,7 +237,7 @@ echo '</td>
 			<p>';
 			if(isset($_POST["s2classid"]) && !empty($_POST["s2classid"]))
 			{
-				$result = curlcall(array('studentid' => urlencode($id),'classid' => urlencode($_POST['s2classid'])),"http://web.njit.edu/~ll37/490server/returnclasstest.php");
+				$result = curlcall(array('studentid' => urlencode($id),'classid' => urlencode($_POST['s2classid'])),"http://web.njit.edu/~ss55/490server/returnclasstest.php");
 				$doc = new DOMDocument();
 				$doc->loadHTML($result);
 				$testids = $doc->getElementsByTagName('testid');
