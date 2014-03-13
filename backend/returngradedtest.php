@@ -14,7 +14,6 @@ if (mysqli_connect_errno())
 
 $STUDENT = $_POST['studentid'];
 $TESTID = $_POST['testid'];
-$CLASSID = $_POST['classid'];
 
 if (!empty($TESTID) && !empty($STUDENT)) {
     $query = mysqli_query($con,"SELECT DISTINCT * FROM testQuestions, question 
