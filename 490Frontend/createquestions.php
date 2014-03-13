@@ -59,27 +59,6 @@
 <table><tr><td><button id="multiplechoice" class="submit">Multiple Choice</button></td><td><button id="truefalse" class="submit">True or False</button></td><td><button id="shortanswer">Short Answer</button></td><td><button id="programming">Programming</button></td></tr></table>
 <input id="mysub" type="submit">
 ';
-//*
-	if($cookiechecker==1&&isset($_POST["Program"])&&!empty($_POST["Program"]))
-	{
-		if(!empty($mystring2))
-		{
-			echo "<div>Output: ".$mystring2."</div>";
-			if($mystring2 == 9)
-			{
-				echo "The output is correct!";
-			}
-			else
-			{
-				echo "The output is incorrect, try again";
-			}
-		}
-		if(empty($mystring2))
-		{
-			echo "<div style = 'background-color:silver; color:red;'>There is an a error with your code<br></div>";
-		}
-	}
-//*/
 echo '
 </form>
 <div>

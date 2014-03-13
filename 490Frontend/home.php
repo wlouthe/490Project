@@ -217,10 +217,10 @@ echo '</td>
 				{
 					$sselected="selected";
 				}
-				echo "<option value='".$cid->nodeValue.">".$cnames->item($key)->nodeValue."</option>";
+				echo "<option value='".$cid->nodeValue."'>".$cnames->item($key)->nodeValue."</option>";
 			}
 			echo "</select>";
-			echo "<input type='submit'>";
+			echo "<input name='submit' type='submit'>";
 			echo "</form>";
 						
 			echo '</td>
@@ -228,7 +228,7 @@ echo '</td>
 			
 			<td class="mytd" width=50%>';
 			
-			$result = curlcall(array(), "http://web.njit.edu/~ll37/490server/returnstudentclass.php");
+			$result = curlcall(array("studentid"=>$id), "http://web.njit.edu/~ll37/490server/returnstudentclass.php");
 			$doc = new DOMDocument();
 			$doc->loadHTML($result);
 			//echo $result;
@@ -242,7 +242,7 @@ echo '</td>
 				$sclassidset=$_POST["s2classid"];
 				$sselected = "";
 			}
-			echo '<h2>Show Classes</h2>
+			echo '<h2>Select Class</h2>
 			<form method="post" action="./home.php">';
 			echo "Class:<select name='s2classid'>";
 			echo "<option value='' selected='".$sselected."'></option>";
@@ -267,18 +267,21 @@ echo '</td>
 			<p>';
 			if(isset($_POST["s2classid"]) && !empty($_POST["s2classid"]))
 			{
-				$result = curlcall(array('classid' => $_POST['s2classid']),"http://web.njit.edu/~ll37/490server/returnclasstest.php");
+				$result = curlcall(array('studentid' => urlencode($id),'classid' => urlencode($_POST['s2classid'])),"http://web.njit.edu/~ll37/490server/returnclasstest.php");
 				$doc = new DOMDocument();
 				$doc->loadHTML($result);
 				$testids = $doc->getElementsByTagName('testid');
 				$testnames = $doc->getElementsByTagName('testname');
-			
+				//echo "bye".$result."bye";
 			echo '
-				<form method ="post" action = "./home.php">
-				<input name = "sclassid" value="'.$_POST["sclassid"].'" type="hidden">
-				Select Test:<select name="stest">
-				<br>
-				<input type = "submit">
+				<form method ="post" action = "./taketest.php">
+				<input name = "classid" value="'.$_POST["s2classid"].'" type="hidden">
+				Select Test:<select name="testid">';
+				foreach($testids as $key=>$testid)
+				{
+					echo "<option value='".$testid->nodeValue."'>".$testnames->item($key)->nodeValue."</option>";
+				}
+				echo'</select><input type = "submit">
 				</form>';
 			}
 			echo'</p>
