@@ -60,7 +60,6 @@
 <?php
 	if($cookiechecker==1)
 	{
-        //echo $coderesult;
         //this should find out whether the user is a teacher or student, their ID and username, and if its a teacher
 		// it should find the teachers classes, the test creation page, and the question creation page.
 		// If its a student, it should find the students classes, and available tests.
@@ -69,6 +68,7 @@
 		// status==2 is teacher, status==1 is student, and status==0 is unassigned.
 		if($teacherstudent==1)
 		{
+			
 			if(isset($_POST["iclassname"]))
 			{
 				$url = "http://web.njit.edu/~ss55/490server/addclass.php";
@@ -79,7 +79,6 @@
 				$coderesult = curlcall($fields,$url);
 			}
 			$url = "http://web.njit.edu/~tjh24/returnclass.php";
-			//$url = "http://web.njit.edu/~ss55/490server/returnclass.php";
 			$fields = array(
 				'id' => urlencode($id)
 			);
@@ -88,31 +87,6 @@
 			$doc->loadHTML($coderesult);
 			$classes = $doc->getElementsByTagName('classname');
 			$classesid = $doc->getElementsByTagName('classid');
-            /*
-            $url = "http://web.njit.edu/~ss55/490server/getclasses.php";
-            $fields = array(
-                'txtUsername' => urlencode($uname),
-                'teacherstudent' =>urlencode($teacherstudent)
-            );
-            $myresult=curlcall($fields, $url);
-            $doc = new DOMDocument();
-            $doc->loadHTML($myresult);
-            $status = $doc->getElementsByTagName('status')->item(0)->nodeValue;
-            $classes = $doc->getElementsByTagName('classes');
-            */
-            
-			//show classes. upon clicking classes, displays tests for grading/previously graded,
-			// shows button to create test, shows button to create questions.
-            /*
-			echo "<table><tr><td><div class='mywindow'>";
-			echo "Class:<select name='classes'>";
-				echo "<option value='' selected='selected'></option>";
-			foreach($classes as $class)
-			{
-				echo "<option value='".$class->nodeValue."'>".$class->nodeValue."</option>";
-			}
-			echo "</select></div></td><td></td></tr><tr><td></td><td></td></tr></table>";
-            */
             echo '<table class="main-table">
 <tr>
 <td class="mytd" width=50%>
@@ -249,11 +223,7 @@ echo '</td>
 			$sselected="";
 			foreach($cids as $key=>$cid)
 			{
-				if($classidset == $cid->nodeValue)
-				{
-					$sselected="selected";
-				}
-				echo "<option value='".$cid->nodeValue."' selected='".$sselected."'>".$cnames->item($key)->nodeValue."</option>";
+				echo "<option value='".$cid->nodeValue."'>".$cnames->item($key)->nodeValue."</option>";
 			}
 			echo "</select>";
 			echo "<input type='submit'>";
@@ -280,6 +250,8 @@ echo '</td>
 				foreach($testids as $key=>$testid)
 				{
 					echo "<option value='".$testid->nodeValue."'>".$testnames->item($key)->nodeValue."</option>";
+					//ABSOLUTE BULLSHIT TECHNIQUE MOVE
+					//curlcall(array("studentid"=>urlencode($id),"testid"=>urlencode($testid->nodeValue)),"http://web.njit.edu/~tjh24/returngradedtestlist.php");
 				}
 				echo'</select><input type = "submit">
 				</form>';
@@ -288,18 +260,26 @@ echo '</td>
 			</td>
 			<td class="mytd" width=50%>
 			<h2>Graded Tests</h2>';
-			
+			$results = curlcall(array("studentid"=>urlencode($id)),"http://web.njit.edu/~tjh24/returngradedtestlist.php");
+			//echo $results;
+			$doc = new DOMDocument();
+			$doc->loadHTML($results);
+			$gradedtids = $doc->getElementsByTagName("testid");
+			$gradedtnames = $doc->getElementsByTagName("testname");
+			$gcurscores = $doc->getElementsByTagName("curscore");
 			echo '<form method="post" action="./viewtest.php">';
-			/*
-			echo "Class:<select name='classid'>";
-			echo "<option value='' selected='selected'></option>";
-			foreach($classes as $key => $class)
-			{
-				echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
-			}
-			echo "</select>";
-			echo "<input type='submit'>";
-			*/
+			
+			echo'<input name = "classid" value="'.$_POST["s2classid"].'" type="hidden">
+				Select Test:<select name="testid">';
+				foreach($gradedtids as $key=>$gradedtid)
+				{
+					//if($gcurscore->item($key)->nodeValue!=0)
+					{
+						echo "<option value='".$gradedtid->nodeValue."'>".$gradedtnames->item($key)->nodeValue."</option>";
+					}
+				}
+				echo'</select><input type = "submit">';
+		
 			echo "</form>";
 			
 			echo '</td>

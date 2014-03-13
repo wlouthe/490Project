@@ -44,9 +44,49 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script></head>';
 	if(isset($_POST["submittest"]))
 	{
-		$result = curlcall("http://web.njit.edu/~ss55/490server/.php");
+		echo '<body>
+		<div class="nav-wrapper">Welcome '. $uname .'!
+		</div>
+		<div class="main-class">
+		<div class="mywindow">Success! <a href="./home.php">Click here to return Home</a><br>';
+		$count=0;
+		foreach($_POST as $key=>$mypost)
+		{
+			$_POST[$key]=rawurlencode($_POST[$key]);
+			//echo $_POST[$key];
+		}
+		//while($_POST["answer".$count])
+		//{
+		//	$_POST["answer".$count]=rawurlencode($_POST["answer".$count]);
+		//	$count++;
+		//}
+		$result = curlcall($_POST,"http://web.njit.edu/~ss55/490server/gradetest.php");
+		//echo "shady".$result."shady";
+		echo '</div></div></body>';
+		//$doc = new DOMDocument();
+		//$doc->loadHTML($result);
+		//$success = $doc->getElementByTagName("success")->item(0)->nodeValue;
+		/*
+		if($success=="1")
+		{
+			echo '<body>
+		<div class="nav-wrapper">Welcome '. $uname .'!
+		</div>
+		<div class="main-class">
+		<div class="mywindow">Success! <a href="./home.php">Click here to return Home</a></div></div></body>';
+		}
+		else
+		{
+			echo '<body>
+			<div class="nav-wrapper">Welcome '. $uname .'!
+			</div>
+			<div class="main-class">
+			<div class="mywindow">Success! <a href="./home.php">Click here to return Home</a></div></div></body>';
+			
+		}
+		*/
 	}
-	if(isset($_POST["starttest"]))
+	elseif(isset($_POST["starttest"]))
 	{
 		
 		echo '<body>
@@ -55,8 +95,9 @@
 		<div class="main-class">
 		<div class="mywindow">
 		<div id="timefield"><h2>Time Remaining:</h2><h2 id="currenttime"></h2></div>
-		<form id="myform" method="post" action="javascript: return false">
+		<form id="myform" method="post" action="./taketest.php">
 		<input name="studentid" value="'.$id.'" type="hidden">
+		<input name="username" value="'.$uname.'" type="hidden">
 		<input name="testid" value="'.$_POST["testid"].'" type="hidden">
 		<input name="classid" value="'.$_POST["classid"].'" type="hidden">
 		<input name="submittest" value="1" type="hidden">
@@ -79,15 +120,15 @@
 			$type = $question->getElementsByTagName("type")->item(0)->nodeValue;
 			$name = $question->getElementsByTagName("name")->item(0)->nodeValue;
 			$pvalue = $question->getElementsByTagName("pvalue")->item(0)->nodeValue;
-			echo "<input name='questionid".$key."' value='".$qid."' type='hidden'><input name='type".$key."' value='".$type."' type='hidden'>";
+			echo "<input name='questionid".$key."' value='".$qid."' type='hidden'><input class='type' name='type".$key."' value='".$type."' type='hidden'>";
 			echo "<table><tr><td>Question ".($key+1).":</td><td>Point Value: ".$pvalue."</td><td></td></tr>";
 			echo "<tr><td></td><td>".$name."</td><td></td></tr>";
 			if($type == 1)
 			{
-				$answer1 = $question->getElementsByTagName("A")->item(0)->nodeValue;
-				$answer2 = $question->getElementsByTagName("B")->item(0)->nodeValue;
-				$answer3 = $question->getElementsByTagName("C")->item(0)->nodeValue;
-				$answer4 = $question->getElementsByTagName("D")->item(0)->nodeValue;
+				$answer1 = $question->getElementsByTagName("ans")->item(0)->nodeValue;
+				$answer2 = $question->getElementsByTagName("ans")->item(1)->nodeValue;
+				$answer3 = $question->getElementsByTagName("ans")->item(2)->nodeValue;
+				$answer4 = $question->getElementsByTagName("ans")->item(3)->nodeValue;
 				echo "<tr><td></td><td>".$answer1."</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='1'></td></tr>";
 				echo "<tr><td></td><td>".$answer2."</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='2'></td></tr>";
 				echo "<tr><td></td><td>".$answer3."</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='3'></td></tr>";
@@ -96,7 +137,7 @@
 			if($type == 2)
 			{
 				echo "<tr><td></td><td>True</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='1'></td></tr>";
-				echo "<tr><td></td><td>False</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='0'></td></tr>";
+				echo "<tr><td></td><td>False</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='2'></td></tr>";
 			}
 			if($type == 3)
 			{
@@ -124,7 +165,11 @@
 		var hours;
 		var minutes;
 		var seconds;
-		
+		var hours0;
+		var minutes0;
+		var seconds0;
+		var fivemin = 0;
+		var onemin = 0;
 		$(document).ready(function(){
 			$("#timefield").css({marginLeft : ($(window).width()-$("#timefield").width() + 20)});
 		});
@@ -135,21 +180,46 @@
 		1000);
 		
 		setInterval(function(){
+			
 			cdate = (edate - new Date);
 			cdate = (cdate - (cdate%1000))/1000;
 			hours = (cdate-(cdate%3600))/3600;
 			minutes = ((cdate-hours*3600) - (cdate-hours*3600)%60)/60;
 			seconds  = (cdate-hours*3600-minutes*60);
-			$("#currenttime").html(hours+":"+minutes+":"+seconds);
+			minutes0="";
+			hours0="";
+			seconds0="";
+			if(hours<10)
+			{
+				hours0 = "0";
+			}
+			if(minutes<10)
+			{
+				minutes0 = "0";
+			}
+			if(seconds<10)
+			{
+				seconds0 = "0";
+			}
+			$("#currenttime").html(hours0+hours+":"+minutes0+minutes+":"+seconds0+seconds);
+			if(hours == 0 && minutes <=5 && fivemin == 0)
+			{
+				alert("5 minutes remaining! Remember to hurry and finish the test.");
+				fivemin++;
+			}
+			if(hours == 0 && minutes <=1 && onemin == 0)
+			{
+				alert("1 minutes remaining! Remember to hurry and submit your answers.");
+				onemin++;
+			}
 			
 		},
 		1000);
 		
-	
+		
 		$(window).resize(function(){	
 			$("#timefield").css({marginLeft : ($(window).width()-$("#timefield").width() + 20)});
 		});
-		
 		
 		
 		</script>
