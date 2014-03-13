@@ -57,7 +57,7 @@
 		$results = curlcall(array("studentid" => urlencode($id),
 									"testid" => urlencode($_POST["testid"]),
 									"classid" => urlencode($_POST["classid"])),
-									"http://web.njit.edu/~ss55/490server/returngradedtest.php");
+									"http://web.njit.edu/~tjh24/returngradedtest.php");
 		//<question>id, type, name</question>
 		//echo $results;
 		$doc = new DOMDocument();
@@ -69,6 +69,14 @@
 		$questions = $doc->getElementsByTagName("question");
 		foreach($questions as $key=>$question)
 		{
+			$mycb1="";
+			$mycb2="";
+			$mycb3="";
+			$mycb4=""; 
+			$mystyle1="";
+			$mystyle2="";
+			$mystyle3="";
+			$mystyle4="";
 			$qid = $question->getElementsByTagName("id")->item(0)->nodeValue;
 			$type = $question->getElementsByTagName("type")->item(0)->nodeValue;
 			$name = $question->getElementsByTagName("name")->item(0)->nodeValue;
@@ -90,10 +98,6 @@
 			echo "<tr><td></td><td>".$name."</td><td></td></tr>";
 			if($type == 1)
 			{
-				$mycb1="";
-				$mycb2="";
-				$mycb3="";
-				$mycb4=""; 
 				$answer1 = $question->getElementsByTagName("ans")->item(0)->nodeValue;
 				$answer2 = $question->getElementsByTagName("ans")->item(1)->nodeValue;
 				$answer3 = $question->getElementsByTagName("ans")->item(2)->nodeValue;

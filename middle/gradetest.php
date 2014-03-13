@@ -7,10 +7,12 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
     foreach($_POST as $key => $mypost)
     {
          $_POST[$key] = rawurldecode($_POST[$key]);
+		 echo $_POST[$key];
     }
     
 	$count = 0;
     $username = $_POST["username"];
+	//print_r($_POST);
     while(isset($_POST["questionid".$count]))
     {
         
@@ -26,7 +28,9 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
             
             
             $result = curlcall($fields,"http://web.njit.edu/~tjh24/returnanswer.php");
-            
+            echo $_POST["questionid".$count];
+				echo $result;
+			
             $doc = new DOMDocument();
             $doc->loadHTML($result);
             $answer = $doc->getElementsByTagName("answer")->item(0)->nodeValue;
@@ -157,7 +161,7 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
                 }
                 
                 
-                
+                //echo "PROGRAM CORRECT = ".$correct."--;";
                 $fields = array(
                     'testid' => urlencode($_POST["testid"]),
                     'studentid' => urlencode($_POST["studentid"]),
