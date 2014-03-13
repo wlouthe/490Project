@@ -1,7 +1,7 @@
 <?php
 require "mycurl.php";
 if(isset($_POST["studentid"]) && isset($_POST["testid"]) )
-{
+{	$success = 1;
 	$count = 0;
     while(isset($_POST["questionid".$count]))
     {
