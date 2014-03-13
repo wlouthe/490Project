@@ -1,13 +1,14 @@
 <?php
 require "mycurl.php";
-if ( isset($_POST["teachid"]) && isset($_POST["classid"]))
+if (isset($_POST["classid"]))
 	{
-		$url = "http://web.njit.edu/~tjh24/returntest.php";
+		$url = "http://web.njit.edu/~tjh24/returnstudenttest.php";
         $fields = array(
+		'studentid' => urlencode($_POST["studentid"]),
 		'classid' => urlencode($_POST["classid"])
 		);
         $result = curlcall($fields,$url);
-    
+    	 //echo "hello:".$result.":hello";
         $doc = new DOMDocument();
         $doc->loadHTML($result);
         $testids = $doc->getElementsByTagName('testid');
