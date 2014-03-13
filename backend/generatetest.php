@@ -17,8 +17,9 @@ $TESTID = $_POST['testid'];
 $CLASSID = $_POST['classid'];
 
 if (!empty($TESTID) && !empty($STUDENT)) {
-    $query = mysqli_query($con,"SELECT DISTINCT * FROM testQuestions, question WHERE testQuestions.questionId = question.questionId AND testQuestions.testId = $TESTID;");
-    // $answer = mysqli_query($con,"SELECT DISTINCT * FROM testQuestions, answer WHERE testQuestions.questionId = answer.questionId AND testQuestions.testId = $TESTID;");
+    $query = mysqli_query($con,"SELECT DISTINCT * FROM testQuestions, question 
+    WHERE testQuestions.questionId = question.questionId AND testQuestions.testId = $TESTID;");
+    $TOTALSCORE = 0;
     while ($row = mysqli_fetch_array($query)) {
         $type = $row['questionType'];
         // Multiple Choice
@@ -28,6 +29,7 @@ if (!empty($TESTID) && !empty($STUDENT)) {
             echo "<id>".$row['questionId']."</id>";
             echo "<type>".$row['questionType']."</type>";
             echo "<pvalue>".$row['questionValue']."</pvalue>";
+            $TOTALSCORE = $TOTALSCORE + $row['questionValue'];
             echo "<name>".$row['questionQuery']."</name>";
             $QUESTIONID = $row['questionId'];
             $answer = mysqli_query($con,"SELECT * FROM answer WHERE questionId = $QUESTIONID;");
@@ -44,6 +46,7 @@ if (!empty($TESTID) && !empty($STUDENT)) {
             echo "<id>".$row['questionId']."</id>";
             echo "<type>".$row['questionType']."</type>";
             echo "<pvalue>".$row['questionValue']."</pvalue>";
+            $TOTALSCORE = $TOTALSCORE + $row['questionValue'];
             echo "<name>".$row['questionQuery']."</name>";
             $QUESTIONID = $row['questionId'];
             $answer = mysqli_query($con,"SELECT * FROM answer WHERE questionId = $QUESTIONID;");
@@ -60,6 +63,7 @@ if (!empty($TESTID) && !empty($STUDENT)) {
             echo "<id>".$row['questionId']."</id>";
             echo "<type>".$row['questionType']."</type>";
             echo "<pvalue>".$row['questionValue']."</pvalue>";
+            $TOTALSCORE = $TOTALSCORE + $row['questionValue'];
             echo "<name>".$row['questionQuery']."</name>";
             echo "</question>";
         }
@@ -69,16 +73,22 @@ if (!empty($TESTID) && !empty($STUDENT)) {
             echo "<id>".$row['questionId']."</id>";
             echo "<type>".$row['questionType']."</type>";
             echo "<pvalue>".$row['questionValue']."</pvalue>";
+            $TOTALSCORE = $TOTALSCORE + $row['questionValue'];
             echo "<name>".$row['questionQuery']."</name>";
             echo "</question>";
         }
     }
     date_default_timezone_set('America/New_York');
     $TIME = time();
-    $TIMESTART = date("H:i:s", $TIME);
-    mysqli_query($con,"INSERT INTO studentTest(studentId, studentClassId, testId, startTime) VALUES($STUDENT, $CLASSID, $TESTID, '$TIMESTART');");
+    $ENDTIME = time() + 60*60;
+    $TIMESTART = date("Y-m-d H:i:s", $TIME);
+    $TIMEEND = date("Y-m-d H:i:s", $ENDTIME);
+    
+    mysqli_query($con,"INSERT INTO studentTest(studentId, studentClassId, testId, totalScore, startTime, endTime) 
+    VALUES($STUDENT, $CLASSID, $TESTID, $TOTALSCORE, '$TIMESTART', '$TIMEEND');");
     
     echo "<timestart>".$TIMESTART."</timestart>";
+    echo "<timeend>".$TIMEEND."</timeend>";
 }
 else {
     echo "Missing ID.";

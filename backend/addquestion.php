@@ -73,8 +73,8 @@ if (!empty($TEACHID) && !empty($CLASSID)) {
     }
     if ($QUESTIONTYPE == 4) {
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
-            mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
-                VALUES($QUESTIONID, '$i', '$TESTCASE[$j]', 1);");
+            mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField)
+                VALUES($QUESTIONID, '$i', '$TESTCASE[$j]');");
         }
         mysqli_query($con,"UPDATE question SET questionTestCode = '$TESTCODE' WHERE questionId = $QUESTIONID;");
     }
