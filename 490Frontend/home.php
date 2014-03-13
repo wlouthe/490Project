@@ -78,7 +78,7 @@
 				);
 				$coderesult = curlcall($fields,$url);
 			}
-			$url = "http://web.njit.edu/~tjh24/returnclass.php";
+			$url = "http://web.njit.edu/~ss55/490server/returnclass.php";
 			$fields = array(
 				'id' => urlencode($id)
 			);
@@ -250,8 +250,6 @@ echo '</td>
 				foreach($testids as $key=>$testid)
 				{
 					echo "<option value='".$testid->nodeValue."'>".$testnames->item($key)->nodeValue."</option>";
-					//ABSOLUTE BULLSHIT TECHNIQUE MOVE
-					//curlcall(array("studentid"=>urlencode($id),"testid"=>urlencode($testid->nodeValue)),"http://web.njit.edu/~tjh24/returngradedtestlist.php");
 				}
 				echo'</select><input type = "submit">
 				</form>';
@@ -260,7 +258,7 @@ echo '</td>
 			</td>
 			<td class="mytd" width=50%>
 			<h2>Graded Tests</h2>';
-			$results = curlcall(array("studentid"=>urlencode($id)),"http://web.njit.edu/~tjh24/returngradedtestlist.php");
+			$results = curlcall(array("studentid"=>urlencode($id)),"http://web.njit.edu/~ss55/490server/returngradedtestlist.php");
 			//echo $results;
 			$doc = new DOMDocument();
 			$doc->loadHTML($results);
