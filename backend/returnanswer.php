@@ -16,8 +16,14 @@ $QUESTIONID = $_POST['questionid'];
 $QUESTIONTYPE = $_POST['type'];
 
 if (!empty($QUESTIONID)) {
-    if ($QUESTIONTYPE != 4) {
-        $query = mysqli_query($con,"SELECT answerField FROM answer WHERE answerCorrect = 1 AND questionId = $QUESTIONID;");
+    if ($QUESTIONTYPE == 1 || $QUESTIONTYPE == 2) {
+        $query = mysqli_query($con,"SELECT * FROM answer WHERE answerCorrect = 1 AND questionId = $QUESTIONID;");
+        while ($row = mysqli_fetch_array($query)) {
+            echo "<answer>".$row['answerLetter']."</answer>";
+        }
+    }
+    if ($QUESTIONTYPE == 3) {
+        $query = mysqli_query($con,"SELECT * FROM answer WHERE answerCorrect = 1 AND questionId = $QUESTIONID;");
         while ($row = mysqli_fetch_array($query)) {
             echo "<answer>".$row['answerField']."</answer>";
         }

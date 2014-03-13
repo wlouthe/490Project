@@ -44,9 +44,7 @@ if (!empty($TESTID) && !empty($STUDENT)) {
                 $QUESTIONID = $row['questionId'];
                 $answer = mysqli_query($con,"SELECT * FROM answer WHERE questionId = $QUESTIONID;");
                 while ($row2 = mysqli_fetch_array($answer)) {
-                    $L = array('A', 'B', 'C', 'D');
-                    echo "<".$L[$i].">".$row2['answerField']."</".$L[$i].">";
-                    $i++;
+                    echo "<ans>".$row2['answerField']."</ans>";
                 }
                 echo "</question>";
             }
@@ -118,9 +116,7 @@ if (!empty($TESTID) && !empty($STUDENT)) {
                 $QUESTIONID = $row['questionId'];
                 $answer = mysqli_query($con,"SELECT * FROM answer WHERE questionId = $QUESTIONID;");
                 while ($row2 = mysqli_fetch_array($answer)) {
-                    $L = array('A', 'B', 'C', 'D');
-                    echo "<".$L[$i].">".$row2['answerField']."</".$L[$i].">";
-                    $i++;
+                    echo "<ans>".$row2['answerField']."</ans>";
                 }
                 echo "</question>";
             }
