@@ -12,39 +12,116 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$TESTID = $_POST['testid'];
 $STUDENT = $_POST['studentid'];
-$CURSCORE = 0;
-$MAXSCORE = 0;
+$TESTID = $_POST['testid'];
+$CLASSID = $_POST['classid'];
 
 if (!empty($TESTID) && !empty($STUDENT)) {
-    $query = mysqli_query($con,"SELECT * FROM test WHERE testId = $TESTID;");
-    $row = mysqli_fetch_array($query);
-    $TESTNAME = $row['testName'];
-    echo "<test>";
-    echo "<testname>".$TESTNAME."</testname>";
-    $query = mysqli_query($con,"SELECT * FROM studentTestQuestions WHERE studentId = $STUDENT AND sTestId = $TESTID;");
+    $query = mysqli_query($con,"SELECT DISTINCT * FROM testQuestions, question 
+    WHERE testQuestions.questionId = question.questionId AND testQuestions.testId = $TESTID;");
     while ($row = mysqli_fetch_array($query)) {
-        $QUESTIONID = $row['questionId'];
-        $question = mysqli_query($con,"SELECT * FROM question WHERE questionId = $QUESTIONID;");
-        $qrow = mysqli_fetch_array($question);
-        echo "<question>".$qrow['questionQuery']."</question>";
-        echo "<studentanswer>".$row['answer']."</studentanswer>";
-        echo "<correctanswer>".$row['answerCorrect']."</correctanswer>";
-        echo "<pvalue>".$row['score']."</pvalue>";
-        if ($row['answerFlag'] == 1) {
-            $CURSCORE = $CURSCORE + $row['score'];
+        $type = $row['questionType'];
+        // Multiple Choice
+        $i = 0;
+        if ($type == 1) {
+            echo "<question>";
+            echo "<id>".$row['questionId']."</id>";
+            echo "<type>".$row['questionType']."</type>";
+            echo "<pvalue>".$row['questionValue']."</pvalue>";
+            $TOTALSCORE = $TOTALSCORE + $row['questionValue'];
+            echo "<name>".$row['questionQuery']."</name>";
+            $QUESTIONID = $row['questionId'];
+            $answer = mysqli_query($con,"SELECT * FROM answer WHERE questionId = $QUESTIONID;");
+            while ($row2 = mysqli_fetch_array($answer)) {
+                echo "<ans>".$row2['answerField']."</ans>";
+            }
+            
+            $question = mysqli_query($con,"SELECT * FROM studentTestQuestions WHERE questionId = $QUESTIONID;");
+            $qrow = mysqli_fetch_array($question);
+            
+            echo "<studentanswer>".$qrow['answer']."</studentanswer>";
+            echo "<correctanswer>".$qrow['answerCorrect']."</correctanswer>";
+            echo "<ansflag>".$qrow['answerFlag']."</ansflag>";
+
+            echo "</question>";
+        }
+        // True False
+        if ($type == 2) {
+            echo "<question>";
+            echo "<id>".$row['questionId']."</id>";
+            echo "<type>".$row['questionType']."</type>";
+            echo "<pvalue>".$row['questionValue']."</pvalue>";
+            $TOTALSCORE = $TOTALSCORE + $row['questionValue'];
+            echo "<name>".$row['questionQuery']."</name>";
+            $QUESTIONID = $row['questionId'];
+            $answer = mysqli_query($con,"SELECT * FROM answer WHERE questionId = $QUESTIONID;");
+            while ($row2 = mysqli_fetch_array($answer)) {
+                if ($row2['answerField'] == "True") {
+                    echo "<ans>1</ans>";
+                }
+                else {
+                    echo "<ans>2</ans>";
+                }
+            }
+
+            $question = mysqli_query($con,"SELECT * FROM studentTestQuestions WHERE questionId = $QUESTIONID;");
+            $qrow = mysqli_fetch_array($question);
+            
+            if ($qrow['answer'] == "True") {
+                echo "<studentanswer>1</studentanswer>";
+            }
+            else {
+                echo "<studentanswer>2</studentanswer>";
+            }
+            
+            if ($qrow['answerCorrect'] == "True") {
+                echo "<correctanswer>1</correctanswer>";
+            }
+            else {
+                echo "<correctanswer>2</correctanswer>";
+            }
+            echo "<ansflag>".$qrow['answerFlag']."</ansflag>";
+            echo "</question>";
+        }
+        // Fill in the blank
+        if ($type == 3) {
+            echo "<question>";
+            echo "<id>".$row['questionId']."</id>";
+            echo "<type>".$row['questionType']."</type>";
+            echo "<pvalue>".$row['questionValue']."</pvalue>";
+            $TOTALSCORE = $TOTALSCORE + $row['questionValue'];
+            echo "<name>".$row['questionQuery']."</name>";
+            $QUESTIONID = $row['questionId'];
+            
+            $question = mysqli_query($con,"SELECT * FROM studentTestQuestions WHERE questionId = $QUESTIONID;");
+            $qrow = mysqli_fetch_array($question);
+            
+            echo "<studentanswer>".$qrow['answer']."</studentanswer>";
+            echo "<correctanswer>".$qrow['answerCorrect']."</correctanswer>";
+            echo "<ansflag>".$qrow['answerFlag']."</ansflag>";            
+            
+            echo "</question>";
+        }
+        // Programming question
+        if ($type == 4) {
+            echo "<question>";
+            echo "<id>".$row['questionId']."</id>";
+            echo "<type>".$row['questionType']."</type>";
+            echo "<pvalue>".$row['questionValue']."</pvalue>";
+            $TOTALSCORE = $TOTALSCORE + $row['questionValue'];
+            echo "<name>".$row['questionQuery']."</name>";
+            $QUESTIONID = $row['questionId'];
+            
+            $question = mysqli_query($con,"SELECT * FROM studentTestQuestions WHERE questionId = $QUESTIONID;");
+            $qrow = mysqli_fetch_array($question);
+            echo "<ansflag>".$qrow['answerFlag']."</ansflag>";
+            
+            echo "</question>";
         }
     }
-    $query = mysqli_query($con,"SELECT totalScore FROM studentTest WHERE studentId = $STUDENT AND testId = $TESTID;");
-    $row = mysqli_fetch_array($query);
-    $MAXSCORE = $row['totalScore'];
-    echo "<curscore>".$CURSCORE."</curscore>";
-    echo "<maxscore>".$MAXSCORE."</maxscore>";
-    echo "</test>";
 }
 else {
-    echo "MISSING STuFF";
+    echo "Missing ID.";
 }
 
 mysqli_close($con);

@@ -24,12 +24,15 @@ if (!empty($TESTID) && !empty($STUDENT)) {
             $CURSCORE = $CURSCORE + $row['score'];
         }
     }
-    $query = mysqli_query($con,"SELECT totalScore FROM studentTest WHERE studentId = $STUDENT AND testId = $TESTID;");
+    $query = mysqli_query($con,"SELECT * FROM studentTest WHERE studentId = $STUDENT AND testId = $TESTID;");
     $row = mysqli_fetch_array($query);
     $MAXSCORE = $row['totalScore'];
     
+    echo "<testid>".$row['testId']."</testid>";
     echo "<curscore>".$CURSCORE."</curscore>";
     echo "<maxscore>".$MAXSCORE."</maxscore>";
+    
+    mysqli_query($con,"UPDATE studentTest SET score = $CURSCORE WHERE studentId = $STUDENT AND testId = $TESTID;");
 }
 
 mysqli_close($con);
