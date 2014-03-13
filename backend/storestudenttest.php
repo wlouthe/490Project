@@ -15,12 +15,11 @@ if (mysqli_connect_errno())
 $STUDENT = $_POST['studentid'];
 $TESTID = $_POST['testid'];
 $QUESTIONID = $_POST['questionid'];
-$QUESTIONTYPE = $_POST['questiontype'];
+$QUESTIONTYPE = $_POST['type'];
 $ANSWER = mysqli_real_escape_string($con, $_POST['answer']);
+$CORRECT = $_POST['correct'];
 
-echo $ANSWER;
-
-if (!empty($TESTID) && !empty($STUDENT) && !empty($QUESTIONID) && !empty($QUESTIONTYPE)) {
+if (!empty($QUESTIONID) && !empty($QUESTIONTYPE)) {
     $getCorrect = mysqli_query($con,"SELECT * FROM answer WHERE questionId = $QUESTIONID AND answerCorrect = 1;");
     $get = mysqli_fetch_array($getCorrect);
     $correctAnswer = $get['answerField'];
@@ -30,14 +29,12 @@ if (!empty($TESTID) && !empty($STUDENT) && !empty($QUESTIONID) && !empty($QUESTI
         $query = mysqli_query($con,"SELECT answerField FROM answer WHERE answerLetter = $ANSWER AND questionId = $QUESTIONID;");
         $row = mysqli_fetch_array($query);
         $ANSWER = $row['answerField'];
-        if ($ANSWER == $correctAnswer) {
-            mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerCorrect, answerFlag)
-            VALUES ($TESTID, $correctAnswerId, '$ANSWER', '$correctAnswer', 1);");
-        }
-        else {
-            mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerCorrect, answerFlag)
-            VALUES ($TESTID, $correctAnswerId, '$ANSWER', '$correctAnswer', 0);");
-        }
+        // $query = mysqli_query($con,"SELECT * FROM answer;");
+        // $row = mysqli_fetch_array($query);
+        // $ANSWER = $row['answerField'];
+        
+        mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerCorrect, answerFlag)
+        VALUES ($TESTID, $correctAnswerId, '$ANSWER', '$correctAnswer', $CORRECT);");
     }
     if ($QUESTIONTYPE == 2) {
         if ($ANSWER == 1) {
@@ -46,25 +43,16 @@ if (!empty($TESTID) && !empty($STUDENT) && !empty($QUESTIONID) && !empty($QUESTI
         else {
             $ANSWER = "False";
         }
-        
-        if ($ANSWER == $correctAnswer) {
-            mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerCorrect, answerFlag)
-            VALUES ($TESTID, $correctAnswerId, '$ANSWER', '$correctAnswer', 1);");
-        }
-        else {
-            mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerCorrect, answerFlag)
-            VALUES ($TESTID, $correctAnswerId, '$ANSWER', '$correctAnswer', 0);");
-        }
+        mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerCorrect, answerFlag)
+        VALUES ($TESTID, $correctAnswerId, '$ANSWER', '$correctAnswer', $CORRECT);");
     }
     if ($QUESTIONTYPE == 3) {
-        if ($ANSWER == $correctAnswer) {
-            mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerCorrect, answerFlag)
-            VALUES ($TESTID, $correctAnswerId, '$ANSWER', '$correctAnswer', 1);");
-        }
-        else {
-            mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerCorrect, answerFlag)
-            VALUES ($TESTID, $correctAnswerId, '$ANSWER', '$correctAnswer', 0);");
-        }
+        mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerCorrect, answerFlag)
+        VALUES ($TESTID, $correctAnswerId, '$ANSWER', '$correctAnswer', $CORRECT);");
+    }
+    if ($QUESTIONTYPE == 4) {
+        mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, answerId, answer, answerFlag)
+        VALUES ($TESTID, $correctAnswerId, '$ANSWER', $CORRECT);");
     }
 }
 else {
