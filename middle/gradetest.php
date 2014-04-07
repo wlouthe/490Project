@@ -110,9 +110,8 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
                 else
                 {
                     $mytcvars=$mytcvars."\r\ntestcase4 = 0\r\nif ".$test4.":\r\n\ttestcase4 = 1";
-                }
-                $mytcvars=$mytcvars."\r\ntestcount = testcase1*1000 + testcase2*100 + testcase3*10 + testcase4";
-                $mycode = "\r\nf = open('/afs/cad/u/s/s/ss55/public_html/490server/codebin/".$username."_".$_POST['testid']."_".$_POST['questionid'.$count].".txt','w')".$mytcvars."\r\nf.write(str(testcount))";
+                }                
+                $mycode = "\r\nf = open('/afs/cad/u/s/s/ss55/public_html/490server/codebin/".$username."_".$_POST['testid']."_".$_POST['questionid'.$count].".txt','w')".$mytcvars."\r\nf.write(str(testcase1))\r\nf.write(str(testcase2))\r\nf.write(str(testcase3))\r\nf.write(str(testcase4))";
             
                 $handle = fopen("./codebin/".$username."_".$_POST['testid']."_".$_POST['questionid'.$count].".py","c");
                 fwrite($handle, $tcode."\r\n".$_POST["answer".$count].$mycode);
@@ -161,7 +160,7 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
                 }
                 
                 
-                //echo "PROGRAM CORRECT = ".$correct."--;";
+                echo "PROGRAM CORRECT = ".$correct."--;";
                 $fields = array(
                     'testid' => urlencode($_POST["testid"]),
                     'studentid' => urlencode($_POST["studentid"]),
