@@ -51,8 +51,8 @@ if (!empty($QUESTIONID) && !empty($QUESTIONTYPE)) {
         VALUES ($TESTID, $STUDENT, $correctAnswerId, $QUESTIONID, $pValue, '$ANSWER', '$correctAnswer', $CORRECT);");
     }
     if ($QUESTIONTYPE == 4) {
-        mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, studentId, answerId, questionId, score, answer, answerFlag)
-        VALUES ($TESTID, $STUDENT, $correctAnswerId, $QUESTIONID, $pValue, '$ANSWER', $CORRECT);");
+        mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, studentId, questionId, score, answer, answerFlag)
+        VALUES ($TESTID, $STUDENT, $QUESTIONID, $pValue, '$ANSWER', $CORRECT);");
     }
 }
 else {
