@@ -79,7 +79,7 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
                 system('rm ./codebin/'.$username."_".$_POST['testid']."_".$_POST['questionid'.$count].'.txt');
                 system('rm ./codebin/'.$username."_".$_POST['testid']."_".$_POST['questionid'.$count].'error.txt');
                 $mytcvars="";
-                if(empty($testcase1))
+                if(empty($test1))
                 {
                     $mytcvars=$mytcvars."\r\ntestcase1 = 1";
                 }
@@ -87,7 +87,7 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
                 {
                     $mytcvars=$mytcvars."\r\ntestcase1 = 0\r\nif ".$test1.":\r\n\ttestcase1 = 1";
                 }
-                if(empty($testcase2))
+                if(empty($test2))
                 {
                     $mytcvars=$mytcvars."\r\ntestcase2 = 1";
                 }
@@ -95,7 +95,7 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
                 {
                     $mytcvars=$mytcvars."\r\ntestcase2 = 0\r\nif ".$test2.":\r\n\ttestcase2 = 1";
                 }
-                if(empty($testcase3))
+                if(empty($test3))
                 {
                     $mytcvars=$mytcvars."\r\ntestcase3 = 1";
                 }
@@ -103,7 +103,7 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
                 {
                     $mytcvars=$mytcvars."\r\ntestcase3 = 0\r\nif ".$test3.":\r\n\ttestcase3 = 1";
                 }
-                if(empty($testcase4))
+                if(empty($test4))
                 {
                     $mytcvars=$mytcvars."\r\ntestcase4 = 1";
                 }

@@ -29,7 +29,7 @@ if (!empty($QUESTIONID)) {
         }
     }
     if ($QUESTIONTYPE == 4) {
-        $query = mysqli_query($con,"SELECT answerField FROM answer WHERE answerCorrect = 1 AND questionId = $QUESTIONID;");
+        $query = mysqli_query($con,"SELECT answerField FROM answer WHERE questionId = $QUESTIONID;");
         $getcode = mysqli_query($con,"SELECT questionTestCode FROM question WHERE questionId = $QUESTIONID;");
         $code = mysqli_fetch_array($getcode);
         echo "<teachercode>".$code['questionTestCode']."</teachercode>";
