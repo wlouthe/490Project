@@ -1,9 +1,10 @@
 <?php
 require "mycurl.php";
+//echo "<hello>123</hello>";
 if (isset($_POST["teachid"]))
 {
-	$tags = explode("_-_",$_POST["tagnames"]);
-	
+	$tags = explode(",",$_POST["tagnames"]);
+	//print_r($tags);
 	$tagids = array();
 	
 	foreach($tags as $tag)
@@ -17,15 +18,17 @@ if (isset($_POST["teachid"]))
 				'tagname' => urlencode($tag)
 			);
 			$result = curlcall($fields,$url);
-			
+			//echo $result;
 			$doc = new DOMDocument();
 			$doc->loadHTML($result);
-			$qids = $doc->getElementByTagName("questionId");
+			$qids = $doc->getElementsByTagName("questionid");
 			foreach($qids as $qid)
 			{
+				//echo $qid->nodeValue;
 				$count=0;
 				foreach($tagids as $tagid)
 				{
+					//echo $tagid;
 					if($tagid == $qid->nodeValue)
 					{
 						$count++;
@@ -33,14 +36,17 @@ if (isset($_POST["teachid"]))
 				}
 				if($count == 0)
 				{
-					$tagids.push($qid->nodeValue);
+					array_push($tagids,$qid->nodeValue);
 				}
+				//print_r($tagids);
 			}
 		}
 	}
+	echo '<?xml version="1.0" encoding="UTF-8"?><myids>';
 	foreach($tagids as $tagid)
 	{
 		echo "<qid>".$tagid."</qid>";
 	}
+	echo "</myids>";
 }
 ?>
