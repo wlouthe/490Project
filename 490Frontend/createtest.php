@@ -144,7 +144,7 @@ if ($optionnum==2)
     echo '<table><thead></thead><tbody><tr><td>';
 	echo '<form id="myform" method="post" action="./createtest.php">';
 	echo '<input id="mode" name="mode" value="insert" type="hidden"><input name="testid" value="'.$testid.'" type="hidden"><input name="classid" value="'.$_POST['classid'].'" type="hidden"><input name="teachid" value="'.$id.'" type="hidden">';
-	echo '<table class="mytable"><thead class="myhead"><tbody><tr><th>Question</th><th>On Test</th></tr></thead>';
+	echo '<table class="mytable"><thead class="myhead"><tbody><tr><th>Question</th><th>On Test</th><th>Edit Question</th></tr></thead>';
 	foreach($testids as $key => $testid)
 	{
 		//echo $ontest->item($key)->nodeValue;
@@ -156,7 +156,12 @@ if ($optionnum==2)
 		{
 			$checked='';
 		}
-		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="1">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
+		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="1">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td><td><div style='height:100%; width:100%; background-color:tomato; color:whitesmoke;' id='edit".$key."' class='editbutton'>Edit</div></td></tr>";
+        //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
+        //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 1:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
+        //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 2:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
+        //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
+        //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
 	}
 	echo "<tr><td></td><td><input type='submit'></td></tr></tbody></table></form></td><td></td><td>";
     echo "<table class='mytable' style='display:block;'><thead class='myhead'><tr><th>Filter Tags</th><th>Show</th></tr></thead><tbody>";
@@ -200,6 +205,7 @@ if ($optionnum==2)
                 tags = tags + value + ",";
             });
             //alert("tags: " + tags);
+            $("#searchbar").val("");
             $("tr.unhide").hide();
             $.ajax({
                 type: "POST",
@@ -233,8 +239,10 @@ if ($optionnum==2)
                 }
             });
         });
-        $("#searchbar").keypress(function(){
+        $("#searchbar").keyup(function(e){
             console.log( "Sending \'" + $(\'#searchbar\').val() + "\'");
+            $("input.tag").prop("checked",false);
+            $("tr.unhide").hide();
             $.ajax({
                 type: "POST",
                 url: "http://web.njit.edu/~ss55/490server/tagsearch.php",
@@ -268,6 +276,9 @@ if ($optionnum==2)
             $("input.tag").prop("checked",false);
             $("#searchbar").val("");
             $("tr.unhide").show();
+        });
+        $("div.editbutton").click(function(e){
+            alert("Edit Clicked: " + $(this).attr("id"));
         });
     });
 	</script></div>';
@@ -308,22 +319,6 @@ if ($optionnum==3)
 	$("#mysub").click(function(){
 		$("#myform").attr("action", "./createtest.php").submit();
 	});
-    $(".key").change(function(){
-        var mytags = $(".key input:checkbox:checked").map(function(){
-            return $(this).val();
-        }).toArray();
-        var tags = "";
-        $.each(mytags,function(index,value){
-            tags = tags + value + ",";
-        });
-        $.ajax({
-            type: "POST",
-            url: "http://web.njit.edu/~ss55/490server/tagfilter.php",
-            data: {tagnames: tags}
-        }).done(function(returnvals){
-            alert(returnvals);
-        });
-    });
 	</script></div>';
 }
 

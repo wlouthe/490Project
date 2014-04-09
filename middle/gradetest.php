@@ -165,8 +165,8 @@ if(isset($_POST["studentid"]) && isset($_POST["testid"]))
                     'testid' => urlencode($_POST["testid"]),
                     'studentid' => urlencode($_POST["studentid"]),
                     'questionid' => urlencode($_POST["questionid".$count]),
-                    'answer' => urlencode("/afs/cad/u/s/s/ss55/public_html/490server/codebin/".$username."_".$_POST['testid']."_".$_POST['questionid'.$count].".py"),
-                    'correct' => urlencode($correct),
+                    'answer' => urlencode($_POST["answer".$count]),
+                    'correct' => urlencode($mystring2),
                     'type' => urlencode($_POST["type".$count])
                     );
                 $result = curlcall($fields,"http://web.njit.edu/~tjh24/storestudenttest.php");
