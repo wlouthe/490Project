@@ -90,10 +90,10 @@
             echo '<table class="main-table">
 <tr>
 <td class="mytd" width=50%>
-<h2 id="currentclasses">Check Classes</h2>';
+<h2 id="currentclasses">Release Grades</h2>';
 
 echo '<form method="post" action="./home.php">';
-echo "Class:<select name='classid'>";
+echo "Class:<select id='releasegrades   ' name='classid'>";
 echo "<option value='' selected='selected'></option>";
 foreach($classes as $key => $class)
 {
@@ -218,7 +218,7 @@ echo '</td>
 			}
 			echo '<h2>Select Class</h2>
 			<form method="post" action="./home.php">';
-			echo "Class:<select name='s2classid'>";
+			echo "Class:<select id='studentselectclass' name='s2classid'>";
 			echo "<option value='' selected='".$sselected."'></option>";
 			$sselected="";
 			foreach($cids as $key=>$cid)
@@ -234,7 +234,8 @@ echo '</td>
 			echo'<tr>
 			<td class="mytd" width=50%>
 			<h2>Take Test</h2>
-			<p>';
+			<p><select id ="mystudenttests">';
+            
 			if(isset($_POST["s2classid"]) && !empty($_POST["s2classid"]))
 			{
 				$result = curlcall(array('studentid' => urlencode($id),'classid' => urlencode($_POST['s2classid'])),"http://web.njit.edu/~ss55/490server/returnclasstest.php");
@@ -297,6 +298,9 @@ $("#tbutton1").click(function(){
 $("#tbutton2").click(function(){
 	$("#tname").html("");
 	$("#testform").attr("action", "./createtest.php").submit();
+});
+$("#studentselectclass").change(function(){
+    //$("#mystudenttests")
 });
 </script>
 </div>

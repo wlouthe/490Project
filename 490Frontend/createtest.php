@@ -141,6 +141,7 @@
 <div class="mywindow">';
 if ($optionnum==2)
 {
+    echo '<table><tr><td>';
 	echo '<form id="myform" method="post" action="./createtest.php">';
 	echo '<input id="mode" name="mode" value="insert" type="hidden"><input name="testid" value="'.$testid.'" type="hidden"><input name="classid" value="'.$_POST['classid'].'" type="hidden"><input name="teachid" value="'.$id.'" type="hidden">';
 	echo '<table class="mytable"><thead class="myhead"><tr><th>Question</th><th>On Test</th></tr></thead>';
@@ -155,9 +156,26 @@ if ($optionnum==2)
 		{
 			$checked='';
 		}
-		echo '<tr class="rowcolor'.(($key)%2).'"><td><input name="checkcb'.$key.'" type="hidden" value="1">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
+		echo '<tr class="rowcolor'.(($key)%2).'"><td><input id="'.$testid->nodeValue.'" name="checkcb'.$key.'" type="hidden" value="1">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
 	}
-	echo'<tr><td></td><td><input type="submit"></td></tr></table></form>';
+	echo '<tr><td></td><td><input type="submit"></td></tr></table></form></td><td><table class="mytable">';
+    
+    $fields = array(
+        "teachid" => urlencode($id),
+        "classid" => urlencode($_POST["classid"])
+    );
+    $result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntags.php");
+
+    $doc = new DOMDocument();
+    $doc->loadHTML($result);
+    $tagnames = $doc->getElementsByTagName('tagid');
+    
+    foreach($tagnames as $key=>$tag)
+    {
+        echo '<tr class="rowcolor'.(($key)%2).'"><td>'.$tag->nodeValue.'</td><td><input id="tag'.$key.'" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
+    }
+    
+    echo '</table></td></tr></table>';
 }
 if ($optionnum==3)
 {
@@ -195,6 +213,22 @@ if ($optionnum==3)
 	$("#mysub").click(function(){
 		$("#myform").attr("action", "./createtest.php").submit();
 	});
+    $(".key").change(function(){
+        var mytags = $(".key input:checkbox:checked").map(function(){
+            return $(this).val();
+        }).toArray();
+        var tags = "";
+        $.each(mytags,function(index,value){
+            tags = tags + value + ",";
+        });
+        $.ajax({
+            type: "POST",
+            url: "http://web.njit.edu/~ss55/490server/tagfilter.php",
+            data: {tagnames: tags}
+        }).done(function(returnvals){
+            alert(returnvals);
+        });
+    });
 	</script></div>';
 }
 
