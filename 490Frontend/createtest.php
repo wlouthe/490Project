@@ -275,7 +275,9 @@ if ($optionnum==2)
                 },
                 dataType: "xml",
                 success: function(mydata,status,myobj){
+                    console.dirxml(mydata);
                     $(mydata).find("qid").each(function(){
+                        console.log("hi" + $(this).text() + "bye");
                         $("tr." + $(this).text()).show();
                     })
 

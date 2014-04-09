@@ -9,7 +9,7 @@ if (isset($_POST["teachid"]))
     $fields = array(
         'teachid' => urlencode($_POST["teachid"]),
         'classid' => urlencode($_POST["classid"]),
-        'keyword' => urlencode($_POST["tagnames"])
+        'keyword' => urlencode($_POST["keyword"])
     );
     $result = curlcall($fields,$url);
     //echo $result;

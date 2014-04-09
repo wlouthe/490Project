@@ -218,7 +218,7 @@ echo '</td>
 			}
 			echo '<h2>Select Class</h2>
 			<form method="post" action="./home.php">';
-			echo "Class:<select id='studentselectclass' name='s2classid'>";
+			echo "Class:<select id='s2classid' name='s2classid'>";
 			echo "<option value='' selected='".$sselected."'></option>";
 			$sselected="";
 			foreach($cids as $key=>$cid)
@@ -234,7 +234,7 @@ echo '</td>
 			echo'<tr>
 			<td class="mytd" width=50%>
 			<h2>Take Test</h2>
-			<p><select id ="mystudenttests">';
+			<p>';
             
 			if(isset($_POST["s2classid"]) && !empty($_POST["s2classid"]))
 			{
