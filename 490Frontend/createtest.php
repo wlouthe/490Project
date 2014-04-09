@@ -141,10 +141,10 @@
 <div class="mywindow">';
 if ($optionnum==2)
 {
-    echo '<table><tr><td>';
+    echo '<table><thead></thead><tbody><tr><td>';
 	echo '<form id="myform" method="post" action="./createtest.php">';
 	echo '<input id="mode" name="mode" value="insert" type="hidden"><input name="testid" value="'.$testid.'" type="hidden"><input name="classid" value="'.$_POST['classid'].'" type="hidden"><input name="teachid" value="'.$id.'" type="hidden">';
-	echo '<table class="mytable"><thead class="myhead"><tr><th>Question</th><th>On Test</th></tr></thead>';
+	echo '<table class="mytable"><thead class="myhead"><tbody><tr><th>Question</th><th>On Test</th></tr></thead>';
 	foreach($testids as $key => $testid)
 	{
 		//echo $ontest->item($key)->nodeValue;
@@ -156,26 +156,83 @@ if ($optionnum==2)
 		{
 			$checked='';
 		}
-		echo '<tr class="rowcolor'.(($key)%2).'"><td><input id="'.$testid->nodeValue.'" name="checkcb'.$key.'" type="hidden" value="1">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
+		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="1">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
 	}
-	echo '<tr><td></td><td><input type="submit"></td></tr></table></form></td><td><table class="mytable">';
+	echo "<tr><td></td><td><input type='submit'></td></tr></tbody></table></form></td><td></td><td>";
+    echo "<table class='mytable' height = '100%' width = '100%'><thead class='myhead'><tr><th>Filter Tags</th><th>Show</th></tr></thead><tbody>";
     
     $fields = array(
         "teachid" => urlencode($id),
         "classid" => urlencode($_POST["classid"])
     );
-    $result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntags.php");
+    //echo $id;
+    //echo $_POST["classid"];
+    $result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntag.php");
 
     $doc = new DOMDocument();
     $doc->loadHTML($result);
-    $tagnames = $doc->getElementsByTagName('tagid');
+    $tagnames = $doc->getElementsByTagName('tag');
     
     foreach($tagnames as $key=>$tag)
     {
         echo '<tr class="rowcolor'.(($key)%2).'"><td>'.$tag->nodeValue.'</td><td><input id="tag'.$key.'" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
     }
     
-    echo '</table></td></tr></table>';
+    echo '</tbody></table></td></tr></tbody></table>';
+    
+    echo '<div>
+	<script>
+    $(document).ready(function(){
+    //alert("hello");
+    var tid = '.$id.';
+    var cid = '.$_POST["classid"].';
+    $("input.tag").change(function(){
+        //alert("funstart");
+        var mytags = $("input.tag:checkbox:checked").map(function(){
+            //alert("foundval");
+            return $(this).val();
+        }).toArray();
+        var tags = "";
+        var mycnt = 0;
+        $.each(mytags,function(index,value){
+            //alert("InxVal" + index + ":" + value);
+            tags = tags + value + ",";
+        });
+        //alert("tags: " + tags);
+        $("tr.unhide").hide();
+        $.ajax({
+            type: "POST",
+            url: "http://web.njit.edu/~ss55/490server/tagfilter.php",
+            async: false,
+            data: {
+                "teachid": tid,
+                "classid": cid,
+                "tagnames": tags
+            },
+            dataType: "xml",
+            success: function(mydata,status,myobj){
+                //alert("mydata: " + $(mydata).find("hello").text() + " --- status: " + status);
+                $(mydata).find("qid").each(function(){
+                    //alert("mydata: " + $(this).text() + " --- status: " + status);
+                    $("tr." + $(this).text()).show();
+                    mycnt++;
+                })
+                
+            },
+            error: function(baba, gaga) {
+                alert("Error occured: " + gaga);
+            }
+        }).done(function(){
+            //alert("done");
+            //alert(mycnt);
+            if(mycnt==0)
+            {
+                $("tr.unhide").show();
+            }
+        });
+    });
+    });
+	</script></div>';
 }
 if ($optionnum==3)
 {
