@@ -51,8 +51,13 @@ if (!empty($QUESTIONID) && !empty($QUESTIONTYPE)) {
         VALUES ($TESTID, $STUDENT, $correctAnswerId, $QUESTIONID, $pValue, '$ANSWER', '$correctAnswer', $CORRECT);");
     }
     if ($QUESTIONTYPE == 4) {
-        mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, studentId, questionId, score, answer, answerFlag)
-        VALUES ($TESTID, $STUDENT, $QUESTIONID, $pValue, '$ANSWER', $CORRECT);");
+        $AFLAG = 0;
+        if($CORRECT = "1111")
+        {
+            $AFLAG = 1;
+        }
+        mysqli_query($con,"INSERT INTO studentTestQuestions(sTestId, studentId, questionId, score, answer, answerCorrect, answerFlag)
+        VALUES ($TESTID, $STUDENT, $QUESTIONID, $pValue, '$ANSWER', '$CORRECT', $AFLAG);");
     }
 }
 else {
