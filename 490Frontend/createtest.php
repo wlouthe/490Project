@@ -164,7 +164,7 @@ if ($optionnum==2)
         "teachid" => urlencode($id),
         "classid" => urlencode($_POST["classid"])
     );
-    $result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntags.php");
+    $result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntag.php");
 
     $doc = new DOMDocument();
     $doc->loadHTML($result);
