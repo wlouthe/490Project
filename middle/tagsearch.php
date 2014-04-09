@@ -5,7 +5,7 @@ if (isset($_POST["teachid"]))
 	//print_r($tags);
 	$tagids = array();
 	
-    $url = "http://web.njit.edu/~tjh24/returntag.php";
+    $url = "http://web.njit.edu/~tjh24/returnsearch.php";
     $fields = array(
         'teachid' => urlencode($_POST["teachid"]),
         'classid' => urlencode($_POST["classid"]),
