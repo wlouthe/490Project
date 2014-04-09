@@ -190,7 +190,7 @@ if ($optionnum==2)
         $finaltmp=$key;
     }
     
-    echo '<tr class="rowcolor'.(($finaltmp+1)%2).'"><td>Search:</td><td><input id="searchbar" type="text"></td></tr><tr><td><button id="clearall">Clear All</button></td></tr></tbody></table></td></tr></tbody></table>';
+    echo '<tr class="rowcolor'.(($finaltmp+1)%2).'"><td>Search:</td><td><input id="searchbar" type="text"></td></tr><tr><td></td><td><button id="clearall">Clear All</button></td></tr></tbody></table></td></tr></tbody></table>';
     
     echo '<div>
 	<script>
