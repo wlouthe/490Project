@@ -196,6 +196,10 @@
 			}
 			if($type == 4)
 			{
+                $answer1 = $question->getElementsByTagName("ans")->item(0)->nodeValue;
+                $answer2 = $question->getElementsByTagName("ans")->item(1)->nodeValue;
+                $answer3 = $question->getElementsByTagName("ans")->item(2)->nodeValue;
+                $answer4 = $question->getElementsByTagName("ans")->item(3)->nodeValue;
 				if ($ansflag == 1)
 				{	
 					echo "<tr><td></td><td><textarea id='answer".$key."' name='answer".$key."' style='background-color:chartreuse' disabled>".$sanswer."</textarea></td><td></td></tr>";
@@ -204,6 +208,38 @@
 				{
 					echo "<tr><td></td><td><textarea id='answer".$key."' name='answer".$key."' style='background-color:tomato' disabled>".$sanswer."</textarea></td><td></td></tr>";
 				}
+                if(substr($canswer,0,1) == "1")
+                {
+                    echo "<tr><td style='color:chartreuse'>".$answer1."</td></tr>";
+                }
+                else
+                {
+                    echo "<tr><td style='color:tomato'>".$answer1."</td></tr>";
+                }
+                if(substr($canswer,1,1) == "1")
+                {
+                    echo "<tr><td style='color:chartreuse'>".$answer2."</td></tr>";
+                }
+                else
+                {
+                    echo "<tr><td style='color:tomato'>".$answer2."</td></tr>";
+                }
+                if(substr($canswer,2,1) == "1")
+                {
+                    echo "<tr><td style='color:chartreuse'>".$answer3."</td></tr>";
+                }
+                else
+                {
+                    echo "<tr><td style='color:tomato'>".$answer3."</td></tr>";
+                }
+                if(substr($canswer,3,1) == "1")
+                {
+                    echo "<tr><td style='color:chartreuse'>".$answer4."</td></tr>";
+                }
+                else
+                {
+                    echo "<tr><td style='color:tomato'>".$answer4."</td></tr>";
+                }
 			}
 			echo "</table><hr>";
 		}

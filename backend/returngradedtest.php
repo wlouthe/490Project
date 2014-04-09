@@ -114,14 +114,14 @@ if (!empty($TESTID) && !empty($STUDENT)) {
 
                 $question = mysqli_query($con,"SELECT * FROM studentTestQuestions WHERE questionId = $QUESTIONID;");
                 $qrow = mysqli_fetch_array($question);
-                echo "<ans>".$qrow['answer']."</ans>";
-                echo "<ansscore>".$qrow['answerCorrect']."</ansscore>";
+                echo "<studentanswer>".$qrow['answer']."</studentanswer>";
+                echo "<correctanswer>".$qrow['answerCorrect']."</correctanswer>";
                 echo "<ansflag>".$qrow['answerFlag']."</ansflag>";
                 
                 $myanswer = mysqli_query($con,"SELECT * FROM answer WHERE questionId = $QUESTIONID;");
                 while($arow = mysqli_fetch_array($myanswer))
                 {
-                    echo "<myqa>".$arow['answerField']."</myqa>";
+                    echo "<ans>".$arow['answerField']."</ans>";
                 }
 
                 echo "</question>";
