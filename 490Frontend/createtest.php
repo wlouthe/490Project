@@ -179,13 +179,14 @@ if ($optionnum==2)
     $doc->loadHTML($result);
     $tagnames = $doc->getElementsByTagName('tag');
     $finaltmp = 0;
-    echo '<tr class="rowcolor0"><td>Multiple Choice</td><td><input id="tagmc" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
-    echo '<tr class="rowcolor1"><td>True/False</td><td><input id="tagtf" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
-    echo '<tr class="rowcolor0"><td>Open Ended</td><td><input id="tagop" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
-    echo '<tr class="rowcolor1"><td>Coding</td><td><input id="tagcd" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
+    
+    echo '<tr class="rowcolor0"><td>Multiple Choice</td><td><input id="tagmc" class="tag" type="checkbox" value="tagmc"></td></tr>';
+    echo '<tr class="rowcolor1"><td>True/False</td><td><input id="tagtf" class="tag" type="checkbox" value="tagtf"></td></tr>';
+    echo '<tr class="rowcolor0"><td>Open Ended</td><td><input id="tagop" class="tag" type="checkbox" value="tagop"></td></tr>';
+    echo '<tr class="rowcolor1"><td>Coding</td><td><input id="tagcd" class="tag" type="checkbox" value="tagcd"></td></tr>';
     foreach($tagnames as $key=>$tag)
     {
-        echo '<tr class="rowcolor'.(($key)%2).'"><td>'.$tag->nodeValue.'</td><td><input id="tag'.$key.'" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
+        echo '<tr class="rowcolor'.(($key)%2).'"><td>'.$tag->nodeValue.'</td><td><input id="tag'.$key.'" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>';
         $finaltmp=$key;
     }
     
@@ -194,7 +195,6 @@ if ($optionnum==2)
     echo '<div>
 	<script>
     $(document).ready(function(){
-        //alert("hello");
         var tid = '.$id.';
         var cid = '.$_POST["classid"].';
         $("input.tag").change(function(){
@@ -205,13 +205,31 @@ if ($optionnum==2)
             }).toArray();
             var tags = "";
             var mycnt = 0;
-            $.each(mytags,function(index,value){
-                //alert("InxVal" + index + ":" + value);
-                tags = tags + value + ",";
-            });
-            //alert("tags: " + tags);
             $("#searchbar").val("");
             $("tr.unhide").hide();
+            $.each(mytags,function(index,value){
+                //alert("InxVal" + index + ":" + value);
+                if(value == "tagmc")
+                {
+                    $("tr.type1").show();
+                }
+                else if(value == "tagtf")
+                {
+                    $("tr.type2").show();
+                }
+                else if(value == "tagop")
+                {
+                    $("tr.type3").show();
+                }
+                else if(value == "tagcd")
+                {
+                    $("tr.type4").show();
+                }
+                else
+                {
+                    tags = tags + value + ",";
+                }
+            });
             $.ajax({
                 type: "POST",
                 url: "http://web.njit.edu/~ss55/490server/tagfilter.php",
@@ -223,9 +241,7 @@ if ($optionnum==2)
                 },
                 dataType: "xml",
                 success: function(mydata,status,myobj){
-                    //alert("mydata: " + $(mydata).find("hello").text() + " --- status: " + status);
                     $(mydata).find("qid").each(function(){
-                        //alert("mydata: " + $(this).text() + " --- status: " + status);
                         $("tr." + $(this).text()).show();
                         mycnt++;
                     })
@@ -283,7 +299,7 @@ if ($optionnum==2)
             $("tr.unhide").show();
         });
         $("div.editbutton").click(function(e){
-            alert("Edit Clicked: " + $(this).attr("id"));
+            console.log("Edit Clicked: " + $(this).attr("id"));
         });
     });
 	</script></div>';
