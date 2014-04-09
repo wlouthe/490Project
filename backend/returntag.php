@@ -27,7 +27,8 @@ if (!empty($TEACHID) && !empty($CLASSID) && !empty($TAGNAME)) {
     }
 }
 elseif (!empty($TEACHID) && !empty($CLASSID)) {
-    $query = mysqli_query($con,"SELECT DISTINCT tagName FROM tags, question WHERE classId = $CLASSID AND creatorId = $TEACHID AND question.questionId = tags.questionId");
+    $query = mysqli_query($con,"SELECT DISTINCT tagName FROM tags, question 
+        WHERE classId = $CLASSID AND creatorId = $TEACHID AND question.questionId = tags.questionId");
     while ($row = mysqli_fetch_array($query)) {
         echo "<tag>".$row['tagName']."</tag>";
     }
