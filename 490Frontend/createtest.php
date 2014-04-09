@@ -159,7 +159,7 @@ if ($optionnum==2)
 		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="1">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td></tr>";
 	}
 	echo "<tr><td></td><td><input type='submit'></td></tr></tbody></table></form></td><td></td><td>";
-    echo "<table class='mytable' height = '100%' width = '100%'><thead class='myhead'><tr><th>Filter Tags</th><th>Show</th></tr></thead><tbody>";
+    echo "<table class='mytable' style='display:block;'><thead class='myhead'><tr><th>Filter Tags</th><th>Show</th></tr></thead><tbody>";
     
     $fields = array(
         "teachid" => urlencode($id),
@@ -172,65 +172,103 @@ if ($optionnum==2)
     $doc = new DOMDocument();
     $doc->loadHTML($result);
     $tagnames = $doc->getElementsByTagName('tag');
-    
+    $finaltmp = 0;
     foreach($tagnames as $key=>$tag)
     {
         echo '<tr class="rowcolor'.(($key)%2).'"><td>'.$tag->nodeValue.'</td><td><input id="tag'.$key.'" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
+        $finaltmp=$key;
     }
     
-    echo '</tbody></table></td></tr></tbody></table>';
+    echo '<tr class="rowcolor'.(($finaltmp+1)%2).'"><td>Search:</td><td><input id="searchbar" type="text"></td></tr><tr><td><button id="clearall">Clear All</button></td></tr></tbody></table></td></tr></tbody></table>';
     
     echo '<div>
 	<script>
     $(document).ready(function(){
-    //alert("hello");
-    var tid = '.$id.';
-    var cid = '.$_POST["classid"].';
-    $("input.tag").change(function(){
-        //alert("funstart");
-        var mytags = $("input.tag:checkbox:checked").map(function(){
-            //alert("foundval");
-            return $(this).val();
-        }).toArray();
-        var tags = "";
-        var mycnt = 0;
-        $.each(mytags,function(index,value){
-            //alert("InxVal" + index + ":" + value);
-            tags = tags + value + ",";
+        //alert("hello");
+        var tid = '.$id.';
+        var cid = '.$_POST["classid"].';
+        $("input.tag").change(function(){
+            //alert("funstart");
+            var mytags = $("input.tag:checkbox:checked").map(function(){
+                //alert("foundval");
+                return $(this).val();
+            }).toArray();
+            var tags = "";
+            var mycnt = 0;
+            $.each(mytags,function(index,value){
+                //alert("InxVal" + index + ":" + value);
+                tags = tags + value + ",";
+            });
+            //alert("tags: " + tags);
+            $("tr.unhide").hide();
+            $.ajax({
+                type: "POST",
+                url: "http://web.njit.edu/~ss55/490server/tagfilter.php",
+                async: false,
+                data: {
+                    "teachid": tid,
+                    "classid": cid,
+                    "tagnames": tags
+                },
+                dataType: "xml",
+                success: function(mydata,status,myobj){
+                    //alert("mydata: " + $(mydata).find("hello").text() + " --- status: " + status);
+                    $(mydata).find("qid").each(function(){
+                        //alert("mydata: " + $(this).text() + " --- status: " + status);
+                        $("tr." + $(this).text()).show();
+                        mycnt++;
+                    })
+
+                },
+                error: function(baba, gaga) {
+                    alert("Error occured: " + gaga);
+                }
+            }).done(function(){
+                //alert("done");
+                //alert(mycnt);
+                if(mycnt==0)
+                {
+                    $("tr.unhide").show();
+                    
+                }
+            });
         });
-        //alert("tags: " + tags);
-        $("tr.unhide").hide();
-        $.ajax({
-            type: "POST",
-            url: "http://web.njit.edu/~ss55/490server/tagfilter.php",
-            async: false,
-            data: {
-                "teachid": tid,
-                "classid": cid,
-                "tagnames": tags
-            },
-            dataType: "xml",
-            success: function(mydata,status,myobj){
-                //alert("mydata: " + $(mydata).find("hello").text() + " --- status: " + status);
-                $(mydata).find("qid").each(function(){
-                    //alert("mydata: " + $(this).text() + " --- status: " + status);
-                    $("tr." + $(this).text()).show();
-                    mycnt++;
-                })
-                
-            },
-            error: function(baba, gaga) {
-                alert("Error occured: " + gaga);
-            }
-        }).done(function(){
-            //alert("done");
-            //alert(mycnt);
-            if(mycnt==0)
-            {
-                $("tr.unhide").show();
-            }
+        $("#searchbar").keypress(function(){
+            console.log( "Sending \'" + $(\'#searchbar\').val() + "\'");
+            $.ajax({
+                type: "POST",
+                url: "http://web.njit.edu/~ss55/490server/tagsearch.php",
+                async: false,
+                data: {
+                    "teachid": tid,
+                    "classid": cid,
+                    "keyword": $("#searchbar").val()
+                },
+                dataType: "xml",
+                success: function(mydata,status,myobj){
+                    $(mydata).find("qid").each(function(){
+                        $("tr." + $(this).text()).show();
+                    })
+
+                },
+                error: function(baba, gaga) {
+                    alert("Error occured: " + gaga);
+                }
+            }).done(function(){
+                //alert("done");
+                //alert(mycnt);
+                if($("#searchbar").val() == "")
+                {
+                    $("tr.unhide").show();
+                    
+                }
+            });
         });
-    });
+        $("#clearall").click(function(){
+            $("input.tag").prop("checked",false);
+            $("#searchbar").val("");
+            $("tr.unhide").show();
+        });
     });
 	</script></div>';
 }
