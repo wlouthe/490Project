@@ -17,11 +17,12 @@ $CLASSID = $_POST['classid'];
 
 if (!empty($TESTID)) {
     // Prints all questions in specified class.
-    $query = mysqli_query($con," SELECT DISTINCT questionId, questionQuery FROM question WHERE classId = $CLASSID;");
+    $query = mysqli_query($con," SELECT DISTINCT questionId, questionQuery, questionType FROM question WHERE classId = $CLASSID;");
     echo "<allquestions>";
     while ($row = mysqli_fetch_array($query)) {
         echo "<id>".$row['questionId']."</id>";
         echo "<name>".$row['questionQuery']."</name>";
+        echo "<type>".$row['questionType']."</type>";
     }
     echo "</allquestions>";
     

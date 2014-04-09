@@ -47,8 +47,8 @@ if(isset($_POST["txtUCID"])&&isset($_POST["txtPasswd"]))
 	$success = $doc->getElementsByTagName('auth')->item(0)->nodeValue;
 	$code = $doc->getElementsByTagName('code')->item(0)->nodeValue;
     
-	echo "<NJITauthenticated>".$authenticated."</NJITauthenticated>";
+	echo "<njitauthenticated>".$authenticated."</njitauthenticated>";
     echo "<code>".$code."</code>";
-    echo "<DBauthenticated>".$success."</DBauthenticated>";
+    echo "<dbauthenticated>".$success."</dbauthenticated>";
 }
 ?>

@@ -18,6 +18,7 @@ if ( isset($_POST["testid"]) && isset($_POST["classid"]))
     
         $allquestionsids = $allquestions->item(0)->getElementsByTagName('id');
         $allquestionsnames = $allquestions->item(0)->getElementsByTagName('name');
+        $allquestionstype = $allquestions->item(0)->getElementsByTagName('type');
         
         $testquestionsids = $testquestions->item(0)->getElementsByTagName('id');
     
@@ -38,7 +39,7 @@ if ( isset($_POST["testid"]) && isset($_POST["classid"]))
                 $index++;
             }
             else $comp = 0;
-            echo "<id>".$qid->nodeValue."</id><name>".$allquestionsnames->item($key)->nodeValue."</name><ontest>".$comp."</ontest>";
+            echo "<id>".$qid->nodeValue."</id><name>".$allquestionsnames->item($key)->nodeValue."</name><type>".$allquestionstype->item($key)->nodeValue."</type><ontest>".$comp."</ontest>";
         }
 	}
 ?>

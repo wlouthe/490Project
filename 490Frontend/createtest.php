@@ -107,6 +107,7 @@
 			$doc->loadHTML($result);
 			$testids = $doc->getElementsByTagName('id');
 			$testnames = $doc->getElementsByTagName('name');
+            $testtype = $doc->getElementsByTagName('type');
 			$ontest = $doc->getElementsByTagName('ontest');
 			
 		}
@@ -156,7 +157,7 @@ if ($optionnum==2)
 		{
 			$checked='';
 		}
-		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="1">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td><td><div style='height:100%; width:100%; background-color:tomato; color:whitesmoke;' id='edit".$key."' class='editbutton'>Edit</div></td></tr>";
+		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' type'.$testtype->item($key)->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="'.$testtype->item($key)->nodeValue.'">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td><td><div style='height:100%; width:100%; background-color:tomato; color:whitesmoke;' id='edit".$key."' class='editbutton'>Edit</div></td></tr>";
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 1:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 2:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
@@ -178,6 +179,10 @@ if ($optionnum==2)
     $doc->loadHTML($result);
     $tagnames = $doc->getElementsByTagName('tag');
     $finaltmp = 0;
+    echo '<tr class="rowcolor0"><td>Multiple Choice</td><td><input id="tagmc" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
+    echo '<tr class="rowcolor1"><td>True/False</td><td><input id="tagtf" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
+    echo '<tr class="rowcolor0"><td>Open Ended</td><td><input id="tagop" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
+    echo '<tr class="rowcolor1"><td>Coding</td><td><input id="tagcd" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
     foreach($tagnames as $key=>$tag)
     {
         echo '<tr class="rowcolor'.(($key)%2).'"><td>'.$tag->nodeValue.'</td><td><input id="tag'.$key.'" class="tag" type="checkbox" value="'.$tag->nodeValue.'"></td></tr>"';
