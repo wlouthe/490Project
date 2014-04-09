@@ -14,6 +14,7 @@ if (mysqli_connect_errno())
 
 $TEACHID = $_POST['teacherid'];
 $CLASSID = $_POST['classid'];
+$TAG = $_POST['tagname'];
 
 $QUESTION = mysqli_real_escape_string($con, $_POST['question']);
 $QUESTIONTYPE = $_POST['type']; // 1 - multiple choice, 2 - True/False, 3 - Fill in the blank, 4 - Programming
@@ -39,6 +40,9 @@ if (!empty($TEACHID) && !empty($CLASSID)) {
     $query = mysqli_query($con,"SELECT * FROM question WHERE questionQuery = '$QUESTION' AND creatorId = $TEACHID;");
     $row = mysqli_fetch_array($query);
     $QUESTIONID = $row['questionId'];
+    if (!empty($TAG)) {
+        mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTIONID, lower('$TAG'), 0);");
+    }
     if ($QUESTIONTYPE == 1) {
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
             mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
@@ -58,7 +62,6 @@ if (!empty($TEACHID) && !empty($CLASSID)) {
             if ($ANSWER == ($j+1)) {
                 mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE answerLetter = $i AND questionId = $QUESTIONID;");
             }
-            echo "if end";
         }
     }
     else {
