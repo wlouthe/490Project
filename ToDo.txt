@@ -1,0 +1,2 @@
+Add "getQuestion" which returns the question, its type, and its answers.
+add "editQuestion" which edits the question, its type and its answers, as well as its tags, which it should do by recognizing the tags, then dropping all tags from the tag table for that question and adding new ones based on the edited values.
