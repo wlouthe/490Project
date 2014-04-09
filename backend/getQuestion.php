@@ -23,6 +23,7 @@ if (!empty($QUESTIONID)) {
         if ($TYPE == 1) {
             $getAns = mysqli_query($con,"SELECT answerLetter, answerField, answerCorrect FROM answer WHERE questionId = $QUESTIONID;");
             $getCor = mysqli_query($con,"SELECT answerLetter FROM answer WHERE questionId = $QUESTIONID AND answerCorrect = 1;");
+            $getTag = mysqli_query($con,"SELECT tagName FROM tags WHERE questionId = $QUESTIONID;");
             echo "<question>";
                 echo "<type>".$TYPE."</type>";
                 echo "<query>".$row['questionQuery']."</query>";
@@ -33,29 +34,41 @@ if (!empty($QUESTIONID)) {
                 }
                 $gc = mysqli_fetch_array($getCor);
                 echo "<correct>".$gc['answerLetter']."</correct>";
+                while ($gt = mysqli_fetch_array($getTag)) {
+                    echo "<tag>".$gt['tagName']."</tag>";
+                }
             echo "</question>";
         }
         elseif ($TYPE == 2) {
             $getAns = mysqli_query($con,"SELECT answerLetter, answerField, answerCorrect FROM answer WHERE questionId = $QUESTIONID;");
             $getCor = mysqli_query($con,"SELECT answerLetter FROM answer WHERE questionId = $QUESTIONID AND answerCorrect = 1;");
+            $getTag = mysqli_query($con,"SELECT tagName FROM tags WHERE questionId = $QUESTIONID;");
             echo "<question>";
                 echo "<type>".$TYPE."</type>";
                 echo "<query>".$row['questionQuery']."</query>";
                 $gc = mysqli_fetch_array($getCor);
                 echo "<correct>".$gc['answerLetter']."</correct>";
+                while ($gt = mysqli_fetch_array($getTag)) {
+                    echo "<tag>".$gt['tagName']."</tag>";
+                }
             echo "</question>";
         }
         elseif ($TYPE == 3) {
             $getAns = mysqli_query($con,"SELECT answerLetter, answerField, answerCorrect FROM answer WHERE questionId = $QUESTIONID;");
+            $getTag = mysqli_query($con,"SELECT tagName FROM tags WHERE questionId = $QUESTIONID;");
             echo "<question>";
                 echo "<type>".$TYPE."</type>";
                 echo "<query>".$row['questionQuery']."</query>";
                 $ga = mysqli_fetch_array($getAns);
                 echo "<answer>".$ga['answerField']."</answer>";
+                while ($gt = mysqli_fetch_array($getTag)) {
+                    echo "<tag>".$gt['tagName']."</tag>";
+                }
             echo "</question>";
         }
         elseif ($TYPE == 4) {
             $getAns = mysqli_query($con,"SELECT answerLetter, answerField, answerCorrect FROM answer WHERE questionId = $QUESTIONID;");
+            $getTag = mysqli_query($con,"SELECT tagName FROM tags WHERE questionId = $QUESTIONID;");
             echo "<question>";
                 echo "<type>".$TYPE."</type>";
                 echo "<query>".$row['questionQuery']."</query>";
@@ -63,6 +76,9 @@ if (!empty($QUESTIONID)) {
                 while($ga = mysqli_fetch_array($getAns)) {
                     echo "<case".$i.">".$ga['answerField']."</case".$i.">";
                     $i++;
+                }
+                while ($gt = mysqli_fetch_array($getTag)) {
+                    echo "<tag>".$gt['tagName']."</tag>";
                 }
             echo "</question>";
         }
