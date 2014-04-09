@@ -3,8 +3,9 @@
   ///////////  Code to Authenticate with NJIT or the Database
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //*
-error_reporting(E_ALL);
+require "mycurl.php";
 
+error_reporting(E_ALL);
 
 if(isset($_POST["txtUCID"])&&isset($_POST["txtPasswd"]))
 {
