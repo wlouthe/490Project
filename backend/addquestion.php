@@ -40,6 +40,7 @@ if (!empty($TEACHID) && !empty($CLASSID)) {
     $query = mysqli_query($con,"SELECT * FROM question WHERE questionQuery = '$QUESTION' AND creatorId = $TEACHID;");
     $row = mysqli_fetch_array($query);
     $QUESTIONID = $row['questionId'];
+    echo "<qid>".$QUESTIONID."</qid>";
     if (!empty($TAG)) {
         mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTIONID, lower('$TAG'), 0);");
     }

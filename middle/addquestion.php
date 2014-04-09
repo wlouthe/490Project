@@ -28,7 +28,7 @@ while(isset($_POST["type".$count]) && !empty($_POST["type".$count]))
 			"teacherid" => urlencode($_POST["teacherid"]),
 			"classid" => urlencode($_POST["classid"])
         );
-        echo curlcall($fields, $url);
+        $qid = curlcall($fields, $url);
         
     }
     //true false
@@ -46,7 +46,7 @@ while(isset($_POST["type".$count]) && !empty($_POST["type".$count]))
 			"teacherid" => urlencode($_POST["teacherid"]),
 			"classid" => urlencode($_POST["classid"])
         );
-        echo curlcall($fields, $url);
+        $qid = curlcall($fields, $url);
         
     }
     //short answer
@@ -65,7 +65,7 @@ while(isset($_POST["type".$count]) && !empty($_POST["type".$count]))
 			"teacherid" => urlencode($_POST["teacherid"]),
 			"classid" => urlencode($_POST["classid"])
         );
-        echo curlcall($fields, $url);
+        $qid = curlcall($fields, $url);
         
     }
     //program
@@ -91,8 +91,24 @@ while(isset($_POST["type".$count]) && !empty($_POST["type".$count]))
 			"teacherid" => urlencode($_POST["teacherid"]),
 			"classid" => urlencode($_POST["classid"])
         );
-        echo curlcall($fields, $url);
+        $qid = curlcall($fields, $url);
         
+    }
+    $tags = $_POST["tags".$count];
+    $doc = new DOMDocument();
+    $doc->loadHTML($qid);
+    $qid = $doc->getElementsByTagName('qid')->item(0)->nodeValue;
+    if(!empty($tags) && $tags != "")
+    {
+        $mytags = explode(',',$tags);
+        foreach($mytags as $tag)
+        {
+            $fields = array(
+                "tag" => urlencode(trim($tag)),
+                "questionid" => urlencode($qid)
+            );
+            curlcall($fields, "http://web.njit.edu/~tjh24/addtagname.php");
+        }
     }
     $count++;
 }
