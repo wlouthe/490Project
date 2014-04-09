@@ -17,7 +17,7 @@ $CLASSID = $_POST['classid'];
 $KEYWORD = $_POST['keyword'];
 
 if (!empty($TEACHID) && !empty($CLASSID) && !empty($KEYWORD)) {
-    $getQID = mysqli_query($con,"SELECT DISTINCT questionId FROM question, answer WHERE classId = $CLASSID AND creatorId = $TEACHID AND question.questionId = answer.questionId AND (question.questionQuery LIKE %".$KEYWORD."% OR answer.answerField LIKE %".$KEYWORD."%);");
+    $getQID = mysqli_query($con,"SELECT DISTINCT question.questionId FROM question, answer WHERE classId = $CLASSID AND creatorId = $TEACHID AND question.questionId = answer.questionId AND (question.questionQuery LIKE '%".$KEYWORD."%' OR answer.answerField LIKE '%".$KEYWORD."%');");
     while ($read = mysqli_fetch_array($getQID)) {
         $QID = $read['questionId'];
         echo "<questionid>".$read['questionId']."</questionid>";

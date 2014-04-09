@@ -157,7 +157,7 @@ if ($optionnum==2)
 		{
 			$checked='';
 		}
-		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' type'.$testtype->item($key)->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="'.$testtype->item($key)->nodeValue.'">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td><td><div style='height:100%; width:100%; background-color:tomato; color:whitesmoke;' id='edit".$key."' class='editbutton'>Edit</div></td></tr>";
+		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' mytype'.$testtype->item($key)->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="'.$testtype->item($key)->nodeValue.'">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td><td><div style='height:100%; width:100%; background-color:tomato; color:whitesmoke;' id='edit".$key."' class='editbutton'>Edit</div></td></tr>";
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 1:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 2:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
@@ -211,24 +211,25 @@ if ($optionnum==2)
                 //alert("InxVal" + index + ":" + value);
                 if(value == "tagmc")
                 {
-                    $("tr.type1").show();
+                    $("tr.mytype1").show();
                 }
                 else if(value == "tagtf")
                 {
-                    $("tr.type2").show();
+                    $("tr.mytype2").show();
                 }
                 else if(value == "tagop")
                 {
-                    $("tr.type3").show();
+                    $("tr.mytype3").show();
                 }
                 else if(value == "tagcd")
                 {
-                    $("tr.type4").show();
+                    $("tr.mytype4").show();
                 }
                 else
                 {
                     tags = tags + value + ",";
                 }
+                mycnt++;
             });
             $.ajax({
                 type: "POST",
@@ -243,7 +244,6 @@ if ($optionnum==2)
                 success: function(mydata,status,myobj){
                     $(mydata).find("qid").each(function(){
                         $("tr." + $(this).text()).show();
-                        mycnt++;
                     })
 
                 },
