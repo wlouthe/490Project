@@ -18,7 +18,10 @@ $TESTID = $_POST['testid'];
 if (!empty($TESTID) && !empty($STUDENT)) {
     $query = mysqli_query($con,"SELECT DISTINCT * FROM testQuestions, question 
     WHERE testQuestions.questionId = question.questionId AND testQuestions.testId = $TESTID;");
-
+    $release = mysqli_query($con,"SELECT releaseTest FROM test WHERE testId = $TESTID;");
+    $gr = mysqli_fetch_array($release);
+    $RELEASE = $gr['releaseTest'];
+    if ($RELEASE == 1) {
         while ($row = mysqli_fetch_array($query)) {
             $type = $row['questionType'];
             // Multiple Choice
@@ -127,6 +130,10 @@ if (!empty($TESTID) && !empty($STUDENT)) {
                 echo "</question>";
             }
         }
+    }
+    else {
+        echo "<release>0</release>";
+    }
 }
 else {
     echo "Missing ID.";

@@ -41,9 +41,6 @@ if (!empty($TEACHID) && !empty($CLASSID)) {
     $row = mysqli_fetch_array($query);
     $QUESTIONID = $row['questionId'];
     echo "<qid>".$QUESTIONID."</qid>";
-    if (!empty($TAG)) {
-        mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTIONID, lower('$TAG'), 0);");
-    }
     if ($QUESTIONTYPE == 1) {
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
             mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
