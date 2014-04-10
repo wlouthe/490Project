@@ -164,15 +164,148 @@ if ($optionnum==2)
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
 	}
-	echo "<tr><td></td><td><input type='submit'></td></tr></tbody></table></form></td><td></td><td>";
-    echo "<table class='mytable' style='display:block;'><thead class='myhead'><tr><th>Filter Tags</th><th>Show</th></tr></thead><tbody>";
+	echo "<tr><td></td><td><input type='submit'></td></tr></tbody></table></form></td><td>";
+    echo "<table>
+            <tr id='tr1' style='display:hidden'>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                Question:</td><td><input id='tabl1q' class='tabl1' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Option 1:</td><td><input id='tabl1o1' class='tabl1' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Option 2:</td><td><input id='tabl1o2' class='tabl1' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Option 3:</td><td><input id='tabl1o3' class='tabl1' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Option 4:</td><td><input id='tabl1o4' class='tabl1' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Answer:</td><td>
+                                    <select id='tabl1a' class='tabl1'>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                    </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Point Value:</td><td><input id='tabl1p' class='tabl1' type='text' value=''>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id='tr2' style='display:hidden'>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                Question:</td><td><input id='tabl2q' class='tabl2' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Answer:</td><td>
+                                    <select id='tabl2a' class='tabl2'>
+                                        <option value='1'>True</option>
+                                        <option value='2'>False</option>
+                                    </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Point Value:</td><td><input id='tabl2p' class='tabl2' type='text' value=''>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id='tr3' style='display:hidden'>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                Question:</td><td><input id='tabl3q' class='tabl3' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Answer:</td><td><input id='tabl3a' class='tabl3' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Point Value:</td><td><input id='tabl3p' class='tabl3' type='text' value=''>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id='tr4' style='display:hidden'>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                Question:</td><td><input id='tabl4q' class='tabl4' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Test Case 1:</td><td><input id='tabl4o1' class='tabl4' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Test Case 2:</td><td><input id='tabl4o2' class='tabl4' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Test Case 3:</td><td><input id='tabl4o3' class='tabl4' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Test Case 4:</td><td><input id='tabl4o4' class='tabl4' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Test Code:</td><td><textarea id='tabl4a' class='tabl4'></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Point Value:</td><td><input id='tabl4p' class='tabl4' type='text' value=''>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id='trfilter'><td><table class='mytable' style='display:block;'><thead class='myhead'><tr><th>Filter Tags</th><th>Show</th></tr></thead><tbody>";
     
     $fields = array(
         "teachid" => urlencode($id),
         "classid" => urlencode($_POST["classid"])
     );
-    //echo $id;
-    //echo $_POST["classid"];
     $result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntag.php");
 
     $doc = new DOMDocument();
@@ -190,7 +323,7 @@ if ($optionnum==2)
         $finaltmp=$key;
     }
     
-    echo '<tr class="rowcolor'.(($finaltmp+1)%2).'"><td>Search:</td><td><input id="searchbar" type="text"></td></tr><tr><td></td><td><button id="clearall">Clear All</button></td></tr></tbody></table></td></tr></tbody></table>';
+    echo '<tr class="rowcolor'.(($finaltmp+1)%2).'"><td>Search:</td><td><input id="searchbar" type="text"></td></tr><tr><td></td><td><button id="clearall">Clear All</button></td></tr></tbody></table></td></tr></table></td></tr></tbody></table>';
     
     echo '<div>
 	<script>

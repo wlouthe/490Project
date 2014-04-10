@@ -210,35 +210,35 @@
 				}
                 if(substr($canswer,0,1) == "1")
                 {
-                    echo "<tr><td style='color:chartreuse'>".$answer1."</td></tr>";
+                    echo "<tr><td></td><td style='background-color:chartreuse'>".$answer1."</td></tr>";
                 }
                 else
                 {
-                    echo "<tr><td style='color:tomato'>".$answer1."</td></tr>";
+                    echo "<tr><td></td><td style='background-color:tomato'>".$answer1."</td></tr>";
                 }
                 if(substr($canswer,1,1) == "1")
                 {
-                    echo "<tr><td style='color:chartreuse'>".$answer2."</td></tr>";
+                    echo "<tr><td></td><td style='background-color:chartreuse'>".$answer2."</td></tr>";
                 }
                 else
                 {
-                    echo "<tr><td style='color:tomato'>".$answer2."</td></tr>";
+                    echo "<tr><td></td><td style='background-color:tomato'>".$answer2."</td></tr>";
                 }
                 if(substr($canswer,2,1) == "1")
                 {
-                    echo "<tr><td style='color:chartreuse'>".$answer3."</td></tr>";
+                    echo "<tr><td></td><td style='background-color:chartreuse'>".$answer3."</td></tr>";
                 }
                 else
                 {
-                    echo "<tr><td style='color:tomato'>".$answer3."</td></tr>";
+                    echo "<tr><td></td><td style='background-color:tomato'>".$answer3."</td></tr>";
                 }
                 if(substr($canswer,3,1) == "1")
                 {
-                    echo "<tr><td style='color:chartreuse'>".$answer4."</td></tr>";
+                    echo "<tr><td></td><td style='background-color:chartreuse'>".$answer4."</td></tr>";
                 }
                 else
                 {
-                    echo "<tr><td style='color:tomato'>".$answer4."</td></tr>";
+                    echo "<tr><td></td><td style='background-color:tomato'>".$answer4."</td></tr>";
                 }
 			}
 			echo "</table><hr>";
