@@ -157,22 +157,207 @@ if ($optionnum==2)
 		{
 			$checked='';
 		}
-		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' mytype'.$testtype->item($key)->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="'.$testtype->item($key)->nodeValue.'">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td><td><div style='height:100%; width:100%; background-color:tomato; color:whitesmoke;' id='edit".$key."' class='editbutton'>Edit</div></td></tr>";
+		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' mytype'.$testtype->item($key)->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="'.$testtype->item($key)->nodeValue.'">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td><td style='background-color:tomato; color:whitesmoke;'><div style='height:100%; width:100%; background-color:tomato; color:whitesmoke;' id='".$testid->nodeValue."' class='editbutton'>Edit</div></td></tr>";
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 1:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 2:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
 	}
-	echo "<tr><td></td><td><input type='submit'></td></tr></tbody></table></form></td><td></td><td>";
-    echo "<table class='mytable' style='display:block;'><thead class='myhead'><tr><th>Filter Tags</th><th>Show</th></tr></thead><tbody>";
+	echo "<tr><td></td><td><input type='submit'></td></tr></tbody></table></form></td><td>";
+    echo "<table>
+            <tr id='tr1' style='display:none'>
+                <td>
+                    <table class='mytable'>
+                        <thead class='myhead'>
+                            <td>Edit Code</td>
+                        </thead>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Question:</td><td><input id='tabl1q' class='tabl1 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Option 1:</td><td><input id='tabl1o1' class='tabl1 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Option 2:</td><td><input id='tabl1o2' class='tabl1 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Option 3:</td><td><input id='tabl1o3' class='tabl1 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Option 4:</td><td><input id='tabl1o4' class='tabl1 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Answer:</td><td>
+                                    <select id='tabl1a' class='tabl1 tablselect'>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                    </select>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Tags:</td><td><textarea id='tabl1t' class='tabl1 tabltxtarea'></textarea>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Point Value:</td><td><input id='tabl1p' class='tabl1 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td><div class='mydisregarder' style='background-color:red; color:whitesmoke;'>Cancel</div></td><td>
+                                <div class='mysubmitter' style='background-color:tomato; color:whitesmoke;'>Save Changes</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id='tr2' style='display:none'>
+                <td>
+                    <table class='mytable'>
+                        <thead class='myhead'>
+                            <td>Edit Code</td>
+                        </thead>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Question:</td><td><input id='tabl2q' class='tabl2 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Answer:</td><td>
+                                    <select id='tabl2a' class='tabl2 tablselect'>
+                                        <option value='1'>True</option>
+                                        <option value='2'>False</option>
+                                    </select>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Point Value:</td><td><input id='tabl2p' class='tabl2 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Tags:</td><td><textarea id='tabl2t' class='tabl2 tabltxtarea'></textarea>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td><div class='mydisregarder' style='background-color:red; color:whitesmoke;'>Cancel</div></td><td>
+                                <div class='mysubmitter' style='background-color:tomato; color:whitesmoke;'>Save Changes</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id='tr3' style='display:none'>
+                <td>
+                    <table class='mytable'>
+                        <thead class='myhead'>
+                            <td>Edit Code</td>
+                        </thead>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Question:</td><td><input id='tabl3q' class='tabl3 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Answer:</td><td><input id='tabl3a' class='tabl3 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Point Value:</td><td><input id='tabl3p' class='tabl3 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Tags:</td><td><textarea id='tabl3t' class='tabl3 tabltxtarea'></textarea>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td><div class='mydisregarder' style='background-color:red; color:whitesmoke;'>Cancel</div></td><td>
+                                <div class='mysubmitter' style='background-color:tomato; color:whitesmoke;'>Save Changes</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id='tr4' style='display:none'>
+                <td>
+                    <table class='mytable'>
+                        <thead class='myhead'>
+                            <td>Edit Code</td>
+                        </thead>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Question:</td><td><input id='tabl4q' class='tabl4 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Test Case 1:</td><td><input id='tabl4o1' class='tabl4 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Test Case 2:</td><td><input id='tabl4o2' class='tabl4 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Test Case 3:</td><td><input id='tabl4o3' class='tabl4 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Test Case 4:</td><td><input id='tabl4o4' class='tabl4 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Test Code:</td><td><textarea id='tabl4a' class='tabl4 tabltxtarea'></textarea>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td>
+                                Point Value:</td><td><input id='tabl4p' class='tabl4 tabltxt' type='text' value=''>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor1'>
+                            <td>
+                                Tags:</td><td><textarea id='tabl4t' class='tabl4 tabltxtarea'></textarea>
+                            </td>
+                        </tr>
+                        <tr class='rowcolor0'>
+                            <td><div class='mydisregarder' style='background-color:red; color:whitesmoke;'>Cancel</div></td><td>
+                                <div class='mysubmitter' style='background-color:tomato; color:whitesmoke;'>Save Changes</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr id='trfilter'><td><table class='mytable' style='display:block;'><thead class='myhead'><tr><th>Filter Tags</th><th>Show</th></tr></thead><tbody>";
     
     $fields = array(
         "teachid" => urlencode($id),
         "classid" => urlencode($_POST["classid"])
     );
-    //echo $id;
-    //echo $_POST["classid"];
     $result = curlcall($fields, "http://web.njit.edu/~ss55/490server/returntag.php");
 
     $doc = new DOMDocument();
@@ -190,13 +375,16 @@ if ($optionnum==2)
         $finaltmp=$key;
     }
     
-    echo '<tr class="rowcolor'.(($finaltmp+1)%2).'"><td>Search:</td><td><input id="searchbar" type="text"></td></tr><tr><td></td><td><button id="clearall">Clear All</button></td></tr></tbody></table></td></tr></tbody></table>';
+    echo '<tr class="rowcolor'.(($finaltmp+1)%2).'"><td>Search:</td><td><input id="searchbar" type="text"></td></tr><tr><td></td><td><button id="clearall">Clear All</button></td></tr></tbody></table></td></tr></table></td></tr></tbody></table>';
     
     echo '<div>
 	<script>
     $(document).ready(function(){
         var tid = '.$id.';
         var cid = '.$_POST["classid"].';
+        var lock = 0;
+        var last = 0;
+        var lastid = 0;
         $("input.tag").change(function(){
             //alert("funstart");
             var mytags = $("input.tag:checkbox:checked").map(function(){
@@ -302,7 +490,132 @@ if ($optionnum==2)
         });
         $("div.editbutton").click(function(e){
             console.log("Edit Clicked: " + $(this).attr("id"));
+            if(lock == 1)
+            {
+                if(confirm("Would you like to discard your previous Edit?"))
+                {
+                    lock = 0;
+                    $("input.tabltxt").val("");
+                    $("select.tablselect").prop("selected",false);
+                    $("textarea.tabltxtarea").html("");
+                    $("#tr1").hide();
+                    $("#tr2").hide();
+                    $("#tr3").hide();
+                    $("#tr4").hide();
+                }
+            }
+            if(lock == 0)
+            {
+                lock = 1;
+                var qid = $(this).attr("id");
+                lastid = qid;
+                
+                $.ajax({
+                    type: "POST",
+                    url: "http://web.njit.edu/~ss55/490server/getQuestion.php",
+                    async: false,
+                    data: {
+                        "id": lastid
+                    },
+                    dataType: "xml",
+                    success: function(mydata,status,myobj){
+                        console.dirxml(mydata);
+                        console.log($(mydata).find("query").text());
+                        var type = $(mydata).find("type").text();
+                        last = type;
+                        if(type == 1)
+                        {
+                            $("#tr1").show();
+                            $("#tabl1q").val($(mydata).find("query").text());
+                            $("#tabl1o1").val($(mydata).find("choice1").text());
+                            $("#tabl1o2").val($(mydata).find("choice2").text());
+                            $("#tabl1o3").val($(mydata).find("choice3").text());
+                            $("#tabl1o4").val($(mydata).find("choice4").text());
+                            $("#tabl1a").val($(mydata).find("correct").text());
+                            $("#tabl1p").val($(mydata).find("pvalue").text());
+                            var mytags = "";
+                            $(mydata).find("tag").each(function(){
+                                mytags = mytags + $(this).text() + ",";
+                            });
+                            $("#tabl1t").html(mytags);
+                        }
+                        if(type == 2)
+                        {
+                            $("#tr2").show();
+                            $("#tabl2q").val($(mydata).find("query").text());
+                            $("#tabl2a").val($(mydata).find("correct").text());
+                            $("#tabl2p").val($(mydata).find("pvalue").text());
+                            var mytags = "";
+                            $(mydata).find("tag").each(function(){
+                                mytags = mytags + $(this).text() + ",";
+                            });
+                            $("#tabl2t").html(mytags);
+                        }
+                        if(type == 3)
+                        {
+                            $("#tr3").show();
+                            $("#tabl3q").val($(mydata).find("query").text());
+                            $("#tabl3a").val($(mydata).find("answer").text());
+                            $("#tabl3p").val($(mydata).find("pvalue").text());
+                            var mytags = "";
+                            $(mydata).find("tag").each(function(){
+                                mytags = mytags + $(this).text() + ",";
+                            });
+                            $("#tabl3t").html(mytags);
+                        }
+                        if(type == 4)
+                        {
+                            $("#tr4").show();
+                            $("#tabl4q").val($(mydata).find("query").text());
+                            $("#tabl4o1").val($(mydata).find("case1").text());
+                            $("#tabl4o2").val($(mydata).find("case2").text());
+                            $("#tabl4o3").val($(mydata).find("case3").text());
+                            $("#tabl4o4").val($(mydata).find("case4").text());
+                            $("#tabl4a").val($(mydata).find("correct").text());
+                            $("#tabl4p").val($(mydata).find("pvalue").text());
+                            var mytags = "";
+                            $(mydata).find("tag").each(function(){
+                                mytags = mytags + $(this).text() + ",";
+                            });
+                            $("#tabl4t").html(mytags);
+                        }
+                    },
+                    error: function(baba, gaga) {
+                        alert("Error occured: " + gaga);
+                    }
+                });
+
+                
+            }
+            
         });
+        $("div.mysubmitter").click(function(){
+            if(last == 1)
+            {
+                
+            }
+            lock=0;
+            $("input.tabltxt").val("");
+            $("select.tablselect").prop("selected",false);
+            $("textarea.tabltxtarea").html("");
+            $("#tr1").hide();
+            $("#tr2").hide();
+            $("#tr3").hide();
+            $("#tr4").hide();
+        });
+        
+        $("div.mydisregarder").click(function(){
+            lock=0;
+            $("input.tabltxt").val("");
+            $("select.tablselect").prop("selected",false);
+            $("textarea.tabltxtarea").html("");
+            $("#tr1").hide();
+            $("#tr2").hide();
+            $("#tr3").hide();
+            $("#tr4").hide();
+        });
+        
+        
     });
 	</script></div>';
 }
