@@ -13,7 +13,7 @@ if (mysqli_connect_errno())
 }
 
 $TAGNAME  = mysqli_real_escape_string($con, $_POST['tag']);
-$QUESTION = $_POST['id'];
+$QUESTION = $_POST['questionid'];
 
 if (!empty($TAGNAME) && !empty($QUESTION)) {
     mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTION, lower('$TAGNAME'), 0);");
