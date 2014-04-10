@@ -52,7 +52,7 @@ if (!empty($QUESTIONID) && !empty($QUESTIONTYPE)) {
     }
     if ($QUESTIONTYPE == 4) {
         $AFLAG = 0;
-        if($CORRECT == "1111")
+        if($CORRECT = "1")
         {
             $AFLAG = 1;
         }

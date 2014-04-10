@@ -12,14 +12,14 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$TAGNAME  = mysqli_real_escape_string($con, $_POST['tag']);
+$TAGNAME  = $_POST['tag'];
 $QUESTION = $_POST['questionid'];
 
 if (!empty($TAGNAME) && !empty($QUESTION)) {
-    mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTION, lower('$TAGNAME'), 0);");
+    mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTION, '$TAGNAME', 0);");
 }
 else {
-	echo "<success>0</success>";
+	echo "Missing TAG or QUESTION ID.";
 }
 
 mysqli_close($con);
