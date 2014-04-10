@@ -34,7 +34,6 @@ $ANSWER = mysqli_real_escape_string($con, $_POST['answer']);
 
 if (!empty($QUESTIONID)) {
     if ($QUESTIONTYPE == 1) {
-        mysqli_query($con,"DELETE FROM tags WHERE questionId = $QUESTIONID;");
         mysqli_query($con,"UPDATE question SET questionQuery = $QUESTION, questionValue = $QUESTIONVALUE;");
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
             mysqli_query($con,"UPDATE answer SET answerField = '$CHOICE[$j]', answerCorrect = 0 WHERE questionId = $QUESTIONID;");
@@ -44,73 +43,26 @@ if (!empty($QUESTIONID)) {
         }
     }
     elseif ($QUESTIONTYPE == 2) {
-        
-    }
-    elseif ($QUESTIONTYPE == 3) {
-        
-    }
-    elseif ($QUESTIONTYPE == 4) {
-        
-    }
-    else {
-        echo "<success>0</success>";
-    }
-}
-if (!empty($QUESTIONID)) {
-    mysqli_query($con,"INSERT INTO question(classId, creatorId, questionType, questionQuery, questionValue, deleteRequest)
-        VALUES($CLASSID, $TEACHID, $QUESTIONTYPE, '$QUESTION', $QUESTIONVALUE, 0);");
-    
-    $query = mysqli_query($con,"SELECT * FROM question WHERE questionQuery = '$QUESTION' AND creatorId = $TEACHID;");
-    $row = mysqli_fetch_array($query);
-    $QUESTIONID = $row['questionId'];
-    echo "<qid>".$QUESTIONID."</qid>";
-    if (!empty($TAG)) {
-        mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTIONID, lower('$TAG'), 0);");
-    }
-    if ($QUESTIONTYPE == 1) {
-        for($i = 1, $j = 0; $i < 5; $i++, $j++) {
-            mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
-                VALUES($QUESTIONID, $i, '$CHOICE[$j]', 0);");
-            if ($ANSWER == $i) {
-                mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE answerLetter = $i AND questionId = $QUESTIONID;");
-            }
-        }
-    }
-    else {
-        echo "<success>0</success>";
-    }
-    if ($QUESTIONTYPE == 2) {
+        mysqli_query($con,"UPDATE question SET questionQuery = $QUESTION, questionValue = $QUESTIONVALUE;");
         for ($i = 1, $j = 0; $i < 3; $i++, $j++) {
-            mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField, answerCorrect)
-                VALUES($QUESTIONID, $i, '$TRUFAL[$j]', 0);");
             if ($ANSWER == ($j+1)) {
                 mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE answerLetter = $i AND questionId = $QUESTIONID;");
             }
         }
     }
-    else {
-        echo "<success>0</success>";
+    elseif ($QUESTIONTYPE == 3) {
+        mysqli_query($con,"UPDATE question SET questionQuery = $QUESTION, questionValue = $QUESTIONVALUE;");
+        mysqli_query($con,"UPDATE answer SET answerField = '$ANSWER' WHERE questionId = $QUESTIONID;");
     }
-    if ($QUESTIONTYPE == 3 ) {
-        mysqli_query($con,"INSERT INTO answer(questionId, answerField, answerCorrect)
-            VALUES($QUESTIONID, '$ANSWER', 1);");
-    }
-    else {
-        echo "<success>0</success>";
-    }
-    if ($QUESTIONTYPE == 4) {
+    elseif ($QUESTIONTYPE == 4) {
+        mysqli_query($con,"UPDATE question SET questionQuery = $QUESTION, questionValue = $QUESTIONVALUE;");
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
-            mysqli_query($con,"INSERT INTO answer(questionId, answerLetter, answerField)
-                VALUES($QUESTIONID, '$i', '$TESTCASE[$j]');");
+            mysqli_query($con,"UPDATE answer SET answerField = '$TESTCASE[$j]' WHERE questionId = $QUESTIONID;");
         }
-        mysqli_query($con,"UPDATE question SET questionTestCode = '$TESTCODE' WHERE questionId = $QUESTIONID;");
     }
     else {
         echo "<success>0</success>";
     }
-}
-else {
-    echo "<success>0</success>";
 }
 
 mysqli_close($con);

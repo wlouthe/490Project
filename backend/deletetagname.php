@@ -12,11 +12,10 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$TAGNAME  = $_POST['tag'];
 $QUESTION = $_POST['questionid'];
 
 if (!empty($TAGNAME) && !empty($QUESTION)) {
-    mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTION, lower('$TAGNAME'), 0);");
+    mysqli_query($con,"DELETE FROM tags WHERE questionId = $QUESTION;");
 }
 else {
 	echo "<success>0</success>";
