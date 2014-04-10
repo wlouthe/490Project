@@ -12,7 +12,7 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$TAGNAME  = $_POST['tag'];
+$TAGNAME  = mysqli_real_escape_string($con, $_POST['tag']);
 $QUESTION = $_POST['questionid'];
 
 if (!empty($TAGNAME) && !empty($QUESTION)) {

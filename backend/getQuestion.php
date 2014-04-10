@@ -17,7 +17,7 @@ if (mysqli_connect_errno())
 $QUESTIONID = $_POST['id'];
 
 if (!empty($QUESTIONID)) {
-    $query = mysqli_query($con,"SELECT questionType, questionQuery, questionValue FROM question WHERE questionId = $QUESTIONID;");
+    $query = mysqli_query($con,"SELECT questionType, questionQuery, questionValue, questionTestCode FROM question WHERE questionId = $QUESTIONID;");
     while ($row = mysqli_fetch_array($query)) {
         $TYPE = $row['questionType'];
         if ($TYPE == 1) {
@@ -76,6 +76,7 @@ if (!empty($QUESTIONID)) {
                 echo "<type>".$TYPE."</type>";
                 echo "<pvalue>".$row['questionValue']."</pvalue>";
                 echo "<query>".$row['questionQuery']."</query>";
+                echo "<testcode>".$row['questionTestCode']."</testcode>";
                 $i = 1;
                 while($ga = mysqli_fetch_array($getAns)) {
                     echo "<case".$i.">".$ga['answerField']."</case".$i.">";

@@ -15,15 +15,12 @@ if (mysqli_connect_errno())
 $TESTID = $_POST['testid'];
 $RELEASE = $_POST['release'];
 
-if (!empty($RELEASE) && !empty($TESTID)) {
+if (!empty($TESTID) && ($RELEASE == 0 || $RELEASE == 1)) {
     if ($RELEASE == 1) {
         mysqli_query($con,"UPDATE test SET releaseTest = 1 WHERE testId = $TESTID;");
     }
-    elseif ($RELEASE == 0) {
-        mysqli_query($con,"UPDATE test SET releaseTest = 0 WHERE testId = $TESTID;");
-    }
     else {
-        echo "<success>0</success>";
+        mysqli_query($con,"UPDATE test SET releaseTest = 0 WHERE testId = $TESTID;");
     }
 }
 else {
