@@ -14,7 +14,7 @@ if (mysqli_connect_errno())
 
 $QUESTION = $_POST['id'];
 
-if (!empty($TAGNAME) && !empty($QUESTION)) {
+if (!empty($QUESTION)) {
     mysqli_query($con,"DELETE FROM tags WHERE questionId = $QUESTION;");
 }
 else {
