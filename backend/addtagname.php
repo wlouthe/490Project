@@ -16,7 +16,7 @@ $TAGNAME  = $_POST['tag'];
 $QUESTION = $_POST['questionid'];
 
 if (!empty($TAGNAME) && !empty($QUESTION)) {
-    mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTION, '$TAGNAME', 0);");
+    mysqli_query($con,"INSERT INTO tags(questionId, tagName, deleteRequest) VALUES ($QUESTION, lower('$TAGNAME'), 0);");
 }
 else {
 	echo "Missing TAG or QUESTION ID.";
