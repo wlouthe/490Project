@@ -592,7 +592,117 @@ if ($optionnum==2)
         $("div.mysubmitter").click(function(){
             if(last == 1)
             {
-                
+                $.ajax({
+                    type: "POST",
+                    url: "http://web.njit.edu/~ss55/490server/getQuestion.php",
+                    async: false,
+                    data: {
+                        "teacherid": '.$id.',
+                        "classid": '.$_POST["classid"].',
+                        "id": lastid,
+                        "type":last,
+                        "question": $("#tabl1q").val(),
+                        "answer1_": $("#tabl1o1").val(),
+                        "answer2_": $("#tabl1o2").val(),
+                        "answer3_": $("#tabl1o3").val(),
+                        "answer4_": $("#tabl1o4").val(),
+                        "correct": $("#tabl1a").val(),
+                        "pvalue": $("#tabl1p").val(),
+                        "tags": $("#tabl1t").html()
+                    },
+                    dataType: "xml",
+                    success: function(mydata,status,myobj){
+                        console.log("success");
+                        console.dirxml(mydata);
+                    },
+                    error: function(baba, gaga) {
+                        alert("Error occured: " + gaga);
+                    }
+                }).done(function(){
+                    alert("Success!");
+                });
+            }
+            if(last == 2)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "http://web.njit.edu/~ss55/490server/getQuestion.php",
+                    async: false,
+                    data: {
+                        "teacherid": '.$id.',
+                        "classid": '.$_POST["classid"].',
+                        "id": lastid,
+                        "type":last,
+                        "question": $("#tabl2q").val(),
+                        "correct": $("#tabl2a").val(),
+                        "pvalue": $("#tabl2p").val(),
+                        "tags": $("#tabl2t").html()
+                    },
+                    dataType: "xml",
+                    success: function(mydata,status,myobj){
+                        console.log("success");
+                        console.dirxml(mydata);
+                    },
+                    error: function(baba, gaga) {
+                        alert("Error occured: " + gaga);
+                    }
+                });
+            }
+            if(last == 3)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "http://web.njit.edu/~ss55/490server/getQuestion.php",
+                    async: false,
+                    data: {
+                        "teacherid": '.$id.',
+                        "classid": '.$_POST["classid"].',
+                        "id": lastid,
+                        "type":last,
+                        "question": $("#tabl3q").val(),
+                        "correct": $("#tabl3a").val(),
+                        "pvalue": $("#tabl3p").val(),
+                        "tags": $("#tabl3t").html()
+                    },
+                    dataType: "xml",
+                    success: function(mydata,status,myobj){
+                        console.log("success");
+                        console.dirxml(mydata);
+                    },
+                    error: function(baba, gaga) {
+                        alert("Error occured: " + gaga);
+                    }
+                });
+            }
+            if(last == 4)
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "http://web.njit.edu/~ss55/490server/getQuestion.php",
+                    async: false,
+                    data: {
+                        "teacherid": '.$id.',
+                        "classid": '.$_POST["classid"].',
+                        "id": lastid,
+                        "type":last,
+                        "question": $("#tabl1q").val(),
+                        "testcase1_": $("#tabl4o1").val(),
+                        "testcase2_": $("#tabl4o2").val(),
+                        "testcase3_": $("#tabl4o3").val(),
+                        "testcase4_": $("#tabl4o4").val(),
+                        "testcode": $("#tabl4a").val(),
+                        "pvalue": $("#tabl4p").val(),
+                        "tags": $("#tabl4t").html()
+                    },
+                    dataType: "xml",
+                    success: function(mydata,status,myobj){
+                        console.log("success");
+                        console.dirxml(mydata);
+                    },
+                    error: function(baba, gaga) {
+                        alert("Error occured: " + gaga);
+                    }
+                });
             }
             lock=0;
             $("input.tabltxt").val("");
