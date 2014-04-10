@@ -39,16 +39,17 @@ if (!empty($QUESTIONID)) {
     }
     elseif ($QUESTIONTYPE == 2) {
         mysqli_query($con,"UPDATE question SET questionQuery = '$QUESTION', questionValue = $QUESTIONVALUE WHERE questionId = $QUESTIONID;");
+        mysqli_query($con,"UPDATE answer SET answerCorrect = 0 WHERE questionId = $QUESTIONID AND answerLetter != $ANSWER;");
         mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE questionId = $QUESTIONID AND answerLetter = $ANSWER;");
     }
     elseif ($QUESTIONTYPE == 3) {
         mysqli_query($con,"UPDATE question SET questionQuery = '$QUESTION', questionValue = $QUESTIONVALUE WHERE questionId = $QUESTIONID;");
-        mysqli_query($con,"UPDATE answer SET answerCorrect = 1 WHERE questionId = $QUESTIONID AND answerLetter = $ANSWER;");
+        mysqli_query($con,"UPDATE answer SET answerField = '$ANSWER', answerCorrect = 1 WHERE questionId = $QUESTIONID;");
     }
     elseif ($QUESTIONTYPE == 4) {
         mysqli_query($con,"UPDATE question SET questionQuery = '$QUESTION', questionValue = $QUESTIONVALUE WHERE questionId = $QUESTIONID;");
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
-            mysqli_query($con,"UPDATE answer SET answerField = '$TESTCASE[$j]' WHERE questionId = $QUESTIONID answerLetter = $i;");
+            mysqli_query($con,"UPDATE answer SET answerField = '$TESTCASE[$j]' WHERE questionId = $QUESTIONID AND answerLetter = $i;");
         }
     }
     else {
