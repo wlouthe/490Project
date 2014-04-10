@@ -12,9 +12,9 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$QUESTION = $_POST['questionid'];
+$QUESTION = $_POST['id'];
 
-if (!empty($TAGNAME) && !empty($QUESTION)) {
+if (!empty($QUESTION)) {
     mysqli_query($con,"DELETE FROM tags WHERE questionId = $QUESTION;");
 }
 else {

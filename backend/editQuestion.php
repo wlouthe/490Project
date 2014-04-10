@@ -12,7 +12,7 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$QUESTIONID = $_POST['questionid'];
+$QUESTIONID = $_POST['id'];
 
 $QUESTION = mysqli_real_escape_string($con, $_POST['question']);
 $QUESTIONTYPE = $_POST['type']; // 1 - multiple choice, 2 - True/False, 3 - Fill in the blank, 4 - Programming
@@ -29,7 +29,7 @@ if ($QUESTIONTYPE == 4) {
 $TRUFAL = array("True", "False");
 $ANSWER = mysqli_real_escape_string($con, $_POST['answer']);
 
-if (!empty($QUESTIONID)) {
+if (!empty($QUESTIONID) && !empty($TYPE)) {
     if ($QUESTIONTYPE == 1) {
         mysqli_query($con,"UPDATE question SET questionQuery = '$QUESTION', questionValue = $QUESTIONVALUE WHERE questionId = $QUESTIONID;");
         for($i = 1, $j = 0; $i < 5; $i++, $j++) {
@@ -55,6 +55,9 @@ if (!empty($QUESTIONID)) {
     else {
         echo "<success>0</success>";
     }
+}
+else {
+    
 }
 
 mysqli_close($con);
