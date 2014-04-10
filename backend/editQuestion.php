@@ -12,7 +12,7 @@ if (mysqli_connect_errno())
 	echo "MySQL Failed: ".mysqli_connect_error();
 }
 
-$QUESTIONID = $_POST['questionid'];
+$QUESTIONID = $_POST['id'];
 
 $QUESTION = mysqli_real_escape_string($con, $_POST['question']);
 $QUESTIONTYPE = $_POST['type']; // 1 - multiple choice, 2 - True/False, 3 - Fill in the blank, 4 - Programming
