@@ -17,7 +17,7 @@ if (mysqli_connect_errno())
 $QUESTIONID = $_POST['id'];
 
 if (!empty($QUESTIONID)) {
-    $query = mysqli_query($con,"SELECT questionType, questionQuery FROM question WHERE questionId = $QUESTIONID;");
+    $query = mysqli_query($con,"SELECT questionType, questionQuery, questionValue FROM question WHERE questionId = $QUESTIONID;");
     while ($row = mysqli_fetch_array($query)) {
         $TYPE = $row['questionType'];
         if ($TYPE == 1) {
@@ -26,6 +26,7 @@ if (!empty($QUESTIONID)) {
             $getTag = mysqli_query($con,"SELECT tagName FROM tags WHERE questionId = $QUESTIONID;");
             echo "<question>";
                 echo "<type>".$TYPE."</type>";
+                echo "<pvalue>".$row['questionValue']."</pvalue>";
                 echo "<query>".$row['questionQuery']."</query>";
                 $i = 1;
                 while($ga = mysqli_fetch_array($getAns)) {
@@ -45,6 +46,7 @@ if (!empty($QUESTIONID)) {
             $getTag = mysqli_query($con,"SELECT tagName FROM tags WHERE questionId = $QUESTIONID;");
             echo "<question>";
                 echo "<type>".$TYPE."</type>";
+                echo "<pvalue>".$row['questionValue']."</pvalue>";
                 echo "<query>".$row['questionQuery']."</query>";
                 $gc = mysqli_fetch_array($getCor);
                 echo "<correct>".$gc['answerLetter']."</correct>";
@@ -58,6 +60,7 @@ if (!empty($QUESTIONID)) {
             $getTag = mysqli_query($con,"SELECT tagName FROM tags WHERE questionId = $QUESTIONID;");
             echo "<question>";
                 echo "<type>".$TYPE."</type>";
+                echo "<pvalue>".$row['questionValue']."</pvalue>";
                 echo "<query>".$row['questionQuery']."</query>";
                 $ga = mysqli_fetch_array($getAns);
                 echo "<answer>".$ga['answerField']."</answer>";
@@ -71,6 +74,7 @@ if (!empty($QUESTIONID)) {
             $getTag = mysqli_query($con,"SELECT tagName FROM tags WHERE questionId = $QUESTIONID;");
             echo "<question>";
                 echo "<type>".$TYPE."</type>";
+                echo "<pvalue>".$row['questionValue']."</pvalue>";
                 echo "<query>".$row['questionQuery']."</query>";
                 $i = 1;
                 while($ga = mysqli_fetch_array($getAns)) {
