@@ -2,7 +2,7 @@
 require "mycurl.php";
 $url = "http://web.njit.edu/~tjh24/editQuestion.php";
 
-if(isset($_POST["id"] && !empty($_POST["id"])
+if(isset($_POST["id"]) && !empty($_POST["id"]))
 {
 if(isset($_POST["type"]) && !empty($_POST["type"]))
 {
@@ -122,5 +122,5 @@ if(isset($_POST["type"]) && !empty($_POST["type"]))
     }
     
 }
-
+}
 ?>

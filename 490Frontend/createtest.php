@@ -157,7 +157,7 @@ if ($optionnum==2)
 		{
 			$checked='';
 		}
-		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' mytype'.$testtype->item($key)->nodeValue.' unhide"><td><input name="checkcb'.$key.'" type="hidden" value="'.$testtype->item($key)->nodeValue.'">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td><td style='background-color:tomato; color:whitesmoke;'><div style='height:100%; width:100%; background-color:tomato; color:whitesmoke;' id='".$testid->nodeValue."' class='editbutton'>Edit</div></td></tr>";
+		echo '<tr class="rowcolor'.(($key)%2).' '.$testid->nodeValue.' mytype'.$testtype->item($key)->nodeValue.' unhide"><input name="checkcb'.$key.'" type="hidden" value="'.$testtype->item($key)->nodeValue.'"><td class="'.$testid->nodeValue.'">'.$testnames->item($key)->nodeValue.'</td><td><input name="mycb'.$key.'" type="checkbox" value="'.$testid->nodeValue.'" '.$checked."></td><td style='background-color:tomato; color:whitesmoke;'><div style='height:100%; width:100%; background-color:tomato; color:whitesmoke;' id='".$testid->nodeValue."' class='editbutton'>Edit</div></td></tr>";
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Question Name:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 1:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
         //echo '<tr class="rowcolor'.(($key)%2).' edit'.$key.' myhide"><td>Option 2:</td><td><input id="qNameedit'.$key.'" type="text" value = "'.$testnames->item($key)->nodeValue.'"></td><td></td></tr>';
@@ -497,7 +497,7 @@ if ($optionnum==2)
                     lock = 0;
                     $("input.tabltxt").val("");
                     $("select.tablselect").prop("selected",false);
-                    $("textarea.tabltxtarea").html("");
+                    $("textarea.tabltxtarea").val("");
                     $("#tr1").hide();
                     $("#tr2").hide();
                     $("#tr3").hide();
@@ -538,6 +538,7 @@ if ($optionnum==2)
                                 mytags = mytags + $(this).text() + ",";
                             });
                             $("#tabl1t").html(mytags);
+                            $("#tabl1t").val(mytags);
                         }
                         if(type == 2)
                         {
@@ -550,6 +551,7 @@ if ($optionnum==2)
                                 mytags = mytags + $(this).text() + ",";
                             });
                             $("#tabl2t").html(mytags);
+                            $("#tabl2t").val(mytags);
                         }
                         if(type == 3)
                         {
@@ -562,6 +564,7 @@ if ($optionnum==2)
                                 mytags = mytags + $(this).text() + ",";
                             });
                             $("#tabl3t").html(mytags);
+                            $("#tabl3t").val(mytags);
                         }
                         if(type == 4)
                         {
@@ -578,6 +581,7 @@ if ($optionnum==2)
                                 mytags = mytags + $(this).text() + ",";
                             });
                             $("#tabl4t").html(mytags);
+                            $("#tabl4t").val(mytags);
                         }
                     },
                     error: function(baba, gaga) {
@@ -594,7 +598,7 @@ if ($optionnum==2)
             {
                 $.ajax({
                     type: "POST",
-                    url: "http://web.njit.edu/~ss55/490server/getQuestion.php",
+                    url: "http://web.njit.edu/~ss55/490server/editQuestion.php",
                     async: false,
                     data: {
                         "teacherid": '.$id.',
@@ -608,12 +612,14 @@ if ($optionnum==2)
                         "answer4_": $("#tabl1o4").val(),
                         "correct": $("#tabl1a").val(),
                         "pvalue": $("#tabl1p").val(),
-                        "tags": $("#tabl1t").html()
+                        "tags": $("#tabl1t").val()
                     },
                     dataType: "xml",
                     success: function(mydata,status,myobj){
                         console.log("success");
                         console.dirxml(mydata);
+                        console.log($("#tabl1t").val());
+                        $("td."+lastid).html($("#tabl1q").val());
                     },
                     error: function(baba, gaga) {
                         alert("Error occured: " + gaga);
@@ -626,7 +632,7 @@ if ($optionnum==2)
             {
                 $.ajax({
                     type: "POST",
-                    url: "http://web.njit.edu/~ss55/490server/getQuestion.php",
+                    url: "http://web.njit.edu/~ss55/490server/editQuestion.php",
                     async: false,
                     data: {
                         "teacherid": '.$id.',
@@ -636,12 +642,14 @@ if ($optionnum==2)
                         "question": $("#tabl2q").val(),
                         "correct": $("#tabl2a").val(),
                         "pvalue": $("#tabl2p").val(),
-                        "tags": $("#tabl2t").html()
+                        "tags": $("#tabl2t").val()
                     },
                     dataType: "xml",
                     success: function(mydata,status,myobj){
                         console.log("success");
                         console.dirxml(mydata);
+                        console.log($("#tabl2t").val());
+                        $("td."+lastid).html($("#tabl2q").val());
                     },
                     error: function(baba, gaga) {
                         alert("Error occured: " + gaga);
@@ -652,7 +660,7 @@ if ($optionnum==2)
             {
                 $.ajax({
                     type: "POST",
-                    url: "http://web.njit.edu/~ss55/490server/getQuestion.php",
+                    url: "http://web.njit.edu/~ss55/490server/editQuestion.php",
                     async: false,
                     data: {
                         "teacherid": '.$id.',
@@ -662,12 +670,14 @@ if ($optionnum==2)
                         "question": $("#tabl3q").val(),
                         "correct": $("#tabl3a").val(),
                         "pvalue": $("#tabl3p").val(),
-                        "tags": $("#tabl3t").html()
+                        "tags": $("#tabl3t").val()
                     },
                     dataType: "xml",
                     success: function(mydata,status,myobj){
                         console.log("success");
                         console.dirxml(mydata);
+                        console.log($("#tabl3t").val());
+                        $("td."+lastid).html($("#tabl3q").val());
                     },
                     error: function(baba, gaga) {
                         alert("Error occured: " + gaga);
@@ -678,26 +688,28 @@ if ($optionnum==2)
             {
                 $.ajax({
                     type: "POST",
-                    url: "http://web.njit.edu/~ss55/490server/getQuestion.php",
+                    url: "http://web.njit.edu/~ss55/490server/editQuestion.php",
                     async: false,
                     data: {
                         "teacherid": '.$id.',
                         "classid": '.$_POST["classid"].',
                         "id": lastid,
                         "type":last,
-                        "question": $("#tabl1q").val(),
+                        "question": $("#tabl4q").val(),
                         "testcase1_": $("#tabl4o1").val(),
                         "testcase2_": $("#tabl4o2").val(),
                         "testcase3_": $("#tabl4o3").val(),
                         "testcase4_": $("#tabl4o4").val(),
                         "testcode": $("#tabl4a").val(),
                         "pvalue": $("#tabl4p").val(),
-                        "tags": $("#tabl4t").html()
+                        "tags": $("#tabl4t").val()
                     },
                     dataType: "xml",
                     success: function(mydata,status,myobj){
                         console.log("success");
                         console.dirxml(mydata);
+                        console.log($("#tabl4t").val());
+                        $("td."+lastid).html($("#tabl4q").val());
                     },
                     error: function(baba, gaga) {
                         alert("Error occured: " + gaga);
@@ -707,7 +719,7 @@ if ($optionnum==2)
             lock=0;
             $("input.tabltxt").val("");
             $("select.tablselect").prop("selected",false);
-            $("textarea.tabltxtarea").html("");
+            $("textarea.tabltxtarea").val("");
             $("#tr1").hide();
             $("#tr2").hide();
             $("#tr3").hide();
@@ -718,7 +730,7 @@ if ($optionnum==2)
             lock=0;
             $("input.tabltxt").val("");
             $("select.tablselect").prop("selected",false);
-            $("textarea.tabltxtarea").html("");
+            $("textarea.tabltxtarea").val("");
             $("#tr1").hide();
             $("#tr2").hide();
             $("#tr3").hide();
