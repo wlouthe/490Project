@@ -51,12 +51,13 @@
 <?php
 	if ($cookiechecker==1)
 	{
-		echo "Welcome ".$uname."! <a href='logout.php'>Logout?</a>";
+		echo "Welcome ".$uname."! <a href='logout.php'>Logout?</a><br><a href='home.php'>Home</a>";
 	}
 ?>
 	</div>
 
 <div class="main-class">
+<div id ="mytid" style="display:none"><?php echo $id; ?></div>
 <?php
 	if($cookiechecker==1)
 	{
@@ -93,14 +94,26 @@
 <h2 id="currentclasses">Release Grades</h2>';
 
 echo '<form method="post" action="./home.php">';
-echo "Class:<select id='releasegrades   ' name='classid'>";
+echo "<table><tr><td>Class:</td><td><select id='releasegrades' name='classid'>";
 echo "<option value='' selected='selected'></option>";
 foreach($classes as $key => $class)
 {
 	echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
 }
-echo "</select>";
-echo "</form>";
+echo "</select></td></tr>";
+
+echo "<tr class='showrg' style='display:none'><td>Test:</td><td><select id='releasegrades2' name='classid2'>";
+echo "<option value='' selected='selected'></option>";
+foreach($classes as $key => $class)
+{
+	echo "<option value='".$classesid->item($key)->nodeValue."'>".$class->nodeValue."</option>";
+}
+echo "</select></td></tr>";
+            
+echo "<tr class='showrg' style='display:none'><td></td><td style='background-color:tomato; color:whitesmoke;'><div id = 'rgradessubmit' style='background-color:tomato; color:whitesmoke;'>Release!</div></td></tr>";     
+            
+            
+echo "</table></form>";
             
 echo '</td>
 <td class="mytd" width=50%>
@@ -292,6 +305,57 @@ echo '</td>
     </div>
 <div>
 <script>
+$("#releasegrades").change(function(){
+    $("tr.showrg").show();
+    $.ajax({
+        type: "POST",
+        url: "http://web.njit.edu/~ss55/490server/returntest.php",
+        async: false,
+        data: {
+            "teachid": $("#mytid").html(),
+            "classid": $("#releasegrades").val()
+        },
+        dataType: "xml",
+        success: function(mydata,status,myobj){
+            console.log("success");
+            console.dirxml(mydata);
+            $("#releasegrades2").empty();
+            $.each($(mydata).find("findtest"),function(index,value){
+                console.log(value);
+                $("#releasegrades2").append("<option value = " + $(value).find("testid").text() + ">" + $(value).find("testname").text() + "</option>").attr();
+            });
+            
+        },
+        error: function(baba, gaga) {
+            alert("Error occured: " + gaga);
+        }
+    });
+});
+$("#rgradessubmit").click(function(){
+    if($("#releasegrades2").has("option").length > 0)
+    {
+        if($("#releasegrades2").val())
+        {
+            $.ajax({
+                type: "POST",
+                url: "http://web.njit.edu/~ss55/490server/releasetest.php",
+                async: false,
+                data: {
+                    "id":$("#releasegrades2").val()
+                },
+                dataType: "xml",
+                success: function(mydata,status,myobj){
+                    console.log("success");
+                    console.dirxml(mydata);
+                    alert("Grades released for " + $("#releasegrades2").val());
+                },
+                error: function(baba, gaga) {
+                    alert("Error occured: " + gaga);
+                }
+            });
+        }
+    }
+});
 $("#tbutton1").click(function(){
 	$("#testform").attr("action", "./createtest.php").submit();
 });

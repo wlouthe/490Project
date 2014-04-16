@@ -45,7 +45,7 @@
 	if(isset($_POST["submittest"]))
 	{
 		echo '<body>
-		<div class="nav-wrapper">Welcome '. $uname .'!
+		<div class="nav-wrapper">Welcome '. $uname .'!<a href="logout.php">Logout?</a><br><a href="home.php">Home</a>
 		</div>
 		<div class="main-class">
 		<div class="mywindow">Success! <a href="./home.php">Click here to return Home</a><br>';

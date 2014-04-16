@@ -16,7 +16,7 @@ if ( isset($_POST["teachid"]) && isset($_POST["classid"]))
     
         foreach($testids as $key => $testid)
         {
-            echo "<testid>".$testid->nodeValue."</testid><testname>".$testnames->item($key)->nodeValue."</testname>";
+            echo "<findtest><testid>".$testid->nodeValue."</testid><testname>".$testnames->item($key)->nodeValue."</testname></findtest>";
         }
     
 	}

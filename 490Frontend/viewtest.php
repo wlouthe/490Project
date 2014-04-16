@@ -43,7 +43,7 @@
 	echo '<head><link rel="stylesheet" href="mycss.css" type="text/css" media="screen">
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script></head>';
 		echo '<body>
-		<div class="nav-wrapper">Welcome '. $uname .'!
+		<div class="nav-wrapper">Welcome '. $uname .'!<a href="logout.php">Logout?</a><br><a href="home.php">Home</a>
 		</div>
 		<div class="main-class">
 		<div class="mywindow">
