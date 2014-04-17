@@ -320,9 +320,13 @@ $("#releasegrades").change(function(){
             console.log("success");
             console.dirxml(mydata);
             $("#releasegrades2").empty();
-            $.each($(mydata).find("findtest"),function(index,value){
-                console.log(value);
-                $("#releasegrades2").append("<option value = " + $(value).find("testid").text() + ">" + $(value).find("testname").text() + "</option>").attr();
+            var holder = $(mydata).find("myftest");
+            console.log(holder);
+            tmpHolder = holder.find("findtest");
+            holder.find("findtest").each(function(){
+                //console.log();
+                console.log("hello");
+                $("#releasegrades2").append("<option value = " + $(this).find("testid").text() + ">" + $(this).find("testname").text() + "</option>");
             });
             
         },
