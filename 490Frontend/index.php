@@ -71,6 +71,8 @@
 				$cookiechecker=1;
 				if($mykey == 0)
 				{
+                    echo "AHhhhhhhhhhhhhHHHHHHNHHHHHHHHHHHH<br>AHHHH<br>AHHH<br>";
+                    $authentication = 0;
 					$cookiechecker=0;
 					setcookie("mycode","",time()-3600,"/");
 				}

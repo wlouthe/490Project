@@ -75,7 +75,7 @@ else
 	{
 		if (isset($row['password']) && $row['password'] == $PASSWORD) 
 		{
-			if (isset($CHANGEPW) && !empty($CHANGEPW)) 
+			if (isset($CHANGEPW) && !empty($CHANGEPW) && strlen($CHANGEPW) > 7) 
 			{
 				$x = md5($USERNAME.time());
 
