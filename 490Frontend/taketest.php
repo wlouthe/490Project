@@ -45,8 +45,7 @@
 	if(isset($_POST["submittest"]))
 	{
 		echo '<body>
-		<div class="nav-wrapper">Welcome '. $uname .'!<a href="logout.php">Logout?</a><br><a href="home.php">Home</a>
-		</div>
+		'.'<div class="nav-wrapper"><ul class="navmenu"><li>Welcome '.$uname.'!'."</li><li><a href='./home.php'><img src='./img/Home.png'></a></li><li><a href='logout.php'><img src='./img/Logout.png'></a></li></ul></div>".'
 		<div class="main-class">
 		<div class="mywindow">Success! <a href="./home.php">Click here to return Home</a><br>';
 		$count=0;
@@ -229,8 +228,7 @@
 	}
 	else
 	{
-		echo '<body><div class="nav-wrapper">Welcome '. $uname .'!
-		</div>
+		echo '<body>'.'<div class="nav-wrapper"><ul class="navmenu"><li>Welcome '.$uname.'!'."</li><li><a href='./home.php'><img src='./img/Home.png'></a></li><li><a href='logout.php'><img src='./img/Logout.png'></a></li></ul></div>".'
 		<div class="main-class">
 		<div class="mywindow"><form method="post" action="./taketest.php"><input name="starttest" value="1" type="hidden"><input name="testid" value="'.$_POST["testid"].'" type="hidden"><input name="classid" value="'.$_POST["classid"].'" type="hidden">Confirm Start Test?<br><input type="submit"></form>';
 		

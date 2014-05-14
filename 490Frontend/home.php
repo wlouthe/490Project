@@ -47,14 +47,12 @@
 ?>
 </head>
 <body>
-<div class="nav-wrapper">
 <?php
 	if ($cookiechecker==1)
 	{
-		echo "Welcome ".$uname."! <a href='logout.php'>Logout?</a><br><a href='home.php'>Home</a>";
+		echo '<div class="nav-wrapper"><ul class="navmenu"><li>Welcome '.$uname.'!'."</li><li><a href='./home.php'><img src='./img/Home.png'></a></li><li><a href='logout.php'><img src='./img/Logout.png'></a></li></ul></div>";
 	}
 ?>
-	</div>
 
 <div class="main-class">
 <div id ="mytid" style="display:none"><?php echo $id; ?></div>

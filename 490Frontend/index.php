@@ -71,7 +71,6 @@
 				$cookiechecker=1;
 				if($mykey == 0)
 				{
-                    echo "AHhhhhhhhhhhhhHHHHHHNHHHHHHHHHHHH<br>AHHHH<br>AHHH<br>";
                     $authentication = 0;
 					$cookiechecker=0;
 					setcookie("mycode","",time()-3600,"/");
@@ -85,6 +84,7 @@
 <html>
 	<head>
 	<script type='text/javascript' src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type = "text/css" href="mycss.css">
 		<title>
 			Login Page
 		</title>
@@ -102,17 +102,17 @@
 	<body style="background-image:url(./img/grey_wash_wall/grey_wash_wall.png)">
 		<div style="background-image:url(./img/triangular_@2X.png)">
 		<?php
-			echo "<njitauthentication style='display:none'>".$njitauthentication."</njitauthentication><dbauthentication style='display:none'>".$dbauthentication."</dbauthentication>";
+			echo "<njitauthentication style='display:none'>".$njitauthentication."</njitauthentication><dbauthentication id='dbauthen' style='display:none'>".$dbauthentication."</dbauthentication>";
 			if(isset($authentication))
 			{
-				if($authentication==1)
+				if($dbauthentication==1)
 				{
 					echo "<div style='color:green;'>Authenticated</div>";
 				}
 				else echo "<div style='color:red;'>Authentication Failed</div>";
 			}
 		?>
-		<form name="login" id="myLogin" action="index.php" method="post" <?php if($cookiechecker==1){echo 'style="display:none;"';}  ?>>
+		<form name="login" id="myLogin" action="index.php" method="post" <?php /* if($dbauthentication==1){echo 'style="display:none;"';}  */?>>
 			<table>
 				<tr>
 					<td>
@@ -158,7 +158,13 @@
 						<button id="custompass4" style="display:none;">
 							Confirm Reset?
 						</button>
-			<script type='text/javascript'>
+				</td>			
+				</tr>
+			</table>
+		</form>
+		<?php echo '<div class="nav-wrapper" style="display:none;"><ul class="navmenu"><li>Welcome '.$uname.'!'."</li><li><a href='./home.php'><img src='./img/Home.png'></a></li><li><a href='logout.php'><img src='./img/Logout.png'></a></li></ul></div>";?>
+		</div>
+        <script type='text/javascript'>
 			
 			$(document).ready(function(){
 			$( "#custompass" ).click(function(){
@@ -176,20 +182,13 @@
 				event.preventDefault();
 				
 			});
+			if($("#dbauthen").html()=="1")
+			{
+				$("#myLogin").hide();
+				$(".nav-wrapper").show();
+			}
 			});
 			</script>
-				</td>			
-				</tr>
-			</table>
-		</form>
-		<?php if($cookiechecker==1){echo 'Welcome '.$uname.'! <a href="logout.php">Logout?</a>';}  ?>
-		</div>
-        <?php
-            if($cookiechecker == 1)
-            {
-                echo "<div><a href='./home.php'>Home Page</a></div>";
-            }
-        ?>
 	</body>
 </html>
 

@@ -42,9 +42,8 @@
 /////////////////////////////////////////////////////////////////////////////
 	echo '<head><link rel="stylesheet" href="mycss.css" type="text/css" media="screen">
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script></head>';
-		echo '<body>
-		<div class="nav-wrapper">Welcome '. $uname .'!<a href="logout.php">Logout?</a><br><a href="home.php">Home</a>
-		</div>
+		echo '<body>'.
+		'<div class="nav-wrapper"><ul class="navmenu"><li>Welcome '.$uname.'!'."</li><li><a href='./home.php'><img src='./img/Home.png'></a></li><li><a href='logout.php'><img src='./img/Logout.png'></a></li></ul></div>".'
 		<div class="main-class">
 		<div class="mywindow">
 		<form id="myform" method="post" action="./taketest.php">
@@ -57,7 +56,7 @@
 		$results = curlcall(array("studentid" => urlencode($id),
 									"testid" => urlencode($_POST["testid"]),
 									"classid" => urlencode($_POST["classid"])),
-									"http://web.njit.edu/~tjh24/returngradedtest.php");
+									"http://web.njit.edu/~ss55/490server/returngradedtest.php");
 		//<question>id, type, name</question>
 		//echo $results;
 		$doc = new DOMDocument();
@@ -160,11 +159,11 @@
 					if($sanswer == 1)
 					{
 						echo "<tr><td></td><td style='background-color:chartreuse'>True</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='1' disabled checked></td></tr>";
-						echo "<tr><td></td><td style='background-color:tomato'>False</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='2' disabled></td></tr>";
+						echo "<tr><td></td><td>False</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='2' disabled></td></tr>";
 					}
 					else
 					{
-						echo "<tr><td></td><td style='background-color:tomato'>True</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='1' disabled></td></tr>";
+						echo "<tr><td></td><td>True</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='1' disabled></td></tr>";
 						echo "<tr><td></td><td style='background-color:chartreuse'>False</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='2' disabled checked></td></tr>";
 					}
 				}
@@ -173,11 +172,11 @@
 					if($sanswer == 1)
 					{
 						echo "<tr><td></td><td style='background-color:tomato'>True</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='1' disabled checked></td></tr>";
-						echo "<tr><td></td><td style='background-color:chartreuse'>False</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='2' disabled></td></tr>";
+						echo "<tr><td></td><td>False</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='2' disabled></td></tr>";
 					}
 					else
 					{
-						echo "<tr><td></td><td style='background-color:chartreuse'>True</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='1' disabled></td></tr>";
+						echo "<tr><td></td><td>True</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='1' disabled></td></tr>";
 						echo "<tr><td></td><td style='background-color:tomato'>False</td><td><input id='answer".$key."' name='answer".$key."' type='radio' value='2' disabled checked></td></tr>";
 						
 					}
